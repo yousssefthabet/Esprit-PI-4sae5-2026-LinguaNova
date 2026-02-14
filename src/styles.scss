@@ -1,0 +1,46 @@
+@use './styles/abstracts/variables' as *;
+@use './styles/base/reset' as *;
+@use './styles/base/typography' as *;
+@use './styles/base/global' as *;
+@use './styles/themes/light.theme' as *;
+@use './styles/themes/dark.theme' as *;
+
+// ============================================
+// TOTC E-Learning Platform - Main Stylesheet
+// ============================================
+
+// Tailwind CSS directives
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn-gradient {
+        @apply bg-gradient-to-r from-primary to-secondary text-white font-medium;
+        @apply hover:scale-105 transition-all duration-200 shadow-md;
+    }
+
+    .card-hover {
+        @apply transition-all duration-300;
+        @apply hover:shadow-card-hover hover:-translate-y-1;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-primary;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
