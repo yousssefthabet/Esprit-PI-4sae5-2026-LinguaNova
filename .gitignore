@@ -1,0 +1,17 @@
+# Dependencies and build outputs
+node_modules/
+**/node_modules/
+**/target/
+**/dist/
+**/out/
+.angular/
+*.log
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# System
+.DS_Store
+Thumbs.db

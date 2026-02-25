@@ -1,0 +1,144 @@
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { Course, CourseFilters, CreateCoursePayload, EnrollmentResponse, CourseProgress } from '../models/course.model';
+import { API_CONFIG } from '../constants/app.constants';
+import { PaginatedResponse } from '../models/common.model';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class CourseService {
+    private readonly http = inject(HttpClient);
+
+    // Base URL pointing to the Spring Boot course microservice
+    private readonly baseUrl = `${API_CONFIG.COURSE_SERVICE_URL}/courses`;
+
+    /**
+     * Get all courses with optional filters (paginated)
+     * GET /PIproject/api/courses
+     */
+    getCourses(filters?: CourseFilters): Observable<PaginatedResponse<Course>> {
+        let params = new HttpParams();
+        if (filters?.page) params = params.set('page', filters.page.toString());
+        if (filters?.limit) params = params.set('limit', filters.limit.toString());
+        if (filters?.sortBy) params = params.set('sortBy', filters.sortBy);
+
+        return this.http.get<PaginatedResponse<Course>>(this.baseUrl, { params }).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Get course by ID
+     * GET /PIproject/api/courses/{id}
+     */
+    getCourseById(id: string): Observable<Course> {
+        return this.http.get<Course>(`${this.baseUrl}/${id}`).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Get courses created by the current instructor
+     * GET /PIproject/api/courses/instructor
+     */
+    getInstructorCourses(): Observable<Course[]> {
+        return this.http.get<Course[]>(`${this.baseUrl}/instructor`).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Search courses by keyword
+     * GET /PIproject/api/courses/search?q=...
+     */
+    searchCourses(query: string): Observable<Course[]> {
+        const params = new HttpParams().set('q', query);
+        return this.http.get<Course[]>(`${this.baseUrl}/search`, { params }).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Create a new course (Instructor only). Sends payload to backend; backend saves to database PI.
+     * POST /PIproject/api/courses
+     */
+    createCourse(payload: CreateCoursePayload): Observable<Course> {
+        return this.http.post<Course>(this.baseUrl, payload).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Update an existing course (Instructor only).
+     * PUT /PIproject/api/courses/{id}
+     */
+    updateCourse(id: string, payload: CreateCoursePayload): Observable<Course> {
+        return this.http.put<Course>(`${this.baseUrl}/${id}`, payload).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Delete a course (Instructor only)
+     * DELETE /PIproject/api/courses/{id}
+     */
+    deleteCourse(id: string): Observable<void> {
+        return this.http.delete<void>(`${this.baseUrl}/${id}`).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Get enrolled courses for current student
+     * NOTE: Enrollment not yet in course microservice — kept as stub
+     */
+    getEnrolledCourses(): Observable<Course[]> {
+        return this.getCourses().pipe(
+            map(res => res.items.slice(0, 3).map((course, index) => ({
+                ...course,
+                progress: [75, 45, 12][index]
+            })))
+        );
+    }
+
+    /**
+     * Enroll in a course
+     * POST /PIproject/api/courses/{id}/enroll
+     */
+    enrollCourse(courseId: string): Observable<EnrollmentResponse> {
+        return this.http.post<EnrollmentResponse>(`${this.baseUrl}/${courseId}/enroll`, {}).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Get course progress for student
+     * GET /PIproject/api/courses/{courseId}/progress
+     */
+    getCourseProgress(courseId: string): Observable<CourseProgress> {
+        return this.http.get<CourseProgress>(`${this.baseUrl}/${courseId}/progress`).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Update course progress
+     * POST /PIproject/api/courses/{courseId}/progress
+     */
+    updateProgress(courseId: string, lessonId: string): Observable<CourseProgress> {
+        return this.http.post<CourseProgress>(
+            `${this.baseUrl}/${courseId}/progress`,
+            { lessonId, completed: true }
+        ).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    private handleError(error: any): Observable<never> {
+        console.error('CourseService error:', error);
+        return throwError(() => error);
+    }
+}
