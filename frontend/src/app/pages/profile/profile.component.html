@@ -1,0 +1,97 @@
+<div class="animate-in">
+<h1 id="page-title">Mon profil étudiant</h1>
+<p class="page-desc">
+  Créez ou modifiez votre profil pour passer des examens. Un profil contient votre nom, prénom, téléphone et date de naissance.
+</p>
+
+@if (loading()) {
+  <p role="status" aria-live="polite">Chargement…</p>
+} @else if (error()) {
+  <p role="alert">{{ error() }}</p>
+} @else {
+  <section aria-labelledby="page-title">
+    <button type="button" class="btn btn-primary" (click)="openCreate()">
+      Créer un nouveau profil
+    </button>
+
+    @if (profiles().length === 0 && !formVisible()) {
+      <p class="empty">Aucun profil. Créez-en un pour pouvoir passer des examens.</p>
+    } @else {
+      <ul class="profile-list">
+        @for (p of profiles(); track p.id) {
+          <li class="profile-card">
+            <p class="profile-name">{{ p.lastName }} {{ p.firstName }}</p>
+            <p class="profile-meta">Tél. {{ p.phone }} — Né(e) le {{ p.birthDate }}</p>
+            <div class="profile-actions">
+              <button type="button" class="btn btn-secondary" (click)="openEdit(p)">
+                Modifier
+              </button>
+              <button type="button" class="btn btn-danger" (click)="delete(p)">
+                Supprimer
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+
+  @if (formVisible()) {
+    <section class="form-section" aria-labelledby="form-heading">
+      <h2 id="form-heading">{{ editId() ? 'Modifier le profil' : 'Nouveau profil' }}</h2>
+      @if (saveError()) {
+        <p class="save-error" role="alert">{{ saveError() }}</p>
+      }
+      <form (ngSubmit)="save()" class="profile-form">
+        <label for="lastName">Nom *</label>
+        <input
+          id="lastName"
+          type="text"
+          [ngModel]="form().lastName"
+          (ngModelChange)="setFormField('lastName', $event)"
+          name="lastName"
+          required
+          autocomplete="family-name"
+        />
+        <label for="firstName">Prénom *</label>
+        <input
+          id="firstName"
+          type="text"
+          [ngModel]="form().firstName"
+          (ngModelChange)="setFormField('firstName', $event)"
+          name="firstName"
+          required
+          autocomplete="given-name"
+        />
+        <label for="phone">Téléphone * (chiffres uniquement)</label>
+        <input
+          id="phone"
+          type="tel"
+          [ngModel]="form().phone"
+          (ngModelChange)="setFormField('phone', $event)"
+          name="phone"
+          required
+          autocomplete="tel"
+        />
+        <label for="birthDate">Date de naissance *</label>
+        <input
+          id="birthDate"
+          type="date"
+          [ngModel]="form().birthDate"
+          (ngModelChange)="setFormField('birthDate', $event)"
+          name="birthDate"
+          required
+        />
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="saving()">
+            {{ saving() ? 'Enregistrement…' : 'Enregistrer' }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">
+            Annuler
+          </button>
+        </div>
+      </form>
+    </section>
+  }
+}
+</div>

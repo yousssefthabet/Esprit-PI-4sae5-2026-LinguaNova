@@ -1,0 +1,47 @@
+.breadcrumb {
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  a { color: var(--color-primary); text-decoration: none; &:hover { text-decoration: underline; } &:focus { outline: 3px solid var(--color-focus); outline-offset: 2px; } }
+  .sep { margin: 0 0.5rem; }
+}
+
+#page-title { margin: 0 0 0.25rem; font-size: 1.5rem; }
+.page-desc { margin: 0 0 1.5rem; color: var(--color-text-muted); }
+
+.submissions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.submission-card {
+  display: block;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: var(--color-card-bg);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  &:hover {
+    box-shadow: 0 2px 8px var(--color-shadow);
+    border-color: var(--color-primary);
+  }
+  &:focus {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+}
+
+.student-name { font-weight: 600; display: block; margin-bottom: 0.25rem; }
+.submission-meta { font-size: 0.875rem; color: var(--color-text-muted); }
+.badge.validated { color: var(--color-accent); margin-left: 0.5rem; }
+.submission-date { font-size: 0.8125rem; color: var(--color-text-muted); display: block; margin-top: 0.25rem; }
+
+.back-btn { margin-top: 1.5rem; display: inline-block; }
+
+.btn { padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 600; text-decoration: none; border: 2px solid transparent; &:focus { outline: 3px solid var(--color-focus); outline-offset: 2px; } }
+.btn-outline { background: transparent; color: var(--color-primary); border-color: var(--color-border); &:hover { background: var(--color-bg-alt); } }

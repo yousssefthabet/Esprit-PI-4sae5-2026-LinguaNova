@@ -1,0 +1,40 @@
+<a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a routerLink="/" class="logo" aria-label="LinguaNova - Accueil">
+      <span class="logo-text">
+        <span class="logo-lingua">LINGUA</span><span class="logo-nova">NOVA</span>
+      </span>
+      <span class="logo-tagline" aria-hidden="true">E-LEARNING FOR THE BLIND</span>
+    </a>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <ul class="nav-list">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a></li>
+        <li><a routerLink="/examens" routerLinkActive="active">Examens</a></li>
+        <li><a routerLink="/mon-profil" routerLinkActive="active">Mon profil</a></li>
+        <li><a routerLink="/mes-resultats" routerLinkActive="active">Mes résultats</a></li>
+      </ul>
+      <button
+        type="button"
+        class="theme-toggle"
+        [attr.aria-label]="theme.theme() === 'dark' ? 'Passer au mode clair' : 'Passer au mode sombre'"
+        (click)="theme.toggle()"
+      >
+        @if (theme.theme() === 'dark') {
+          <span class="theme-icon" aria-hidden="true">☀</span>
+        } @else {
+          <span class="theme-icon" aria-hidden="true">🌙</span>
+        }
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" class="main-content" role="main" tabindex="-1">
+  <router-outlet />
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <p>LinguaNova — E-learning pour l'apprentissage de l'anglais, accessible à tous.</p>
+</footer>

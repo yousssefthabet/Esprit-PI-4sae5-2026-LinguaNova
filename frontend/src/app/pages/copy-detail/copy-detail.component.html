@@ -1,0 +1,54 @@
+<div class="animate-in">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a routerLink="/examens">Examens</a>
+        <span class="sep" aria-hidden="true">›</span> @if (submission()?.exam?.id) {
+        <a [routerLink]="['/examens', submission()!.exam!.id]">{{ submission()!.exam!.title }}</a>
+        <span class="sep" aria-hidden="true">›</span>
+        <a [routerLink]="['/examens', submission()!.exam!.id, 'copies']">Copies</a>
+        <span class="sep" aria-hidden="true">›</span> }
+        <span>Copie</span>
+    </nav>
+
+    @if (loading()) {
+    <p role="status">Chargement…</p>
+    } @else if (error()) {
+    <p role="alert">{{ error() }}</p>
+    <a routerLink="/examens" class="btn btn-outline">Retour</a> } @else { @let s = submission(); @if (s) {
+    <header class="copy-header">
+        <h1 id="page-title">Copie — {{ s.studentProfile?.firstName }} {{ s.studentProfile?.lastName }}</h1>
+        <p class="copy-meta">
+            Examen : {{ s.exam?.title }} — Soumis le {{ formatDate(s.submittedAt) }} @if (s.validated) {
+            <span class="badge validated">Validé</span> }
+        </p>
+    </header>
+
+    <section class="score-section" aria-labelledby="score-heading">
+        <h2 id="score-heading">Note</h2>
+        <label for="score-input">Score (sur {{ s.exam?.maxScore }} max)</label>
+        <input id="score-input" type="number" min="0" [max]="s.exam?.maxScore ?? 100" step="0.5" [ngModel]="scoreOverride() ?? s.score" (ngModelChange)="setScore($event)" name="score" />
+    </section>
+
+    <section class="answers-section" aria-labelledby="answers-heading">
+        <h2 id="answers-heading">Réponses et corrigés</h2>
+        @for (a of s.answers ?? []; track a.id) {
+        <article class="answer-block">
+            <h3 class="question-content">{{ a.question?.content }}</h3>
+            <p class="question-meta">Type : {{ getTypeLabel(a.question?.type ?? '') }} — {{ a.question?.score }} pt(s)</p>
+            <p class="student-answer"><strong>Réponse de l'étudiant :</strong> {{ answerText(a) }}</p>
+            <label [for]="'corrige-' + a.id">Corrigé / commentaire enseignant</label>
+            <textarea [id]="'corrige-' + a.id" [ngModel]="teacherComments()[a.id!] || ''" (ngModelChange)="setComment(a.id!, $event)" name="corrige" rows="3" placeholder="Ajouter un corrigé ou un commentaire…"></textarea>
+        </article>
+        }
+    </section>
+
+    <div class="actions">
+        <button type="button" class="btn btn-primary" [disabled]="saving()" (click)="saveCorriges()">
+          {{ saving() ? 'Enregistrement…' : 'Enregistrer corrigés et valider la note' }}
+        </button>
+        <button type="button" class="btn btn-outline" [disabled]="saving()" (click)="validateOnly()">
+          Valider la note uniquement
+        </button>
+        <a [routerLink]="['/examens', s.exam?.id, 'copies']" class="btn btn-outline">Retour aux copies</a>
+    </div>
+    } }
+</div>

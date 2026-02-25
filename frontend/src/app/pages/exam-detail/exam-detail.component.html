@@ -1,0 +1,43 @@
+<div class="exam-detail animate-in">
+  @if (loading()) {
+    <p class="loading" role="status" aria-live="polite">Chargement de l'examen…</p>
+  } @else if (error()) {
+    <p role="alert">{{ error() }}</p>
+    <a routerLink="/examens" class="btn btn-secondary">Retour aux examens</a>
+  } @else {
+    @let e = exam();
+    @if (e) {
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a routerLink="/examens">Examens</a>
+        <span class="sep" aria-hidden="true">›</span>
+        <span>{{ e.title }}</span>
+      </nav>
+
+      <article class="detail-card">
+        <header class="detail-header">
+          <h1 id="exam-title">{{ e.title }}</h1>
+          <p class="meta">
+            <span class="course">{{ e.courseName }}</span>
+            <span class="score" aria-label="Score maximum">{{ e.maxScore }} points</span>
+            <span class="status" [class.published]="e.examStatus === 'PUBLISHED'">{{ getStatusLabel(e.examStatus) }}</span>
+          </p>
+        </header>
+        <div class="detail-body">
+          <p class="description">{{ e.description }}</p>
+        </div>
+        <footer class="detail-actions">
+          @if (canTakeExam(e)) {
+            <a [routerLink]="['/examens', e.id, 'passer']" class="btn btn-primary">
+              Passer l'examen
+            </a>
+          } @else {
+            <p class="unavailable" role="status">
+              Cet examen n'est pas disponible pour le moment ({{ getStatusLabel(e.examStatus) }}).
+            </p>
+          }
+          <a routerLink="/examens" class="btn btn-secondary">Retour à la liste</a>
+        </footer>
+      </article>
+    }
+  }
+</div>

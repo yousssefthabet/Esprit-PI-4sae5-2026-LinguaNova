@@ -1,0 +1,110 @@
+@if (loading()) {
+<p role="status" aria-live="polite">Loading exam…</p>
+} @else if (error()) {
+<p role="alert">{{ error() }}</p>
+<a routerLink="/examens">Back to exams</a>
+} @else {
+@let e = exam();
+@let q = currentQuestion();
+@if (e && q) {
+
+<!-- ░░ Voice Mode Bar ░░ -->
+<div class="voice-bar" [class.voice-active]="voiceMode()">
+  <button type="button" class="voice-toggle" (click)="toggleVoiceMode()" [attr.aria-pressed]="voiceMode()"
+    aria-label="Toggle voice mode for blind students">
+    {{ voiceMode() ? '🔇 Disable Voice Mode' : '🎧 Enable Voice Mode' }}
+  </button>
+
+  @if (voiceMode()) {
+  <button type="button" class="mic-btn" [class.mic-listening]="listening()"
+    [disabled]="listening() || !voice.isSTTSupported" (click)="startListening()"
+    aria-label="Speak your answer or command">
+    {{ listening() ? '🔴 Listening…' : '🎤 Speak' }}
+  </button>
+
+  @if (voiceStatus()) {
+  <span class="voice-status" aria-live="polite" aria-atomic="true">
+    {{ voiceStatus() }}
+  </span>
+  }
+  }
+</div>
+
+<header class="exam-header">
+  <h1 id="exam-title">{{ e.title }}</h1>
+  <p class="exam-meta">{{ e.courseName }} — Max score: {{ e.maxScore }} pts</p>
+  <p class="progress" aria-live="polite">
+    Question {{ currentQuestionIndex() + 1 }} of {{ totalQuestions() }}
+  </p>
+</header>
+
+<section class="question-block" [attr.aria-labelledby]="'q-heading-' + q.id">
+  <h2 [id]="'q-heading-' + q.id" class="question-title">
+    Question {{ currentQuestionIndex() + 1 }} ({{ q.type }} — {{ q.score }} pt{{ q.score > 1 ? 's' : '' }})
+  </h2>
+  <p class="question-content">{{ q.content }}</p>
+
+  @switch (q.type) {
+  @case ('QCM') {
+  <fieldset class="choices" [attr.aria-label]="'Choices for question ' + (currentQuestionIndex() + 1)">
+    <legend class="sr-only">Choose an answer</legend>
+    @for (rep of getReponses(q); track rep.id) {
+    <label class="choice">
+      <input type="radio" [name]="'q-' + q.id" [value]="rep.id" [checked]="selectedReponseIds()[q.id!] === rep.id"
+        (change)="selectReponse(q.id!, rep.id!)" />
+      <span>{{ rep.content }}</span>
+    </label>
+    }
+  </fieldset>
+  }
+  @case ('TRUE_FALSE') {
+  <fieldset class="choices" aria-label="True or False">
+    <legend class="sr-only">True or False</legend>
+    @for (rep of getReponses(q); track rep.id) {
+    <label class="choice">
+      <input type="radio" [name]="'q-' + q.id" [value]="rep.id" [checked]="selectedReponseIds()[q.id!] === rep.id"
+        (change)="selectReponse(q.id!, rep.id!)" />
+      <span>{{ rep.content }}</span>
+    </label>
+    }
+  </fieldset>
+  }
+  @case ('TEXT') {
+  <label class="text-answer-label" [for]="'text-answer-' + q.id">
+    Your answer (text)
+  </label>
+  <textarea [id]="'text-answer-' + q.id" [value]="textAnswers()[q.id!] || ''"
+    (input)="setTextAnswer(q.id!, $any($event.target).value)" rows="4"
+    [attr.aria-describedby]="'q-heading-' + q.id"></textarea>
+  }
+  }
+</section>
+
+<nav class="question-nav" aria-label="Question navigation">
+  <button type="button" (click)="goPrev()" [disabled]="currentQuestionIndex() === 0">
+    Previous question
+  </button>
+  @if (currentQuestionIndex() < totalQuestions() - 1) { <button type="button" (click)="goNext()">Next question</button>
+    }
+</nav>
+
+<section class="submit-section" aria-labelledby="submit-heading">
+  <h2 id="submit-heading">Submit exam</h2>
+  <p>Select your student profile then click Submit to record your answers.</p>
+  <label for="profile-select">My student profile</label>
+  <select id="profile-select" [value]="selectedProfileId() ?? ''" (change)="onProfileSelect($event)"
+    aria-required="true">
+    <option value="">— Choose a profile —</option>
+    @for (pro of profiles(); track pro.id) {
+    <option [value]="pro.id">{{ pro.lastName }} {{ pro.firstName }}</option>
+    }
+  </select>
+  @if (submitError()) {
+  <p class="submit-error" role="alert">{{ submitError() }}</p>
+  }
+  <button type="button" class="btn btn-primary" [disabled]="submitting()" (click)="submitExam()">
+    {{ submitting() ? 'Submitting…' : 'Submit exam' }}
+  </button>
+</section>
+}
+}

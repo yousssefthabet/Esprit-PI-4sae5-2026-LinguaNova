@@ -1,0 +1,180 @@
+<div class="animate-in">
+  <h1 id="page-title">Examens</h1>
+  <p class="page-desc" id="page-desc">
+    Choisissez un examen pour tester votre niveau d'anglais. Les examens peuvent contenir des QCM, des questions Vrai/Faux ou des réponses libres.
+  </p>
+
+  <div class="toolbar">
+    <a [routerLink]="['/examens', 'nouveau']" class="btn btn-primary">
+      Ajouter un examen
+    </a>
+    <button
+      type="button"
+      class="btn btn-outline"
+      (click)="toggleTeacherView()"
+      [attr.aria-pressed]="teacherView()"
+    >
+      {{ teacherView() ? 'Masquer la gestion' : 'Gestion (enseignant)' }}
+    </button>
+  </div>
+
+  <section class="quiz-generate-section" aria-labelledby="quiz-generate-title">
+    <h2 id="quiz-generate-title">Générer un quiz (IA)</h2>
+    <p class="section-desc">Choisissez un thème, une difficulté et le nombre de questions. Le quiz sera généré en anglais via Gemini.</p>
+    <div class="quiz-form">
+      <label for="quiz-topic">Thème</label>
+      <input
+        id="quiz-topic"
+        type="text"
+        [(ngModel)]="quizTopic"
+        placeholder="ex. Present simple, Vocabulary: travel"
+        class="quiz-input"
+      />
+      <label for="quiz-difficulty">Difficulté</label>
+      <select id="quiz-difficulty" [(ngModel)]="quizDifficulty" class="quiz-select">
+        @for (opt of difficultyOptions; track opt.value) {
+          <option [value]="opt.value">{{ opt.label }}</option>
+        }
+      </select>
+      <label for="quiz-num">Nombre de questions</label>
+      <input
+        id="quiz-num"
+        type="number"
+        [(ngModel)]="quizNumQuestions"
+        min="1"
+        max="20"
+        class="quiz-input quiz-input-num"
+      />
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="generatingQuiz()"
+        (click)="generateQuiz()"
+      >
+        {{ generatingQuiz() ? 'Génération…' : 'Générer le quiz' }}
+      </button>
+    </div>
+    @if (quizError()) {
+      <p class="quiz-error" role="alert">{{ quizError() }}</p>
+    }
+    @if (generatedQuiz() && !quizSubmitted()) {
+      <div class="generated-quiz">
+        <h3>{{ generatedQuiz()!.title }}</h3>
+        @for (q of generatedQuiz()!.questions; track $index; let i = $index) {
+          <div class="quiz-question">
+            <p class="quiz-q-title">Question {{ i + 1 }}</p>
+            <p class="quiz-q-content">{{ q.content }}</p>
+            <fieldset class="quiz-options" [attr.aria-label]="'Réponses pour la question ' + (i + 1)">
+              @for (opt of q.options; track $index; let oi = $index) {
+                <label class="quiz-option">
+                  <input
+                    type="radio"
+                    [name]="'quiz-q-' + i"
+                    [value]="oi"
+                    [checked]="getQuizAnswer(i) === oi"
+                    (change)="setQuizAnswer(i, oi)"
+                  />
+                  <span>{{ opt }}</span>
+                </label>
+              }
+            </fieldset>
+          </div>
+        }
+        <div class="quiz-actions">
+          <button type="button" class="btn btn-primary" (click)="submitQuiz()">
+            Voir ma note
+          </button>
+          <button type="button" class="btn btn-outline" (click)="resetQuiz()">
+            Annuler
+          </button>
+        </div>
+      </div>
+    }
+    @if (quizSubmitted()) {
+      <div class="quiz-result" role="status">
+        <h3>Votre note</h3>
+        <p class="quiz-mark">{{ quizSubmitted()!.correct }} / {{ quizSubmitted()!.total }}</p>
+        <button type="button" class="btn btn-outline" (click)="resetQuiz()">
+          Générer un autre quiz
+        </button>
+      </div>
+    }
+  </section>
+
+  @if (teacherView()) {
+    <section class="teacher-section" aria-labelledby="teacher-title">
+      <h2 id="teacher-title">Gestion des examens (enseignant)</h2>
+      <p class="section-desc">Modifier, supprimer un examen ou consulter les copies.</p>
+      @if (allExams().length === 0) {
+        <p>Aucun examen. Cliquez sur « Ajouter un examen » pour en créer un.</p>
+      } @else {
+        <ul class="exam-cards teacher-cards">
+          @for (exam of allExams(); track exam.id) {
+            <li>
+              <article class="exam-card">
+                <h2 class="exam-title">
+                  <a [routerLink]="['/examens', exam.id]" [attr.aria-label]="'Détail : ' + exam.title">
+                    {{ exam.title }}
+                  </a>
+                </h2>
+                <p class="exam-meta">
+                  <span class="course">{{ exam.courseName }}</span>
+                  <span class="score">{{ exam.maxScore }} pts</span>
+                  <span class="status">{{ getStatusLabel(exam.examStatus) }}</span>
+                </p>
+                <p class="exam-desc">{{ exam.description }}</p>
+                <div class="card-actions">
+                  <a [routerLink]="['/examens', exam.id, 'modifier']" class="btn btn-outline">Modifier</a>
+                  <a [routerLink]="['/examens', exam.id, 'copies']" class="btn btn-outline">Voir les copies</a>
+                  <button type="button" class="btn btn-danger" (click)="deleteExam(exam, $event)">
+                    Supprimer
+                  </button>
+                </div>
+              </article>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+
+  <section class="exam-list" aria-labelledby="page-title">
+    <h2 class="section-title">Examens disponibles (étudiants)</h2>
+    @if (loading()) {
+      <p class="loading" role="status" aria-live="polite">Chargement des examens…</p>
+    } @else if (error()) {
+      <div class="error" role="alert">
+        <p>{{ error() }}</p>
+        <p>URL du backend : <code>http://localhost:8086</code></p>
+      </div>
+    } @else {
+      @if (exams().length === 0) {
+        <p>Aucun examen publié pour le moment.</p>
+      } @else {
+        <ul class="exam-cards">
+          @for (exam of exams(); track exam.id) {
+            <li>
+              <article class="exam-card">
+                <h2 class="exam-title">
+                  <a [routerLink]="['/examens', exam.id]" [attr.aria-label]="'Détail : ' + exam.title">
+                    {{ exam.title }}
+                  </a>
+                </h2>
+                <p class="exam-meta">
+                  <span class="course">{{ exam.courseName }}</span>
+                  <span class="score" aria-label="Score maximum">{{ exam.maxScore }} points</span>
+                  <span class="status">{{ getStatusLabel(exam.examStatus) }}</span>
+                </p>
+                <p class="exam-desc">{{ exam.description }}</p>
+                <a [routerLink]="['/examens', exam.id]" class="btn btn-outline">Voir le détail</a>
+                @if (exam.examStatus === 'PUBLISHED') {
+                  <a [routerLink]="['/examens', exam.id, 'passer']" class="btn btn-primary">Passer cet examen</a>
+                }
+              </article>
+            </li>
+          }
+        </ul>
+      }
+    }
+  </section>
+</div>

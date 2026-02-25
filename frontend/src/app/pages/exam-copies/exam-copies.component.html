@@ -1,0 +1,45 @@
+<div class="animate-in">
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a routerLink="/examens">Examens</a>
+    <span class="sep" aria-hidden="true">›</span>
+    @if (exam()) {
+      <a [routerLink]="['/examens', exam()!.id]">{{ exam()!.title }}</a>
+      <span class="sep" aria-hidden="true">›</span>
+    }
+    <span>Copies</span>
+  </nav>
+
+  <h1 id="page-title">Copies de l'examen</h1>
+  @if (exam()) {
+    <p class="page-desc">{{ exam()!.title }} — {{ exam()!.courseName }}</p>
+  }
+
+  @if (loading()) {
+    <p role="status">Chargement…</p>
+  } @else if (error()) {
+    <p role="alert">{{ error() }}</p>
+    <a routerLink="/examens" class="btn btn-outline">Retour aux examens</a>
+  } @else {
+    @if (submissions().length === 0) {
+      <p>Aucune copie soumise pour cet examen.</p>
+    } @else {
+      <ul class="submissions-list">
+        @for (s of submissions(); track s.id) {
+          <li>
+            <a [routerLink]="['/examens', 'copies', s.id]" class="submission-card">
+              <span class="student-name">{{ s.studentProfile?.firstName }} {{ s.studentProfile?.lastName }}</span>
+              <span class="submission-meta">
+                Score : {{ s.score ?? 0 }} / {{ s.exam?.maxScore ?? '?' }} pts
+                @if (s.validated) {
+                  <span class="badge validated">Validé</span>
+                }
+              </span>
+              <span class="submission-date">{{ formatDate(s.submittedAt) }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    }
+    <a [routerLink]="['/examens', exam()?.id]" class="btn btn-outline back-btn">Retour à l'examen</a>
+  }
+</div>

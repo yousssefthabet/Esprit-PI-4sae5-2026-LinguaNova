@@ -1,0 +1,155 @@
+<div class="animate-in">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a routerLink="/examens">Examens</a>
+        <span class="sep" aria-hidden="true">›</span>
+        <span>{{ isEdit() ? 'Modifier l\'examen' : 'Nouvel examen' }}</span>
+    </nav>
+
+    <h1 id="form-title">{{ isEdit() ? 'Modifier l\'examen' : 'Ajouter un examen' }}</h1>
+    <p class="page-desc">Les examens peuvent contenir des QCM, des questions Vrai/Faux ou des réponses libres.
+        Remplissez les informations de l'examen et ajoutez vos questions ci-dessous.</p>
+
+    @if (loading()) {
+    <p role="status">Chargement…</p>
+    } @else { @if (error()) {
+    <p class="form-error" role="alert">{{ error() }}</p>
+    }
+    <form (ngSubmit)="save()" class="exam-form">
+        <label for="exam-title">Titre * <span class="field-hint">(3-255 caractères)</span></label>
+        <input id="exam-title" type="text" [ngModel]="title()" (ngModelChange)="setField('title', $event)" name="title"
+            minlength="3" maxlength="255" required />
+        <label for="exam-desc">Description * <span class="field-hint">(10-1000 caractères)</span></label>
+        <textarea id="exam-desc" [ngModel]="description()" (ngModelChange)="setField('description', $event)"
+            name="description" rows="4" minlength="10" maxlength="1000" required></textarea>
+        <label for="exam-course">Nom du cours * <span class="field-hint">(2-100 caractères)</span></label>
+        <input id="exam-course" type="text" [ngModel]="courseName()" (ngModelChange)="setField('courseName', $event)"
+            name="courseName" minlength="2" maxlength="100" required />
+        <label for="exam-maxscore">Score maximum * <span class="field-hint">(doit être positif)</span></label>
+        <input id="exam-maxscore" type="number" min="0.5" step="0.5" [ngModel]="maxScore()"
+            (ngModelChange)="setField('maxScore', $event)" name="maxScore" required />
+        <label for="exam-status">Statut</label>
+        <select id="exam-status" [ngModel]="examStatus()" (ngModelChange)="setField('examStatus', $event)"
+            name="examStatus">
+            @for (opt of statusOptions; track opt.value) {
+            <option [value]="opt.value">{{ opt.label }}</option>
+            }
+        </select>
+
+        <!-- AI Generation Section -->
+        <div class="ai-section">
+            <h2>Générer des questions avec l'IA <span class="field-hint">(optionnel)</span></h2>
+            <p class="page-desc">Remplissez d'abord le titre, la description et le cours, puis choisissez la difficulté
+                et le nombre de questions.</p>
+
+            <div class="ai-controls">
+                <div class="form-group-inline">
+                    <label for="ai-difficulty">Difficulté</label>
+                    <select id="ai-difficulty" [(ngModel)]="aiDifficulty" name="aiDifficulty" class="input-medium">
+                        @for (opt of difficultyOptions; track opt.value) {
+                        <option [value]="opt.value">{{ opt.label }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group-inline">
+                    <label for="ai-num">Nombre de questions</label>
+                    <input id="ai-num" type="number" min="1" max="20" [(ngModel)]="aiNumQuestions" name="aiNumQuestions"
+                        class="input-small" />
+                </div>
+                <button type="button" class="btn btn-ai" [disabled]="generatingAi()"
+                    (click)="generateQuestionsWithAi()">
+                    {{ generatingAi() ? '⏳ Génération en cours…' : '✨ Générer avec l\'IA' }}
+                </button>
+            </div>
+
+            @if (aiError()) {
+            <p class="form-error" role="alert">{{ aiError() }}</p>
+            }
+        </div>
+
+        <!-- Section Questions -->
+        <div class="questions-section">
+            <h2>Questions <span class="field-hint">(Au moins une question requise)</span></h2>
+
+            @for (question of questions(); track $index) {
+            <div class="question-card">
+                <div class="question-header">
+                    <h3>Question {{ $index + 1 }}</h3>
+                    <button type="button" class="btn-icon btn-danger" (click)="removeQuestion($index)"
+                        title="Supprimer la question">
+                        ✕
+                    </button>
+                </div>
+
+                <label [for]="'q-content-' + $index">Contenu de la question * <span class="field-hint">(5-1000
+                        caractères)</span></label>
+                <textarea [id]="'q-content-' + $index" [ngModel]="question.content"
+                    (ngModelChange)="updateQuestionField($index, 'content', $event)"
+                    [name]="'question-content-' + $index" rows="3" minlength="5" maxlength="1000" required
+                    placeholder="Entrez le contenu de la question"></textarea>
+
+                <div class="question-meta">
+                    <div class="form-group-inline">
+                        <label [for]="'q-score-' + $index">Points *</label>
+                        <input [id]="'q-score-' + $index" type="number" min="0.5" step="0.5" [ngModel]="question.score"
+                            (ngModelChange)="updateQuestionField($index, 'score', $event)"
+                            [name]="'question-score-' + $index" required class="input-small" />
+                    </div>
+
+                    <div class="form-group-inline">
+                        <label [for]="'q-type-' + $index">Type *</label>
+                        <select [id]="'q-type-' + $index" [ngModel]="question.type"
+                            (ngModelChange)="updateQuestionField($index, 'type', $event)"
+                            [name]="'question-type-' + $index" required class="input-medium">
+                            @for (opt of questionTypeOptions; track opt.value) {
+                            <option [value]="opt.value">{{ opt.label }}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Réponses pour QCM et TRUE_FALSE -->
+                @if (question.type === 'QCM' || question.type === 'TRUE_FALSE') {
+                <div class="reponses-section">
+                    <h4>Réponses {{ question.type === 'TRUE_FALSE' ? '(Vrai/Faux)' : '' }}</h4>
+
+                    @let qIdx = $index; @for (reponse of question.reponses || []; track $index) {
+                    <div class="reponse-row">
+                        <input type="checkbox" [id]="'r-correct-' + qIdx + '-' + $index" [ngModel]="reponse.correct"
+                            (ngModelChange)="updateReponseField(qIdx, $index, 'correct', $event)"
+                            [name]="'reponse-correct-' + qIdx + '-' + $index" class="checkbox" />
+                        <label [for]="'r-correct-' + qIdx + '-' + $index" class="checkbox-label">Correcte</label>
+
+                        <input type="text" [ngModel]="reponse.content"
+                            (ngModelChange)="updateReponseField(qIdx, $index, 'content', $event)"
+                            [name]="'reponse-content-' + qIdx + '-' + $index" placeholder="Contenu de la réponse"
+                            maxlength="500" required class="reponse-input" /> @if (question.type === 'QCM') {
+                        <button type="button" class="btn-icon btn-danger-small" (click)="removeReponse(qIdx, $index)"
+                            title="Supprimer">
+                            ✕
+                        </button> }
+                    </div>
+                    } @if (question.type === 'QCM') {
+                    <button type="button" class="btn btn-secondary" (click)="addReponse(qIdx)">
+                        + Ajouter une réponse
+                    </button> }
+                </div>
+                } @if (question.type === 'TEXT') {
+                <p class="info-text">Les questions de type texte ne nécessitent pas de réponses prédéfinies.</p>
+                }
+            </div>
+            }
+
+            <button type="button" class="btn btn-secondary" (click)="addQuestion()">
+                + Ajouter une question
+            </button>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary" [disabled]="saving()">
+                {{ saving() ? 'Enregistrement…' : 'Enregistrer' }}
+            </button>
+            <a routerLink="/examens" class="btn btn-outline">Annuler</a>
+        </div>
+    </form>
+    }
+</div>

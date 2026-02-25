@@ -1,0 +1,51 @@
+<div class="animate-in">
+<h1 id="page-title">Mes résultats</h1>
+<p class="page-desc">
+  Consultez l'historique de vos examens et vos scores.
+</p>
+
+@if (profiles().length === 0) {
+  <p>Créez d'abord un <a routerLink="/mon-profil">profil étudiant</a> pour voir vos résultats.</p>
+} @else {
+  <label for="results-profile-select">Afficher les résultats du profil</label>
+  <select
+    id="results-profile-select"
+    [value]="selectedProfileId() ?? ''"
+    (change)="onProfileChange($any($event.target).value)"
+  >
+    @for (p of profiles(); track p.id) {
+      <option [value]="p.id">{{ p.lastName }} {{ p.firstName }}</option>
+    }
+  </select>
+
+  @if (loading()) {
+    <p role="status" aria-live="polite">Chargement des résultats…</p>
+  } @else if (error()) {
+    <p role="alert">{{ error() }}</p>
+  } @else {
+    <section class="results-list" aria-labelledby="page-title">
+      @if (results().length === 0) {
+        <p>Aucun examen passé pour ce profil.</p>
+      } @else {
+        <ul class="result-cards">
+          @for (r of results(); track r.id) {
+            <li
+              class="result-card"
+              [class.highlight]="r.id === highlightId()"
+              [attr.aria-current]="r.id === highlightId() ? 'true' : null"
+            >
+              <h2 class="result-exam-title">{{ r.exam?.title ?? 'Examen' }}</h2>
+              <p class="result-meta">
+                <span class="score">Score : {{ r.score ?? 0 }} / {{ r.exam?.maxScore ?? '?' }} points</span>
+                @if (r.submittedAt) {
+                  <span class="date">Soumis le {{ r.submittedAt }}</span>
+                }
+              </p>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+}
+</div>
