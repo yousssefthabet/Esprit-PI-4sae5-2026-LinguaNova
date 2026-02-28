@@ -1,0 +1,9 @@
+# JWT configuration (HS256, stateless)
+# Secret must be at least 32 characters for HS256. In production use env var: jwt.secret
+jwt:
+  secret: LinguaNovaUserServiceJwtSecretKey2025Min32Chars
+  expiration-hours: 1
+
+# Optional: override in application.properties or env for production
+# jwt.secret=${JWT_SECRET:your-base-secret-min-32-chars}
+# jwt.expiration-hours=1
