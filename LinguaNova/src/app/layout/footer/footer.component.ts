@@ -13,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
         <div class="grid md:grid-cols-2 gap-12">
           <!-- Left Column -->
           <div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Jungle in English</h2>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">LinguaNova</h2>
             <p class="text-gray-500 mb-6 max-w-sm text-sm leading-relaxed">
               Connect with like-minded people and nurture your hobbies with purpose.
             </p>
@@ -21,7 +21,7 @@ import { DomSanitizer } from '@angular/platform-browser';
             <div class="flex items-center gap-2 mb-8 text-sm">
               <span class="text-gray-500">Email:</span>
               <a href="mailto:contact@jungleinenglish.tn" class="text-[#2D6F6B] font-medium hover:underline">
-                contact@jungleinenglish.tn
+                contact@LinguaNova.tn
               </a>
             </div>
             
@@ -51,7 +51,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
         <!-- Copyright -->
         <div class="border-t border-gray-100 mt-16 pt-8 text-center text-[13px] text-gray-400">
-          <p>© 2025 Jungle in English. All rights reserved. Developed by <a href="#" class="hover:text-[#2D6F6B] underline underline-offset-4">Envaet</a>.</p>
+          <p>© 2025 LinguaNova. All rights reserved. Developed by <a href="#" class="hover:text-[#2D6F6B] underline underline-offset-4">Envaet</a>.</p>
         </div>
       </div>
     </footer>

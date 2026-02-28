@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseService } from '../../../core/services/course.service';
 import { Course, CourseCategory, CourseLevel } from '../../../core/models/course.model';
@@ -35,7 +35,7 @@ import { CourseCardComponent } from '../../../shared/components/course-card/cour
                 <!-- Type Filter -->
                 <div>
                   <div class="flex flex-col group">
-                    <h3 class="font-semibold text-[#2D8B7D] text-lg mb-1">Type</h3>
+                    <h3 class="font-semibold text-[#2D8B7D] text-lg mb-1">Academic Category</h3>
                     <div class="h-[1.5px] bg-[#2D8B7D] w-full mb-4"></div>
                   </div>
                   <div class="space-y-4">
@@ -51,14 +51,49 @@ import { CourseCardComponent } from '../../../shared/components/course-card/cour
                         <input type="radio" name="type" class="peer appearance-none w-5 h-5 rounded-full border-2 border-gray-300 checked:border-[#1E293B] transition-all" />
                         <div class="absolute w-2.5 h-2.5 rounded-full bg-[#1E293B] opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                       </div>
-                      <span class="text-gray-800 font-medium">Blended</span>
+                      <span class="text-gray-800 font-medium">English Language</span>
                     </label>
                     <label class="flex items-center gap-3 cursor-pointer group">
                       <div class="relative flex items-center justify-center">
                         <input type="radio" name="type" class="peer appearance-none w-5 h-5 rounded-full border-2 border-gray-300 checked:border-[#1E293B] transition-all" />
                         <div class="absolute w-2.5 h-2.5 rounded-full bg-[#1E293B] opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                       </div>
-                      <span class="text-gray-800 font-medium">Live</span>
+                      <span class="text-gray-800 font-medium">General English</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                      <div class="relative flex items-center justify-center">
+                        <input type="radio" name="type" class="peer appearance-none w-5 h-5 rounded-full border-2 border-gray-300 checked:border-[#1E293B] transition-all" />
+                        <div class="absolute w-2.5 h-2.5 rounded-full bg-[#1E293B] opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                      </div>
+                      <span class="text-gray-800 font-medium">Business English</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                      <div class="relative flex items-center justify-center">
+                        <input type="radio" name="type" class="peer appearance-none w-5 h-5 rounded-full border-2 border-gray-300 checked:border-[#1E293B] transition-all" />
+                        <div class="absolute w-2.5 h-2.5 rounded-full bg-[#1E293B] opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                      </div>
+                      <span class="text-gray-800 font-medium">Academic English</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                      <div class="relative flex items-center justify-center">
+                        <input type="radio" name="type" class="peer appearance-none w-5 h-5 rounded-full border-2 border-gray-300 checked:border-[#1E293B] transition-all" />
+                        <div class="absolute w-2.5 h-2.5 rounded-full bg-[#1E293B] opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                      </div>
+                      <span class="text-gray-800 font-medium">English Communication</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                      <div class="relative flex items-center justify-center">
+                        <input type="radio" name="type" class="peer appearance-none w-5 h-5 rounded-full border-2 border-gray-300 checked:border-[#1E293B] transition-all" />
+                        <div class="absolute w-2.5 h-2.5 rounded-full bg-[#1E293B] opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                      </div>
+                      <span class="text-gray-800 font-medium">IELTS Preparation</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                      <div class="relative flex items-center justify-center">
+                        <input type="radio" name="type" class="peer appearance-none w-5 h-5 rounded-full border-2 border-gray-300 checked:border-[#1E293B] transition-all" />
+                        <div class="absolute w-2.5 h-2.5 rounded-full bg-[#1E293B] opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                      </div>
+                      <span class="text-gray-800 font-medium">TOEFL Preparation</span>
                     </label>
                   </div>
                 </div>
@@ -66,7 +101,7 @@ import { CourseCardComponent } from '../../../shared/components/course-card/cour
                 <!-- Level Filter -->
                 <div>
                   <div class="flex flex-col group">
-                    <h3 class="font-semibold text-[#2D8B7D] text-lg mb-1">Level</h3>
+                    <h3 class="font-semibold text-[#2D8B7D] text-lg mb-1">Skill Elevation</h3>
                     <div class="h-[1.5px] bg-[#2D8B7D] w-full mb-4"></div>
                   </div>
                   <div class="space-y-4">
@@ -86,7 +121,34 @@ import { CourseCardComponent } from '../../../shared/components/course-card/cour
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
-                      <span class="text-gray-800 font-medium">Mid-level</span>
+                      <span class="text-gray-800 font-medium">Elementary</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                      <div class="relative flex items-center justify-center">
+                        <input type="checkbox" class="peer appearance-none w-5 h-5 rounded border-2 border-gray-300 checked:bg-[#4C1D95] checked:border-[#4C1D95] transition-all" />
+                        <svg class="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span class="text-gray-800 font-medium">Pre-Intermediate</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                      <div class="relative flex items-center justify-center">
+                        <input type="checkbox" class="peer appearance-none w-5 h-5 rounded border-2 border-gray-300 checked:bg-[#4C1D95] checked:border-[#4C1D95] transition-all" />
+                        <svg class="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span class="text-gray-800 font-medium">Intermediate</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                      <div class="relative flex items-center justify-center">
+                        <input type="checkbox" class="peer appearance-none w-5 h-5 rounded border-2 border-gray-300 checked:bg-[#4C1D95] checked:border-[#4C1D95] transition-all" />
+                        <svg class="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span class="text-gray-800 font-medium">Upper-Intermediate</span>
                     </label>
                     <label class="flex items-center gap-3 cursor-pointer group">
                       <div class="relative flex items-center justify-center">
@@ -106,17 +168,18 @@ import { CourseCardComponent } from '../../../shared/components/course-card/cour
                     <h3 class="font-semibold text-[#2D8B7D] text-lg mb-1">Price</h3>
                     <div class="h-[1.5px] bg-[#2D8B7D] w-full mb-6"></div>
                   </div>
-                  <div class="px-2">
-                    <div class="relative h-6 w-full flex items-center">
+                  <div class="px-2 select-none">
+                    <div #priceTrack class="relative h-6 w-full flex items-center">
                       <!-- Track -->
                       <div class="absolute w-full h-1.5 bg-gray-300 rounded-full"></div>
                       <!-- Active Range -->
-                      <div class="absolute left-[25%] right-[20%] h-1.5 bg-[#1E293B] rounded-full"></div>
+                      <div class="absolute h-1.5 bg-[#1E293B] rounded-full transition-[left,right] duration-75" [style.left.%]="minPercent" [style.right.%]="100 - maxPercent"></div>
                       <!-- Handle Left -->
-                      <div class="absolute left-[25%] -translate-x-1/2 w-[18px] h-[18px] bg-[#1E293B] border-[3px] border-white rounded-full shadow-md cursor-pointer"></div>
+                      <div class="absolute -translate-x-1/2 w-[18px] h-[18px] bg-[#1E293B] border-[3px] border-white rounded-full shadow-md cursor-grab active:cursor-grabbing" [style.left.%]="minPercent" (mousedown)="startPriceDrag($event, 'min')"></div>
                       <!-- Handle Right -->
-                      <div class="absolute right-[20%] translate-x-1/2 w-[18px] h-[18px] bg-[#1E293B] border-[3px] border-white rounded-full shadow-md cursor-pointer"></div>
+                      <div class="absolute translate-x-1/2 w-[18px] h-[18px] bg-[#1E293B] border-[3px] border-white rounded-full shadow-md cursor-grab active:cursor-grabbing" [style.left.%]="maxPercent" (mousedown)="startPriceDrag($event, 'max')"></div>
                     </div>
+                    <p class="text-sm text-gray-600 mt-2 font-medium">{{ priceMin }} – {{ priceMax }}</p>
                   </div>
                 </div>
 
@@ -134,7 +197,7 @@ import { CourseCardComponent } from '../../../shared/components/course-card/cour
           <!-- Course Grid -->
           <main class="flex-1">
             <div class="grid md:grid-cols-2 gap-8">
-              @for (course of demoCourses; track course.id) {
+              @for (course of filteredCourses; track course.id) {
                 <app-course-card [course]="course" />
               }
             </div>
@@ -175,6 +238,57 @@ import { CourseCardComponent } from '../../../shared/components/course-card/cour
 })
 export class CourseListComponent implements OnInit {
   private readonly courseService = inject(CourseService);
+
+  @ViewChild('priceTrack') priceTrackRef?: ElementRef<HTMLElement>;
+
+  priceMinLimit = 0;
+  priceMaxLimit = 2500;
+  priceMin = 0;
+  priceMax = 2500;
+  private priceDragging: 'min' | 'max' | null = null;
+
+  get minPercent(): number {
+    const range = this.priceMaxLimit - this.priceMinLimit;
+    return range <= 0 ? 0 : ((this.priceMin - this.priceMinLimit) / range) * 100;
+  }
+
+  get maxPercent(): number {
+    const range = this.priceMaxLimit - this.priceMinLimit;
+    return range <= 0 ? 100 : ((this.priceMax - this.priceMinLimit) / range) * 100;
+  }
+
+  get filteredCourses(): Course[] {
+    return this.demoCourses.filter((c) => {
+      const effectivePrice = c.discountedPrice ?? c.price;
+      return effectivePrice >= this.priceMin && effectivePrice <= this.priceMax;
+    });
+  }
+
+  startPriceDrag(e: MouseEvent, which: 'min' | 'max'): void {
+    e.preventDefault();
+    this.priceDragging = which;
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onPriceDragMove(e: MouseEvent): void {
+    if (this.priceDragging === null || !this.priceTrackRef?.nativeElement) return;
+    const el = this.priceTrackRef.nativeElement;
+    const rect = el.getBoundingClientRect();
+    const percent = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+    const range = this.priceMaxLimit - this.priceMinLimit;
+    const price = Math.round(this.priceMinLimit + (percent / 100) * range);
+    if (this.priceDragging === 'min') {
+      this.priceMin = Math.min(price, this.priceMax);
+    } else {
+      this.priceMax = Math.max(price, this.priceMin);
+    }
+  }
+
+  @HostListener('document:mouseup')
+  @HostListener('document:mouseleave')
+  onPriceDragEnd(): void {
+    this.priceDragging = null;
+  }
 
   demoCourses: Course[] = [
     {

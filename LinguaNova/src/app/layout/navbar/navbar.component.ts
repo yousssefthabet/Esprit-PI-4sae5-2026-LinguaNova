@@ -18,11 +18,11 @@ import { UserRole } from '../../core/models/user.model';
             <!-- Logo -->
             @if (user$ | async; as user) {
               <a [routerLink]="[getDashboardRoute(user)]" class="text-white font-bold text-xl whitespace-nowrap tracking-tight transition-opacity hover:opacity-90">
-                Jungle in English
+                LinguaNova
               </a>
             } @else {
               <a [routerLink]="['/']" class="text-white font-bold text-xl whitespace-nowrap tracking-tight transition-opacity hover:opacity-90">
-                Jungle in English
+                LinguaNova
               </a>
             }
 

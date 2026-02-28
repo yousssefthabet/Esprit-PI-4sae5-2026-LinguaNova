@@ -74,20 +74,7 @@ import { APP_CONSTANTS } from '../../../core/constants/app.constants';
             <!-- Left Column: Details -->
             <div class="lg:w-[65%] space-y-12">
               
-              <!-- What you'll learn -->
-              <section class="bg-white rounded-[24px] p-8 md:p-10 border border-gray-100 shadow-sm">
-                <h2 class="text-2xl font-bold text-[#2D3748] mb-6">What you'll learn</h2>
-                <div class="grid md:grid-cols-2 gap-y-4 gap-x-8">
-                  @for (outcome of course.learningOutcomes; track outcome) {
-                    <div class="flex items-start gap-3">
-                      <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-teal-50 flex items-center justify-center text-[#2D6F6B]">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                      </div>
-                      <span class="text-gray-600 text-[15px] leading-snug">{{ outcome }}</span>
-                    </div>
-                  }
-                </div>
-              </section>
+             
 
               <!-- Course Content (Accordion) -->
               <section class="bg-white rounded-[24px] p-8 md:p-10 border border-gray-100 shadow-sm">
