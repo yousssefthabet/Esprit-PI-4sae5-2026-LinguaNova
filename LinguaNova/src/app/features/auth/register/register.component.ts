@@ -168,6 +168,15 @@ import { UserRole } from '../../../core/models/user.model';
           }
         </div>
 
+        @if (errorMessage) {
+          <div class="p-4 rounded-xl bg-red-50 border border-red-100 flex items-start gap-3">
+            <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="text-sm text-red-600 font-medium">{{ errorMessage }}</p>
+          </div>
+        }
+
         <button 
           type="submit" 
           [disabled]="registerForm.invalid || loading"
@@ -274,38 +283,28 @@ export class RegisterComponent {
       this.errorMessage = '';
 
       const formValue = this.registerForm.value;
-      let firstName = '';
-      let lastName = '';
-
-      if (this.role === 'student') {
-        const nameParts = formValue.username.trim().split(' ');
-        firstName = nameParts[0];
-        lastName = nameParts.slice(1).join(' ') || '.';
-      } else {
-        firstName = formValue.firstName;
-        lastName = formValue.lastName;
-      }
 
       const registerData: any = {
-        email: formValue.email,
+        email: formValue.email.trim(),
         password: formValue.password,
         confirmPassword: formValue.password,
-        firstName,
-        lastName,
+        firstName: this.role === 'student' ? formValue.username?.trim().split(' ')[0] || '' : formValue.firstName,
+        lastName: this.role === 'student' ? formValue.username?.trim().split(' ').slice(1).join(' ') || '.' : formValue.lastName,
         role: this.role === 'student' ? UserRole.STUDENT : UserRole.INSTRUCTOR,
         agreeToTerms: true,
       };
 
-      if (this.role === 'instructor') {
-        registerData.phoneNumber = formValue.phoneNumber;
-        registerData.dateOfBirth = formValue.dateOfBirth;
-        registerData.educationLevel = formValue.educationLevel;
-        registerData.certificationNumber = formValue.certificationNumber;
-        registerData.teachingExperience = formValue.teachingExperience;
-        registerData.subjectSpecializations = formValue.subjectSpecializations ? formValue.subjectSpecializations.split(',').map((s: string) => s.trim()) : [];
+      if (this.role === 'student') {
+        registerData.username = formValue.username?.trim() || formValue.email.split('@')[0];
+      } else {
+        registerData.phoneNumber = formValue.phoneNumber || undefined;
+        registerData.dateOfBirth = formValue.dateOfBirth || undefined;
+        registerData.educationLevel = formValue.educationLevel || undefined;
+        registerData.highestEducation = formValue.educationLevel || undefined;
+        registerData.certificationNumber = formValue.certificationNumber || undefined;
+        registerData.teachingExperience = formValue.teachingExperience || undefined;
+        registerData.subjectSpecializations = formValue.subjectSpecializations ? [formValue.subjectSpecializations.trim()] : [];
         registerData.gradeLevels = this.selectedGradeLevels;
-        // Note: Profile photo upload would typically require FormData logic, handled here as placeholder or separate upload
-        // For now, we omit sending the File object as JSON, assuming handling later or via interceptors if adjusted
       }
 
       this.authService.register(registerData).subscribe({
@@ -317,7 +316,11 @@ export class RegisterComponent {
           }
         },
         error: (error) => {
-          this.errorMessage = error.error?.message || 'Registration failed. Please try again.';
+          const body = error?.error;
+          const msg = body?.message || (error?.status === 500
+            ? 'Server error. Is the user-service running on port 8082? Check its console for details.'
+            : 'Registration failed. Please try again.');
+          this.errorMessage = msg;
           this.loading = false;
         }
       });

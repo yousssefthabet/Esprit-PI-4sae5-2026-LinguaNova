@@ -11,9 +11,12 @@ export const API_CONFIG = {
 };
 
 export const API_ENDPOINTS = {
-    // Auth
+    // Auth (user-service backend at /PIproject/api/auth)
     AUTH: {
-        LOGIN: '/auth/login',
+        BASE: '/PIproject/api/auth',
+        LOGIN: '/PIproject/api/auth/login',
+        REGISTER_STUDENT: '/PIproject/api/auth/register/student',
+        REGISTER_TEACHER: '/PIproject/api/auth/register/teacher',
         REGISTER: '/auth/register',
         LOGOUT: '/auth/logout',
         REFRESH_TOKEN: '/auth/refresh',

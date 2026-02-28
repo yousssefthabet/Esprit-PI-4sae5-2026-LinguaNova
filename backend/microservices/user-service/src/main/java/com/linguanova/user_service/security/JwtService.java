@@ -28,15 +28,23 @@ public class JwtService {
     }
 
     public String generateToken(String email, String role) {
+        return generateToken(email, role, null);
+    }
+
+    /** Generate JWT with optional display name (e.g. for teacher). Puts "role", "roles" (list), and "name" for course-service. */
+    public String generateToken(String email, String role, String name) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + expirationMs);
-        return Jwts.builder()
+        var builder = Jwts.builder()
                 .setSubject(email)
                 .claim("role", role)
+                .claim("roles", java.util.List.of(role))
                 .setIssuedAt(now)
-                .setExpiration(expiry)
-                .signWith(secretKey)
-                .compact();
+                .setExpiration(expiry);
+        if (name != null && !name.isBlank()) {
+            builder.claim("name", name.trim());
+        }
+        return builder.signWith(secretKey).compact();
     }
 
     public String extractEmail(String token) {

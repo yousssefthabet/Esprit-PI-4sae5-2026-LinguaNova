@@ -155,8 +155,8 @@ export class LoginComponent {
 
       this.authService.login(credentials).subscribe({
         next: (response) => {
+          this.loading = false;
           const user = response.user;
-          // Redirect based on role
           if (user.role === UserRole.ADMIN) {
             this.router.navigate(['/admin/dashboard']);
           } else if (user.role === UserRole.INSTRUCTOR) {
@@ -166,7 +166,7 @@ export class LoginComponent {
           }
         },
         error: (error) => {
-          this.errorMessage = error.error?.message || 'Invalid user name or password';
+          this.errorMessage = error.error?.message || 'Invalid email or password';
           this.loading = false;
         }
       });

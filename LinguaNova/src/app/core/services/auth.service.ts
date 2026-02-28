@@ -6,6 +6,12 @@ import { tap, catchError, map } from 'rxjs/operators';
 import { User, AuthResponse, LoginCredentials, RegisterData, UserRole } from '../models/user.model';
 import { API_ENDPOINTS, STORAGE_KEYS } from '../constants/app.constants';
 
+/** Backend auth response: { token, role } */
+interface BackendAuthResponse {
+    token: string;
+    role: string;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -17,70 +23,92 @@ export class AuthService {
     public currentUser$ = this.currentUserSubject.asObservable();
 
     constructor() {
-        // Check if token exists on init
         if (this.getToken()) {
             this.loadCurrentUser();
         }
     }
 
     /**
-     * Login user with credentials
+     * Login user with credentials (calls user-service backend)
      */
     login(credentials: LoginCredentials): Observable<AuthResponse> {
-        // For demo purposes, allow any login
-        // If email contains 'instructor', give instructor role
-        const email = credentials.email.toLowerCase();
-        let role = UserRole.STUDENT;
-        let id = '1';
-        let firstName = 'Demo';
-        let lastName = 'User';
-        let avatar = 'https://i.pravatar.cc/150?u=demo';
-
-        if (email.includes('admin')) {
-            role = UserRole.ADMIN;
-            id = 'admin-1';
-            firstName = 'System';
-            lastName = 'Admin';
-            avatar = 'https://i.pravatar.cc/150?u=admin';
-        } else if (email.includes('instructor')) {
-            role = UserRole.INSTRUCTOR;
-            id = 'ins-1';
-            firstName = 'Sarah';
-            lastName = 'Drasner';
-            avatar = 'https://i.pravatar.cc/150?u=sarah';
-        }
-
-        const mockResponse: AuthResponse = {
-            user: {
-                id,
-                email: credentials.email,
-                firstName,
-                lastName,
-                role,
-                avatar,
-                isActive: true,
-                createdAt: new Date(),
-                updatedAt: new Date()
-            },
-            token: 'mock-jwt-token',
-            refreshToken: 'mock-refresh-token',
-            expiresIn: 3600
-        };
-
-        return of(mockResponse).pipe(
-            delay(800),
-            tap(response => this.handleAuthSuccess(response))
+        return this.http.post<BackendAuthResponse>(API_ENDPOINTS.AUTH.LOGIN, {
+            email: credentials.email.trim(),
+            password: credentials.password
+        }).pipe(
+            map(res => this.toAuthResponse(res, credentials.email)),
+            tap(response => this.handleAuthSuccess(response)),
+            catchError(this.handleError)
         );
     }
 
     /**
-     * Register new user
+     * Register new user (calls user-service backend - student or teacher)
      */
     register(data: RegisterData): Observable<AuthResponse> {
-        return this.http.post<AuthResponse>(API_ENDPOINTS.AUTH.REGISTER, data).pipe(
+        const isStudent = data.role === UserRole.STUDENT;
+        const url = isStudent ? API_ENDPOINTS.AUTH.REGISTER_STUDENT : API_ENDPOINTS.AUTH.REGISTER_TEACHER;
+        const payload = isStudent ? this.buildStudentPayload(data) : this.buildTeacherPayload(data);
+
+        return this.http.post<BackendAuthResponse>(url, payload).pipe(
+            map(res => this.toAuthResponse(res, data.email)),
             tap(response => this.handleAuthSuccess(response)),
             catchError(this.handleError)
         );
+    }
+
+    private buildStudentPayload(data: RegisterData): { email: string; username: string; password: string } {
+        const email = (data.email ?? '').toString().trim();
+        const username = ((data as any).username ?? data.firstName ?? (data.email && data.email.split('@')[0]) ?? '').toString().trim() || email.split('@')[0] || 'user';
+        const password = (data.password ?? '').toString();
+        return { email, username, password };
+    }
+
+    private buildTeacherPayload(data: RegisterData): Record<string, unknown> {
+        const d = data as any;
+        return {
+            email: data.email.trim(),
+            firstName: data.firstName,
+            lastName: data.lastName,
+            phoneNumber: d.phoneNumber || undefined,
+            dateOfBirth: d.dateOfBirth ? (typeof d.dateOfBirth === 'string' ? d.dateOfBirth : (d.dateOfBirth as Date).toISOString().split('T')[0]) : undefined,
+            teachingExperience: d.teachingExperience != null ? String(d.teachingExperience) : undefined,
+            highestEducation: d.educationLevel || d.highestEducation || undefined,
+            certificationNumber: d.certificationNumber || undefined,
+            subjectSpecializations: Array.isArray(d.subjectSpecializations) ? d.subjectSpecializations.join(', ') : (d.subjectSpecializations || undefined),
+            gradeLevelsTaught: Array.isArray(d.gradeLevels) ? d.gradeLevels.join(', ') : undefined,
+            profilePhoto: d.profilePhoto || undefined,
+            password: data.password
+        };
+    }
+
+    private toAuthResponse(res: BackendAuthResponse, email: string): AuthResponse {
+        const role = res.role === 'TEACHER' ? UserRole.INSTRUCTOR : (res.role === 'ADMIN' ? UserRole.ADMIN : UserRole.STUDENT);
+        const user: User = {
+            id: this.decodeUserIdFromToken(res.token) ?? '0',
+            email,
+            firstName: '',
+            lastName: '',
+            role,
+            isActive: true,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        };
+        return {
+            user,
+            token: res.token,
+            refreshToken: '',
+            expiresIn: 3600
+        };
+    }
+
+    private decodeUserIdFromToken(token: string): string | null {
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            return payload.sub ?? payload.userId ?? null;
+        } catch {
+            return null;
+        }
     }
 
     /**
@@ -167,11 +195,6 @@ export class AuthService {
     isAuthenticated(): boolean {
         const token = this.getToken();
         if (!token) return false;
-
-        // Allow mock token for demo
-        if (token === 'mock-jwt-token') return true;
-
-        // Check if token is expired
         try {
             const payload = JSON.parse(atob(token.split('.')[1]));
             return payload.exp * 1000 > Date.now();
@@ -198,7 +221,9 @@ export class AuthService {
 
     private handleAuthSuccess(response: AuthResponse): void {
         localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, response.token);
-        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.refreshToken);
+        if (response.refreshToken) {
+            localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.refreshToken);
+        }
         this.saveUserToStorage(response.user);
         this.currentUserSubject.next(response.user);
     }
@@ -219,7 +244,10 @@ export class AuthService {
     }
 
     private handleError(error: any): Observable<never> {
-        console.error('Auth error:', error);
+        console.error('Auth error:', error?.status, error?.statusText, error?.url);
+        if (error?.error && typeof error.error === 'object') {
+            console.error('Backend response body:', error.error);
+        }
         return throwError(() => error);
     }
 }

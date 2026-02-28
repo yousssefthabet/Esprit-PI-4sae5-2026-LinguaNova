@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -20,14 +22,32 @@ public class AuthService {
 
     @Transactional
     public AuthResponse registerStudent(RegisterStudentRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (request == null) {
+            throw new IllegalArgumentException("Request body is required");
+        }
+        String email = request.getEmail() != null ? request.getEmail().trim() : null;
+        String username = request.getUsername() != null ? request.getUsername().trim() : null;
+        String password = request.getPassword();
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Email is required");
+        }
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Username is required");
+        }
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password is required");
+        }
+        if (userRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email already registered");
         }
+        LocalDateTime now = LocalDateTime.now();
         User user = User.builder()
-                .email(request.getEmail())
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .email(email)
+                .username(username)
+                .password(passwordEncoder.encode(password))
                 .role(Role.STUDENT)
+                .createdAt(now)
+                .updatedAt(now)
                 .build();
         user = userRepository.save(user);
         String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
@@ -42,8 +62,9 @@ public class AuthService {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("Email already registered");
         }
+        LocalDateTime now = LocalDateTime.now();
         User user = User.builder()
-                .email(request.getEmail())
+                .email(request.getEmail().trim())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .phoneNumber(request.getPhoneNumber())
@@ -56,9 +77,13 @@ public class AuthService {
                 .profilePhoto(request.getProfilePhoto())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.TEACHER)
+                .createdAt(now)
+                .updatedAt(now)
                 .build();
         user = userRepository.save(user);
-        String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
+        String teacherName = (request.getFirstName() != null ? request.getFirstName().trim() : "") + " " + (request.getLastName() != null ? request.getLastName().trim() : "");
+        if (teacherName.trim().isEmpty()) teacherName = request.getEmail();
+        String token = jwtService.generateToken(user.getEmail(), user.getRole().name(), teacherName.trim());
         return AuthResponse.builder()
                 .token(token)
                 .role(user.getRole().name())
@@ -71,7 +96,12 @@ public class AuthService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("Invalid email or password");
         }
-        String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
+        String name = null;
+        if (user.getRole() == Role.TEACHER && (user.getFirstName() != null || user.getLastName() != null)) {
+            name = (user.getFirstName() != null ? user.getFirstName().trim() : "") + " " + (user.getLastName() != null ? user.getLastName().trim() : "");
+            if (name.trim().isEmpty()) name = user.getEmail();
+        }
+        String token = jwtService.generateToken(user.getEmail(), user.getRole().name(), name);
         return AuthResponse.builder()
                 .token(token)
                 .role(user.getRole().name())

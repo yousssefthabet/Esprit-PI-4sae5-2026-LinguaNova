@@ -47,13 +47,22 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 String subject = claims.getSubject();
                 @SuppressWarnings("unchecked")
                 List<String> roles = claims.get("roles", List.class);
-                var authorities = roles != null
-                    ? roles.stream()
+                List<SimpleGrantedAuthority> authorities;
+                if (roles != null && !roles.isEmpty()) {
+                    authorities = roles.stream()
                         .map(r -> new SimpleGrantedAuthority(r.startsWith("ROLE_") ? r : "ROLE_" + r))
-                        .collect(Collectors.toList())
-                    : List.<SimpleGrantedAuthority>of();
+                        .collect(Collectors.toList());
+                } else {
+                    // user-service sends "role" (singular string), e.g. "TEACHER" or "STUDENT"
+                    Object role = claims.get("role");
+                    String roleStr = role != null ? role.toString() : null;
+                    authorities = roleStr != null && !roleStr.isBlank()
+                        ? List.of(new SimpleGrantedAuthority(roleStr.startsWith("ROLE_") ? roleStr : "ROLE_" + roleStr))
+                        : List.of();
+                }
 
                 var auth = new UsernamePasswordAuthenticationToken(subject, null, authorities);
+                auth.setDetails(claims); // so controllers can read "name" etc.
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (Exception ignored) {
                 // Invalid or expired token – leave context empty

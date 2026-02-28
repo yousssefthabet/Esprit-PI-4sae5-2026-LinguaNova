@@ -85,8 +85,8 @@ public class CourseController {
         if (auth == null || !auth.isAuthenticated())
             throw new AccessDeniedException("Authentication required");
         boolean hasRole = auth.getAuthorities().stream()
-            .anyMatch(a -> "ROLE_INSTRUCTOR".equals(a.getAuthority()));
-        if (!hasRole) throw new AccessDeniedException("INSTRUCTOR role required");
+            .anyMatch(a -> "ROLE_INSTRUCTOR".equals(a.getAuthority()) || "ROLE_TEACHER".equals(a.getAuthority()));
+        if (!hasRole) throw new AccessDeniedException("INSTRUCTOR or TEACHER role required");
     }
 
     private String getInstructorId(Authentication auth) {
@@ -96,6 +96,12 @@ public class CourseController {
 
     private String getInstructorName(Authentication auth) {
         if (devMode && (auth == null || !auth.isAuthenticated())) return "Dev Instructor";
-        return auth != null ? auth.getName() : "Dev Instructor";
+        if (auth == null) return "Instructor";
+        // user-service JWT may contain "name" claim for teachers
+        if (auth.getDetails() instanceof io.jsonwebtoken.Claims claims) {
+            Object name = claims.get("name");
+            if (name != null && name.toString().length() > 0) return name.toString().trim();
+        }
+        return auth.getName(); // fallback: email
     }
 }

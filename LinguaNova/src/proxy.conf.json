@@ -4,9 +4,15 @@
     "secure": false,
     "changeOrigin": true
   },
-  "/PIproject": {
+  "/PIproject/api/courses": {
     "target": "http://localhost:8081",
     "secure": false,
     "changeOrigin": true
+  },
+  "/PIproject": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": { "^/PIproject": "" }
   }
 }
