@@ -12,6 +12,26 @@ interface BackendAuthResponse {
     role: string;
 }
 
+/** Backend GET /auth/me response */
+interface CurrentUserApiResponse {
+    id: number;
+    email: string;
+    role: string;
+    firstName?: string;
+    lastName?: string;
+    username?: string;
+    phoneNumber?: string;
+    dateOfBirth?: string;
+    teachingExperience?: number;
+    highestEducation?: string;
+    certificationNumber?: string;
+    subjectSpecializations?: string[];
+    gradeLevels?: string[];
+    profilePhoto?: string;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -111,6 +131,17 @@ export class AuthService {
         }
     }
 
+    /** Decode "name" claim from JWT for display when API has no first/last name. */
+    private decodeNameFromToken(token: string): string | null {
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const name = payload?.name;
+            return typeof name === 'string' ? name.trim() || null : null;
+        } catch {
+            return null;
+        }
+    }
+
     /**
      * Logout user (local only; no server call to avoid 500 when auth backend is not running)
      */
@@ -149,28 +180,90 @@ export class AuthService {
     }
 
     /**
-     * Get current user from API
+     * Get current user from API (GET /auth/me). Populates full profile for instructor/student.
      */
     getCurrentUser(): Observable<User> {
-        const storedUser = this.getUserFromStorage();
-        if (storedUser) return of(storedUser);
+        const token = this.getToken();
+        if (!token) {
+            return of(this.getUserFromStorage()).pipe(
+                map(u => u ?? this.getAnonymousUser())
+            );
+        }
 
-        return of({
-            id: '1',
-            email: 'demo@example.com',
-            firstName: 'Demo',
-            lastName: 'User',
-            role: UserRole.STUDENT,
-            avatar: 'https://i.pravatar.cc/150?u=demo',
-            isActive: true,
-            createdAt: new Date(),
-            updatedAt: new Date()
-        } as User).pipe(
+        return this.http.get<CurrentUserApiResponse>(API_ENDPOINTS.AUTH.CURRENT_USER).pipe(
+            map(res => {
+                let user = this.mapApiUserToUser(res);
+                if (!user.firstName && !user.lastName && token) {
+                    const name = this.decodeNameFromToken(token);
+                    if (name) {
+                        const parts = name.trim().split(/\s+/);
+                        user = { ...user, firstName: parts[0] || '', lastName: parts.slice(1).join(' ') || '' };
+                    }
+                }
+                return user;
+            }),
             tap(user => {
                 this.currentUserSubject.next(user);
                 this.saveUserToStorage(user);
+            }),
+            catchError(() => {
+                const stored = this.getUserFromStorage();
+                if (stored) {
+                    if (!stored.firstName && !stored.lastName && token) {
+                        const name = this.decodeNameFromToken(token);
+                        if (name) {
+                            const parts = name.trim().split(/\s+/);
+                            stored.firstName = parts[0] || '';
+                            stored.lastName = parts.slice(1).join(' ') || '';
+                            this.currentUserSubject.next(stored);
+                            this.saveUserToStorage(stored);
+                        }
+                    }
+                    return of(stored);
+                }
+                return of(this.getAnonymousUser()).pipe(
+                    tap(u => {
+                        this.currentUserSubject.next(u);
+                        this.saveUserToStorage(u);
+                    })
+                );
             })
         );
+    }
+
+    private getAnonymousUser(): User {
+        return {
+            id: '0',
+            email: '',
+            firstName: '',
+            lastName: '',
+            role: UserRole.STUDENT,
+            isActive: true,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        } as User;
+    }
+
+    private mapApiUserToUser(res: CurrentUserApiResponse): User {
+        const role = res.role === 'TEACHER' ? UserRole.INSTRUCTOR : (res.role === 'ADMIN' ? UserRole.ADMIN : UserRole.STUDENT);
+        return {
+            id: String(res.id),
+            email: res.email,
+            firstName: res.firstName ?? '',
+            lastName: res.lastName ?? '',
+            role,
+            avatar: res.profilePhoto,
+            phoneNumber: res.phoneNumber,
+            dateOfBirth: res.dateOfBirth ? new Date(res.dateOfBirth) : undefined,
+            educationLevel: res.highestEducation,
+            certificationNumber: res.certificationNumber,
+            teachingExperience: res.teachingExperience ?? 0,
+            subjectSpecializations: res.subjectSpecializations ?? [],
+            gradeLevels: res.gradeLevels ?? [],
+            isActive: true,
+            createdAt: res.createdAt ? new Date(res.createdAt) : new Date(),
+            updatedAt: res.updatedAt ? new Date(res.updatedAt) : new Date()
+        };
     }
 
     /**
@@ -226,6 +319,8 @@ export class AuthService {
         }
         this.saveUserToStorage(response.user);
         this.currentUserSubject.next(response.user);
+        // Load full profile from API (instructor/student details)
+        this.getCurrentUser().subscribe({ error: () => {} });
     }
 
     private loadCurrentUser(): void {

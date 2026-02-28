@@ -59,6 +59,14 @@ public class JwtService {
         return role != null ? role.toString() : null;
     }
 
+    /** Extract display name claim (e.g. for teacher). Returns null if not present. */
+    public String extractName(String token) {
+        Claims payload = parseToken(token);
+        if (payload == null) return null;
+        Object name = payload.get("name");
+        return name != null ? name.toString().trim() : null;
+    }
+
     public boolean validateToken(String token, String email) {
         String subject = extractEmail(token);
         return subject != null && subject.equals(email);

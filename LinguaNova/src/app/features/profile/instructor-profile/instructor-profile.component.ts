@@ -10,15 +10,26 @@ import { User } from '../../../core/models/user.model';
     imports: [CommonModule, ReactiveFormsModule],
     template: `
     <div class="min-h-screen bg-[#F7FAFC] py-10 px-4 sm:px-6 lg:px-8 flex justify-center">
+      @if (loading && !user) {
+        <div class="flex flex-col items-center justify-center gap-4 py-20">
+          <div class="w-10 h-10 border-2 border-[#3A5A5A] border-t-transparent rounded-full animate-spin"></div>
+          <p class="text-[#718096] font-medium">Loading your profile...</p>
+        </div>
+      } @else if (errorMessage) {
+        <div class="max-w-[1200px] w-full bg-white rounded-[12px] shadow-sm p-10 text-center">
+          <p class="text-red-600 mb-4">{{ errorMessage }}</p>
+          <button (click)="retryLoad()" class="px-6 py-3 bg-[#3A5A5A] text-white rounded-lg hover:bg-[#2D4D4D] font-medium">Retry</button>
+        </div>
+      } @else if (user) {
       <div class="max-w-[1200px] w-full bg-white rounded-[12px] shadow-sm p-10 relative">
         
         <!-- Header Section -->
         <div class="flex flex-col md:flex-row gap-8 mb-10 border-b border-gray-100 pb-10">
-          <!-- Profile Photo -->
+          <!-- Profile Photo (user-service: profilePhoto) -->
           <div class="flex flex-col items-center">
             <div class="w-[150px] h-[150px] rounded-full border-4 border-[#3A5A5A] overflow-hidden mb-4 relative group">
               <img 
-                [src]="user?.avatar || 'https://ui-avatars.com/api/?name=' + (user?.firstName || 'User') + '&background=random'" 
+                [src]="profileImageUrl" 
                 alt="Profile Photo" 
                 class="w-full h-full object-cover"
               >
@@ -33,11 +44,11 @@ import { User } from '../../../core/models/user.model';
             <input #fileInput type="file" class="hidden" (change)="onFileSelected($event)" accept="image/*">
           </div>
 
-          <!-- Basic Info -->
+          <!-- Basic Info (user-service: firstName, lastName, email) -->
           <div class="flex-1 flex flex-col justify-center">
             <div class="flex justify-between items-start">
               <div>
-                <h1 class="text-[32px] font-bold text-[#2D3748] mb-2">{{ user?.firstName }} {{ user?.lastName }}</h1>
+                <h1 class="text-[32px] font-bold text-[#2D3748] mb-2">{{ displayName }}</h1>
                 <div class="flex items-center text-[#718096] gap-2 mb-4">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                   <span>{{ user?.email }}</span>
@@ -149,7 +160,7 @@ import { User } from '../../../core/models/user.model';
                     <div class="flex items-center gap-2 py-2">
                       <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-[#E6F7F5] text-[#3A5A5A]">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                        {{ user?.educationLevel || 'Not specified' }}
+                        {{ educationLevelLabel }}
                       </span>
                     </div>
                   }
@@ -251,6 +262,7 @@ import { User } from '../../../core/models/user.model';
           </div>
         </form>
       </div>
+      }
     </div>
   `,
     styles: []
@@ -263,15 +275,64 @@ export class InstructorProfileComponent implements OnInit {
     profileForm!: FormGroup;
     isEditing = false;
     loading = false;
+    errorMessage: string | null = null;
 
     // Temporary storage for grade levels when editing
     editedGradeLevels: string[] = [];
 
+    /** Display name: first + last from user-service, or email if no names */
+    get displayName(): string {
+        if (!this.user) return '';
+        const first = (this.user.firstName ?? '').trim();
+        const last = (this.user.lastName ?? '').trim();
+        const name = [first, last].filter(Boolean).join(' ');
+        return name || this.user.email || 'Instructor';
+    }
+
+    /** Profile image: user-service profilePhoto (mapped to avatar) or ui-avatars fallback */
+    get profileImageUrl(): string {
+        if (this.user?.avatar) return this.user.avatar;
+        const name = this.displayName || 'Instructor';
+        return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=2D6F6B&color=fff`;
+    }
+
+    /** highestEducation from user-service shown with friendly label */
+    get educationLevelLabel(): string {
+        const v = this.user?.educationLevel?.trim();
+        if (!v) return 'Not specified';
+        const map: Record<string, string> = {
+            bachelor: "Bachelor's Degree",
+            master: "Master's Degree",
+            phd: 'PhD / Doctorate',
+            other: 'Other Certification'
+        };
+        return map[v.toLowerCase()] ?? v;
+    }
+
     ngOnInit() {
-        this.authService.currentUser$.subscribe(user => {
-            this.user = user;
-            this.initForm();
+        this.loadProfile();
+    }
+
+    loadProfile() {
+        this.loading = true;
+        this.errorMessage = null;
+        this.authService.getCurrentUser().subscribe({
+            next: (user) => {
+                this.user = user;
+                this.initForm();
+                this.loading = false;
+            },
+            error: () => {
+                this.errorMessage = 'Could not load profile. Check your connection and try again.';
+                this.loading = false;
+                this.user = this.authService.currentUserValue;
+                if (this.user) this.initForm();
+            }
         });
+    }
+
+    retryLoad() {
+        this.loadProfile();
     }
 
     initForm() {
@@ -331,12 +392,16 @@ export class InstructorProfileComponent implements OnInit {
             gradeLevels: this.editedGradeLevels
         };
 
-        // Simulate API call delay
-        setTimeout(() => {
-            this.authService.updateUser(updatedUser as User); // Assuming update user method exists or we add it
-            this.loading = false;
-            this.isEditing = false;
-        }, 1000);
+        this.authService.updateUser(updatedUser as User).subscribe({
+            next: (u) => {
+                this.user = u;
+                this.loading = false;
+                this.isEditing = false;
+            },
+            error: () => {
+                this.loading = false;
+            }
+        });
     }
 
     onFileSelected(event: any) {

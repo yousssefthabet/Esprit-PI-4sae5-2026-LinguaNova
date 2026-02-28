@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -97,14 +102,65 @@ public class AuthService {
             throw new IllegalArgumentException("Invalid email or password");
         }
         String name = null;
-        if (user.getRole() == Role.TEACHER && (user.getFirstName() != null || user.getLastName() != null)) {
-            name = (user.getFirstName() != null ? user.getFirstName().trim() : "") + " " + (user.getLastName() != null ? user.getLastName().trim() : "");
-            if (name.trim().isEmpty()) name = user.getEmail();
+        if (user.getRole() == Role.TEACHER) {
+            if (user.getFirstName() != null || user.getLastName() != null) {
+                name = (user.getFirstName() != null ? user.getFirstName().trim() : "") + " " + (user.getLastName() != null ? user.getLastName().trim() : "");
+                if (name.trim().isEmpty()) name = user.getEmail();
+            } else {
+                int at = user.getEmail().indexOf('@');
+                name = at > 0 ? user.getEmail().substring(0, at) : user.getEmail();
+            }
         }
         String token = jwtService.generateToken(user.getEmail(), user.getRole().name(), name);
         return AuthResponse.builder()
                 .token(token)
                 .role(user.getRole().name())
                 .build();
+    }
+
+    /**
+     * Get current user profile by email (from JWT). Used by GET /api/auth/me.
+     */
+    @Transactional(readOnly = true)
+    public Optional<CurrentUserResponse> getCurrentUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(this::toCurrentUserResponse);
+    }
+
+    private CurrentUserResponse toCurrentUserResponse(User u) {
+        List<String> subjects = splitComma(u.getSubjectSpecializations());
+        List<String> grades = splitComma(u.getGradeLevelsTaught());
+        Integer expYears = null;
+        if (u.getTeachingExperience() != null && !u.getTeachingExperience().trim().isEmpty()) {
+            try {
+                expYears = Integer.parseInt(u.getTeachingExperience().trim());
+            } catch (NumberFormatException ignored) { }
+        }
+        return CurrentUserResponse.builder()
+                .id(u.getId())
+                .email(u.getEmail())
+                .role(u.getRole().name())
+                .firstName(u.getFirstName())
+                .lastName(u.getLastName())
+                .username(u.getUsername())
+                .phoneNumber(u.getPhoneNumber())
+                .dateOfBirth(u.getDateOfBirth())
+                .teachingExperience(expYears)
+                .highestEducation(u.getHighestEducation())
+                .certificationNumber(u.getCertificationNumber())
+                .subjectSpecializations(subjects)
+                .gradeLevels(grades)
+                .profilePhoto(u.getProfilePhoto())
+                .createdAt(u.getCreatedAt())
+                .updatedAt(u.getUpdatedAt())
+                .build();
+    }
+
+    private static List<String> splitComma(String s) {
+        if (s == null || s.trim().isEmpty()) return new ArrayList<>();
+        return Arrays.stream(s.split(","))
+                .map(String::trim)
+                .filter(x -> !x.isEmpty())
+                .collect(Collectors.toList());
     }
 }

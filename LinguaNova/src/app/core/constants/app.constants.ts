@@ -20,7 +20,7 @@ export const API_ENDPOINTS = {
         REGISTER: '/auth/register',
         LOGOUT: '/auth/logout',
         REFRESH_TOKEN: '/auth/refresh',
-        CURRENT_USER: '/auth/me',
+        CURRENT_USER: '/PIproject/api/auth/me',
         FORGOT_PASSWORD: '/auth/forgot-password',
         RESET_PASSWORD: '/auth/reset-password'
     },
