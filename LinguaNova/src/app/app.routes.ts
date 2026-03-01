@@ -62,8 +62,13 @@ export const routes: Routes = [
                         data: { role: UserRole.INSTRUCTOR }
                     },
                     {
+                        path: 'course-flow',
+                        loadComponent: () => import('./features/courses/course-flow/course-flow.component')
+                            .then(m => m.CourseFlowComponent)
+                    },
+                    {
                         matcher: (url: UrlSegment[]): UrlMatchResult | null => {
-                            if (url.length === 1 && !['course-creation', 'search', 'my-courses', 'instructor-courses'].includes(url[0].path)) {
+                            if (url.length === 1 && !['course-creation', 'search', 'my-courses', 'instructor-courses', 'course-flow'].includes(url[0].path)) {
                                 return { consumed: url, posParams: { id: url[0] } };
                             }
                             return null;
