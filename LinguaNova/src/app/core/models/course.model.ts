@@ -21,6 +21,8 @@ export interface Course {
     language: string;
     subtitles: string[];
     syllabus: CourseSyllabus[];
+    /** Quizzes returned by API when loading course by ID */
+    quizzes?: CourseQuiz[];
     requirements: string[];
     learningOutcomes: string[];
     tags: string[];
@@ -56,7 +58,7 @@ export interface CourseLesson {
     id: string;
     title: string;
     type: LessonType;
-    duration: number; // in minutes
+    duration?: number; // in minutes (optional; API may not return)
     isPreview: boolean;
     videoUrl?: string;
     resources?: LessonResource[];
@@ -68,6 +70,24 @@ export interface LessonResource {
     type: 'pdf' | 'doc' | 'video' | 'link';
     url: string;
     size?: string;
+}
+
+/** Quiz as returned by API on course detail (matches QuizDTO) */
+export interface CourseQuiz {
+    id: string;
+    title: string;
+    passingScore?: number;
+    questions?: CourseQuizQuestion[];
+}
+
+export interface CourseQuizQuestion {
+    id: string;
+    text: string;
+    type?: string;
+    options?: string[];
+    correctAnswer?: string;
+    explanation?: string;
+    points?: number;
 }
 
 export enum CourseCategory {

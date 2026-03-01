@@ -117,7 +117,7 @@ import { APP_CONSTANTS } from '../../../core/constants/app.constants';
                                 @if (lesson.isPreview) {
                                   <span class="text-[#2D6F6B] font-bold text-xs uppercase tracking-wider">Preview</span>
                                 }
-                                <span class="text-xs text-gray-400 font-medium">{{ lesson.duration }} min</span>
+                                <span class="text-xs text-gray-400 font-medium">{{ lesson.duration ?? '—' }} min</span>
                               </div>
                             </div>
                           }

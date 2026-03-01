@@ -105,7 +105,7 @@ import { CourseService } from '../../../core/services/course.service';
                   </div>
                   
                   <button 
-                    [routerLink]="['/live-class', course.id]" 
+                    [routerLink]="['/courses/course-flow']" [queryParams]="{ courseId: course.id }" 
                     class="w-full mt-4 py-3.5 bg-gray-50 text-gray-700 group-hover:bg-[#0D9488] group-hover:text-white font-black text-sm uppercase tracking-widest rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2"
                   >
                     Continue Learning
