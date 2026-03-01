@@ -5,7 +5,7 @@ import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { CardComponent } from '../../../shared/components/card/card.component';
 import { CourseCategory, CourseLevel, CreateCoursePayload } from '../../../core/models/course.model';
 import { QuizEditorComponent } from './quiz-editor/quiz-editor.component';
-import { Quiz } from '../../../core/models/quiz.model';
+import { Quiz, Question } from '../../../core/models/quiz.model';
 import { CourseService } from '../../../core/services/course.service';
 
 @Component({
@@ -282,7 +282,10 @@ import { CourseService } from '../../../core/services/course.service';
                      </div>
                      <h2 class="text-2xl font-black text-gray-900 tracking-tight">Assessments & Quizzes</h2>
                   </div>
-                  <button type="button" (click)="addNewQuiz()" class="px-6 py-2.5 bg-[#0D9488] text-white font-bold rounded-xl shadow-lg shadow-teal-100 hover:bg-[#0D5E5B] transition-all">+ Add New Quiz</button>
+                  <div class="flex items-center gap-3">
+                    <button type="button" (click)="generateQuiz()" class="px-6 py-2.5 bg-white border border-[#0D9488] text-[#0D9488] font-bold rounded-xl hover:bg-teal-50 transition-all">Generate Quiz</button>
+                    <button type="button" (click)="addNewQuiz()" class="px-6 py-2.5 bg-[#0D9488] text-white font-bold rounded-xl shadow-lg shadow-teal-100 hover:bg-[#0D5E5B] transition-all">+ Add New Quiz</button>
+                  </div>
                 </div>
                 <div class="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-sm flex items-start gap-3" role="status">
                   <span class="shrink-0 mt-0.5 text-amber-500">
@@ -573,6 +576,60 @@ export class CourseCreationComponent implements OnInit {
       passingScore: 70
     };
     this.quizzes.push(newQuiz);
+  }
+
+  /** Generate quizzes from curriculum: one quiz per module (section), with questions based on lesson titles. */
+  generateQuiz() {
+    const syllabus = this.syllabusFormArray;
+    if (!syllabus?.length) {
+      return;
+    }
+    const sections = syllabus.controls as Array<{ get: (name: string) => any }>;
+    for (const sectionCtrl of sections) {
+      const titleCtrl = sectionCtrl.get('title');
+      const lessonsCtrl = sectionCtrl.get('lessons');
+      const moduleTitle = (titleCtrl?.value ?? '').trim() || 'Module';
+      const lessons = lessonsCtrl?.value ?? [];
+      const lessonTitles = (lessons as Array<{ title?: string }>)
+        .map(l => (l?.title ?? '').trim())
+        .filter(Boolean);
+      const questions: Question[] = [];
+      for (const lessonTitle of lessonTitles) {
+        const correct = `Key concept from: ${lessonTitle}`;
+        questions.push({
+          id: Math.random().toString(36).substr(2, 9),
+          text: `What did you learn in "${lessonTitle}"?`,
+          type: 'multiple_choice',
+          options: [
+            correct,
+            'General overview',
+            'Additional details',
+            'Summary points'
+          ],
+          correctAnswer: correct,
+          explanation: 'Review the lesson to consolidate your understanding.',
+          points: 10
+        });
+      }
+      if (questions.length === 0) {
+        questions.push({
+          id: Math.random().toString(36).substr(2, 9),
+          text: `What are the main takeaways from "${moduleTitle}"?`,
+          type: 'multiple_choice',
+          options: ['Key concepts', 'Examples', 'Practice', 'Summary'],
+          correctAnswer: 'Key concepts',
+          explanation: 'Edit this question to match your module content.',
+          points: 10
+        });
+      }
+      const quiz: Quiz = {
+        id: Math.random().toString(36).substr(2, 9),
+        title: `Quiz: ${moduleTitle}`,
+        questions,
+        passingScore: 70
+      };
+      this.quizzes.push(quiz);
+    }
   }
 
   updateQuiz(index: number, updatedQuiz: Quiz) {
