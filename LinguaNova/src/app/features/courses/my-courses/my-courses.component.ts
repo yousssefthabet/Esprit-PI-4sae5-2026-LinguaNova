@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Course, CourseCategory, CourseLevel } from '../../../core/models/course.model';
 import { APP_CONSTANTS } from '../../../core/constants/app.constants';
+import { CourseService } from '../../../core/services/course.service';
 
 @Component({
   selector: 'app-my-courses',
@@ -59,19 +60,24 @@ import { APP_CONSTANTS } from '../../../core/constants/app.constants';
 
         <!-- Courses Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          @if (loading) {
+            <div class="col-span-full flex justify-center py-16">
+              <div class="w-10 h-10 border-2 border-teal-100 border-t-[#0D9488] rounded-full animate-spin"></div>
+            </div>
+          } @else {
           @for (course of myCourses; track course.id) {
             <div class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col">
               <!-- Course Thumbnail -->
               <div class="relative h-48 overflow-hidden">
                 <img 
-                  [src]="course.image.trim() || defaultCourseImage" 
+                  [src]="(course.image && course.image.trim()) ? course.image : defaultCourseImage" 
                   [alt]="course.title"
                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div class="absolute bottom-4 left-4">
                    <span class="px-3 py-1.5 bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-black uppercase tracking-widest rounded-lg">
-                      {{ course.displayTag }}
+                      {{ course.displayTag || course.category || 'Course' }}
                    </span>
                 </div>
               </div>
@@ -82,19 +88,19 @@ import { APP_CONSTANTS } from '../../../core/constants/app.constants';
                   {{ course.title }}
                 </h3>
                 <div class="flex items-center gap-2 mb-6 text-sm text-gray-500">
-                   <span class="italic font-medium">By {{ course.instructor.name }}</span>
+                   <span class="italic font-medium">By {{ course.instructor.name ?? 'Instructor' }}</span>
                 </div>
 
                 <!-- Progress Section -->
                 <div class="mt-auto space-y-3">
                   <div class="flex items-center justify-between text-sm font-bold">
                     <span class="text-gray-400">Progress</span>
-                    <span class="text-[#0D9488]">{{ course.progress }}%</span>
+                    <span class="text-[#0D9488]">{{ course.progress ?? 0 }}%</span>
                   </div>
                   <div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                     <div 
                       class="h-full bg-[#0D9488] rounded-full transition-all duration-700"
-                      [style.width.%]="course.progress"
+                      [style.width.%]="course.progress ?? 0"
                     ></div>
                   </div>
                   
@@ -110,6 +116,7 @@ import { APP_CONSTANTS } from '../../../core/constants/app.constants';
                 </div>
               </div>
             </div>
+          }
           }
         </div>
 
@@ -165,179 +172,21 @@ import { APP_CONSTANTS } from '../../../core/constants/app.constants';
 })
 export class MyCoursesComponent implements OnInit {
   readonly defaultCourseImage = APP_CONSTANTS.DEFAULT_COURSE_IMAGE;
-  myCourses: Course[] = [
-    {
-      id: '1',
-      title: 'Complete Web Design: From Figma to Webflow',
-      description: 'Master the full design cycle from wireframing to publishing.',
-      shortDescription: '',
-      instructor: { id: 'inst1', name: 'Sarah Drasner', avatar: '', title: '', bio: '', coursesCount: 0, studentsCount: 0, rating: 0 },
-      image: 'https://images.unsplash.com/photo-1581291518062-c13f2773b646?w=800&auto=format&fit=crop',
-      price: 150,
-      progress: 60,
-      displayTag: 'Web Design',
-      category: CourseCategory.ACADEMIC_ENGLISH,
-      level: CourseLevel.BEGINNER,
-      duration: 20,
-      lessonsCount: 15,
-      studentsCount: 300,
-      rating: 4.8,
-      reviewsCount: 45,
-      language: 'English',
-      subtitles: [],
-      syllabus: [],
-      requirements: [],
-      learningOutcomes: [],
-      tags: [],
-      isFeatured: true,
-      isPublished: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: '2',
-      title: 'Advanced React Patterns & Performance',
-      description: 'Learn deep architecture patterns for scalable applications.',
-      shortDescription: '',
-      instructor: { id: 'inst2', name: 'Kent C. Dodds', avatar: '', title: '', bio: '', coursesCount: 0, studentsCount: 0, rating: 0 },
-      image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop',
-      price: 200,
-      progress: 30,
-      displayTag: 'React Development',
-      category: CourseCategory.GENERAL_ENGLISH,
-      level: CourseLevel.ADVANCED,
-      duration: 35,
-      lessonsCount: 25,
-      studentsCount: 150,
-      rating: 4.9,
-      reviewsCount: 28,
-      language: 'English',
-      subtitles: [],
-      syllabus: [],
-      requirements: [],
-      learningOutcomes: [],
-      tags: [],
-      isFeatured: true,
-      isPublished: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: '3',
-      title: 'UI/UX Design Masterclass for 2026',
-      description: 'Future-proof your design skills with AI-driven workflows.',
-      shortDescription: '',
-      instructor: { id: 'inst3', name: 'Gary Simon', avatar: '', title: '', bio: '', coursesCount: 0, studentsCount: 0, rating: 0 },
-      image: 'https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=800&auto=format&fit=crop',
-      price: 180,
-      progress: 85,
-      displayTag: 'User Experience',
-      category: CourseCategory.ACADEMIC_ENGLISH,
-      level: CourseLevel.INTERMEDIATE,
-      duration: 30,
-      lessonsCount: 40,
-      studentsCount: 800,
-      rating: 4.7,
-      reviewsCount: 120,
-      language: 'English',
-      subtitles: [],
-      syllabus: [],
-      requirements: [],
-      learningOutcomes: [],
-      tags: [],
-      isFeatured: false,
-      isPublished: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: '4',
-      title: 'Advanced English for Business Negotiations',
-      description: 'Master the art of professional communication and closing deals.',
-      shortDescription: '',
-      instructor: { id: 'inst4', name: 'James Clear', avatar: '', title: '', bio: '', coursesCount: 0, studentsCount: 0, rating: 0 },
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop',
-      price: 250,
-      progress: 45,
-      displayTag: 'Professional English',
-      category: CourseCategory.ENGLISH_LANGUAGE,
-      level: CourseLevel.ADVANCED,
-      duration: 25,
-      lessonsCount: 18,
-      studentsCount: 450,
-      rating: 4.9,
-      reviewsCount: 65,
-      language: 'English',
-      subtitles: [],
-      syllabus: [],
-      requirements: [],
-      learningOutcomes: [],
-      tags: [],
-      isFeatured: true,
-      isPublished: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: '5',
-      title: 'Modern Photography: From Mobile to DLSR',
-      description: 'Capture stunning visuals using any device you have.',
-      shortDescription: '',
-      instructor: { id: 'inst5', name: 'Annie Leibovitz', avatar: '', title: '', bio: '', coursesCount: 0, studentsCount: 0, rating: 0 },
-      image: 'https://images.unsplash.com/photo-1493863641943-9b68992a8d07?w=800&auto=format&fit=crop',
-      price: 120,
-      progress: 15,
-      displayTag: 'Photography',
-      category: CourseCategory.ENGLISH_COMMUNICATION,
-      level: CourseLevel.BEGINNER,
-      duration: 15,
-      lessonsCount: 12,
-      studentsCount: 1200,
-      rating: 4.6,
-      reviewsCount: 210,
-      language: 'English',
-      subtitles: [],
-      syllabus: [],
-      requirements: [],
-      learningOutcomes: [],
-      tags: [],
-      isFeatured: false,
-      isPublished: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: '6',
-      title: 'Product Management Strategy & Leadership',
-      description: 'Build products that users love and scale businesses effectively.',
-      shortDescription: '',
-      instructor: { id: 'inst6', name: 'Marty Cagan', avatar: '', title: '', bio: '', coursesCount: 0, studentsCount: 0, rating: 0 },
-      image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&auto=format&fit=crop',
-      price: 300,
-      progress: 75,
-      displayTag: 'Business',
-      category: CourseCategory.BUSINESS_ENGLISH,
-      level: CourseLevel.INTERMEDIATE,
-      duration: 40,
-      lessonsCount: 30,
-      studentsCount: 600,
-      rating: 4.9,
-      reviewsCount: 88,
-      language: 'English',
-      subtitles: [],
-      syllabus: [],
-      requirements: [],
-      learningOutcomes: [],
-      tags: [],
-      isFeatured: true,
-      isPublished: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-  ];
+  myCourses: Course[] = [];
+  loading = true;
 
-  constructor() { }
+  constructor(private readonly courseService: CourseService) {}
 
   ngOnInit(): void {
+    this.courseService.getEnrolledCourses().subscribe({
+      next: (courses) => {
+        this.myCourses = courses || [];
+        this.loading = false;
+      },
+      error: () => {
+        this.myCourses = [];
+        this.loading = false;
+      }
+    });
   }
 }

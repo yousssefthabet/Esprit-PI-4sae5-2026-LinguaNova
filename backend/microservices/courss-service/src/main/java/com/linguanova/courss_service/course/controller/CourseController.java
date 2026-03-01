@@ -80,6 +80,44 @@ public class CourseController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/enrolled")
+    public ResponseEntity<List<CourseResponse>> getEnrolledCourses(Authentication auth) {
+        String studentId = auth != null ? auth.getName() : "anonymous";
+        return ResponseEntity.ok(courseService.getEnrolledCourses(studentId));
+    }
+
+    @PostMapping("/{id}/create-checkout-session")
+    public ResponseEntity<?> createCheckoutSession(
+        @PathVariable String id,
+        @RequestBody(required = false) java.util.Map<String, String> body,
+        Authentication auth
+    ) {
+        String studentId = auth != null ? auth.getName() : "anonymous";
+        String successUrl = body != null && body.containsKey("successUrl") ? body.get("successUrl") : "http://localhost:4200/checkout?success=1";
+        String cancelUrl = body != null && body.containsKey("cancelUrl") ? body.get("cancelUrl") : "http://localhost:4200/checkout?cancel=1";
+        String url = courseService.createCheckoutSessionUrl(id, studentId, successUrl, cancelUrl);
+        if (url == null) {
+            return ResponseEntity.badRequest().body(java.util.Map.of("error", "Stripe not configured. Set stripe.secret-key in application.properties."));
+        }
+        return ResponseEntity.ok(java.util.Map.of("url", url));
+    }
+
+    @PostMapping("/{id}/enroll")
+    public ResponseEntity<?> enroll(
+        @PathVariable String id,
+        @RequestBody(required = false) java.util.Map<String, String> body,
+        Authentication auth
+    ) {
+        String studentId = auth != null ? auth.getName() : "anonymous";
+        String sessionId = body != null && body.containsKey("stripeSessionId") ? body.get("stripeSessionId") : null;
+        courseService.enroll(id, studentId, sessionId);
+        return ResponseEntity.ok(java.util.Map.of(
+            "courseId", id,
+            "enrollmentId", "ok",
+            "message", "Enrolled successfully."
+        ));
+    }
+
     private void ensureInstructor(Authentication auth) {
         if (devMode) return;
         if (auth == null || !auth.isAuthenticated())

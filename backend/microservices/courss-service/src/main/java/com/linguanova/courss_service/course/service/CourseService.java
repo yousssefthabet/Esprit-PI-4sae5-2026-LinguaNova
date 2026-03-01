@@ -3,9 +3,12 @@ package com.linguanova.courss_service.course.service;
 import com.linguanova.courss_service.course.dto.*;
 import com.linguanova.courss_service.course.mapper.CourseMapper;
 import com.linguanova.courss_service.course.model.Course;
+import com.linguanova.courss_service.course.model.Enrollment;
 import com.linguanova.courss_service.course.repository.CourseRepository;
+import com.linguanova.courss_service.course.repository.EnrollmentRepository;
 import com.linguanova.courss_service.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -20,7 +23,11 @@ import java.util.stream.Collectors;
 public class CourseService {
 
     private final CourseRepository courseRepository;
+    private final EnrollmentRepository enrollmentRepository;
     private final CourseMapper courseMapper;
+
+    @Value("${stripe.secret-key:}")
+    private String stripeSecretKey;
 
     // GET all courses (paginated)
     public PaginatedResponse<CourseResponse> getAllCourses(int page, int limit, String sortBy) {
@@ -124,5 +131,79 @@ public class CourseService {
         return courseRepository.searchByTitle(query).stream()
             .map(courseMapper::toResponse)
             .collect(Collectors.toList());
+    }
+
+    // ENROLL student in course (after payment or with Stripe session verification)
+    public Enrollment enroll(String courseId, String studentId, String stripeSessionId) {
+        if (enrollmentRepository.existsByStudentIdAndCourseId(studentId, courseId)) {
+            return enrollmentRepository.findByStudentIdAndCourseId(studentId, courseId).orElseThrow();
+        }
+        Course course = courseRepository.findById(courseId)
+            .orElseThrow(() -> new ResourceNotFoundException("Course", courseId));
+        Enrollment enrollment = Enrollment.builder()
+            .studentId(studentId)
+            .courseId(courseId)
+            .stripeSessionId(stripeSessionId)
+            .progress(0)
+            .build();
+        enrollment = enrollmentRepository.save(enrollment);
+        course.setStudentsCount(course.getStudentsCount() == null ? 1 : course.getStudentsCount() + 1);
+        courseRepository.save(course);
+        return enrollment;
+    }
+
+    // GET enrolled courses for student (with progress)
+    public List<CourseResponse> getEnrolledCourses(String studentId) {
+        return enrollmentRepository.findByStudentIdOrderByCreatedAtDesc(studentId).stream()
+            .map(e -> {
+                Course course = courseRepository.findById(e.getCourseId()).orElse(null);
+                if (course == null) return null;
+                CourseResponse r = courseMapper.toResponse(course);
+                r.setProgress(e.getProgress() != null ? e.getProgress() : 0);
+                return r;
+            })
+            .filter(r -> r != null)
+            .collect(Collectors.toList());
+    }
+
+    // Create Stripe Checkout Session URL for course purchase
+    public String createCheckoutSessionUrl(String courseId, String studentId, String successUrl, String cancelUrl) {
+        if (stripeSecretKey == null || stripeSecretKey.isBlank()) {
+            return null;
+        }
+        Course course = courseRepository.findById(courseId)
+            .orElseThrow(() -> new ResourceNotFoundException("Course", courseId));
+        try {
+            com.stripe.Stripe.apiKey = stripeSecretKey;
+            com.stripe.param.checkout.SessionCreateParams params = com.stripe.param.checkout.SessionCreateParams.builder()
+                .setMode(com.stripe.param.checkout.SessionCreateParams.Mode.PAYMENT)
+                .setSuccessUrl(successUrl + (successUrl.contains("?") ? "&" : "?") + "session_id={CHECKOUT_SESSION_ID}&course_id=" + courseId)
+                .setCancelUrl(cancelUrl)
+                .setCustomerEmail(null)
+                .addLineItem(
+                    com.stripe.param.checkout.SessionCreateParams.LineItem.builder()
+                        .setQuantity(1L)
+                        .setPriceData(
+                            com.stripe.param.checkout.SessionCreateParams.LineItem.PriceData.builder()
+                                .setCurrency("usd")
+                                .setUnitAmountDecimal(java.math.BigDecimal.valueOf((course.getPrice() == null ? 0 : course.getPrice()) * 100))
+                                .setProductData(
+                                    com.stripe.param.checkout.SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                        .setName(course.getTitle())
+                                        .setDescription(course.getShortDescription() != null ? course.getShortDescription() : "")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .putMetadata("courseId", courseId)
+                .putMetadata("studentId", studentId)
+                .build();
+            com.stripe.model.checkout.Session session = com.stripe.model.checkout.Session.create(params);
+            return session.getUrl();
+        } catch (Exception e) {
+            throw new RuntimeException("Stripe session creation failed: " + e.getMessage());
+        }
     }
 }

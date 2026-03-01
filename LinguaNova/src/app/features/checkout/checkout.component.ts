@@ -253,16 +253,36 @@ export class CheckoutComponent implements OnInit {
   showSuccess = false;
 
   ngOnInit(): void {
-    const courseId = this.route.snapshot.queryParamMap.get('courseId');
+    const courseId = this.route.snapshot.queryParamMap.get('courseId') ?? this.route.snapshot.queryParamMap.get('course_id');
+    const success = this.route.snapshot.queryParamMap.get('success');
+    const sessionId = this.route.snapshot.queryParamMap.get('session_id');
+    if (courseId && success === '1' && sessionId) {
+      this.handleStripeSuccess(courseId, sessionId);
+      return;
+    }
     if (courseId) {
-      this.courseService.getCourseById(courseId).subscribe(course => {
-        this.course = course;
+      this.courseService.getCourseById(courseId).subscribe(c => {
+        this.course = c;
       });
     } else {
       this.courseService.getCourses().subscribe(res => {
         this.course = res.items[0];
       });
     }
+  }
+
+  private handleStripeSuccess(courseId: string, sessionId: string): void {
+    this.courseService.enrollCourse(courseId, sessionId).subscribe({
+      next: () => {
+        this.courseService.getCourseById(courseId).subscribe(c => {
+          this.course = c;
+          this.showSuccess = true;
+        });
+      },
+      error: () => {
+        this.router.navigate(['/checkout'], { queryParams: { courseId } });
+      }
+    });
   }
 
   getTax(): number {
@@ -276,14 +296,41 @@ export class CheckoutComponent implements OnInit {
   }
 
   onCompletePurchase(): void {
+    if (!this.course?.id) return;
     this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-      this.showSuccess = true;
-    }, 2000);
+    const successUrl = `${window.location.origin}/checkout?success=1`;
+    const cancelUrl = `${window.location.origin}/checkout?courseId=${this.course.id}`;
+    this.courseService.createCheckoutSession(this.course.id, successUrl, cancelUrl).subscribe({
+      next: (res) => {
+        this.loading = false;
+        if (res?.url) {
+          window.location.href = res.url;
+          return;
+        }
+        this.enrollAndShowSuccess();
+      },
+      error: () => {
+        this.loading = false;
+        this.enrollAndShowSuccess();
+      }
+    });
+  }
+
+  private enrollAndShowSuccess(): void {
+    if (!this.course?.id) return;
+    this.loading = true;
+    this.courseService.enrollCourse(this.course.id).subscribe({
+      next: () => {
+        this.loading = false;
+        this.showSuccess = true;
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
   }
 
   goToCourse(): void {
-    this.router.navigate(['/dashboard/student']);
+    this.router.navigate(['/courses/my-courses']);
   }
 }

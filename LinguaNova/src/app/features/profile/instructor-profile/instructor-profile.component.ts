@@ -51,7 +51,7 @@ import { User } from '../../../core/models/user.model';
                 <h1 class="text-[32px] font-bold text-[#2D3748] mb-2">{{ displayName }}</h1>
                 <div class="flex items-center text-[#718096] gap-2 mb-4">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                  <span>{{ user?.email }}</span>
+                  <span>{{ user.email }}</span>
                 </div>
               </div>
               
@@ -92,7 +92,7 @@ import { User } from '../../../core/models/user.model';
                   @if (isEditing) {
                     <input formControlName="firstName" type="text" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#3A5A5A] focus:ring-1 focus:ring-[#3A5A5A] outline-none transition-all text-[#2D3748]">
                   } @else {
-                    <p class="text-base text-[#2D3748] font-medium py-2">{{ user?.firstName }}</p>
+                    <p class="text-base text-[#2D3748] font-medium py-2">{{ user.firstName }}</p>
                   }
                 </div>
                 <!-- Last Name -->
@@ -101,7 +101,7 @@ import { User } from '../../../core/models/user.model';
                   @if (isEditing) {
                     <input formControlName="lastName" type="text" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#3A5A5A] focus:ring-1 focus:ring-[#3A5A5A] outline-none transition-all text-[#2D3748]">
                   } @else {
-                    <p class="text-base text-[#2D3748] font-medium py-2">{{ user?.lastName }}</p>
+                    <p class="text-base text-[#2D3748] font-medium py-2">{{ user.lastName }}</p>
                   }
                 </div>
                 <!-- Email -->
@@ -109,7 +109,7 @@ import { User } from '../../../core/models/user.model';
                   <label class="text-xs font-medium text-[#718096] uppercase tracking-wider">Email Address</label>
                   <div class="flex items-center gap-2 py-2">
                     <svg class="w-4 h-4 text-[#3A5A5A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                    <p class="text-base text-[#2D3748] font-medium">{{ user?.email }}</p>
+                    <p class="text-base text-[#2D3748] font-medium">{{ user.email }}</p>
                   </div>
                 </div>
                 <!-- Phone -->
@@ -120,7 +120,7 @@ import { User } from '../../../core/models/user.model';
                   } @else {
                     <div class="flex items-center gap-2 py-2">
                       <svg class="w-4 h-4 text-[#3A5A5A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                      <p class="text-base text-[#2D3748] font-medium">{{ user?.phoneNumber || 'Not provided' }}</p>
+                      <p class="text-base text-[#2D3748] font-medium">{{ user.phoneNumber || 'Not provided' }}</p>
                     </div>
                   }
                 </div>
@@ -132,7 +132,7 @@ import { User } from '../../../core/models/user.model';
                   } @else {
                     <div class="flex items-center gap-2 py-2">
                       <svg class="w-4 h-4 text-[#3A5A5A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                      <p class="text-base text-[#2D3748] font-medium">{{ user?.dateOfBirth ? (user?.dateOfBirth | date:'longDate') : 'Not provided' }}</p>
+                      <p class="text-base text-[#2D3748] font-medium">{{ user.dateOfBirth ? (user.dateOfBirth | date:'longDate') : 'Not provided' }}</p>
                     </div>
                   }
                 </div>
@@ -171,7 +171,7 @@ import { User } from '../../../core/models/user.model';
                   @if (isEditing) {
                     <input formControlName="certificationNumber" type="text" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#3A5A5A] focus:ring-1 focus:ring-[#3A5A5A] outline-none transition-all text-[#2D3748]">
                   } @else {
-                    <p class="text-base text-[#2D3748] font-medium py-2">{{ user?.certificationNumber || 'N/A' }}</p>
+                    <p class="text-base text-[#2D3748] font-medium py-2">{{ user.certificationNumber || 'N/A' }}</p>
                   }
                 </div>
                 <!-- Teaching Experience -->
@@ -182,7 +182,7 @@ import { User } from '../../../core/models/user.model';
                   } @else {
                     <div class="flex items-center gap-2 py-2">
                        <svg class="w-4 h-4 text-[#3A5A5A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                       <p class="text-base text-[#2D3748] font-medium">{{ user?.teachingExperience || 0 }} Years</p>
+                       <p class="text-base text-[#2D3748] font-medium">{{ user.teachingExperience || 0 }} Years</p>
                     </div>
                   }
                 </div>

@@ -93,23 +93,35 @@ export class CourseService {
 
     /**
      * Get enrolled courses for current student
-     * NOTE: Enrollment not yet in course microservice — kept as stub
+     * GET /PIproject/api/courses/enrolled
      */
     getEnrolledCourses(): Observable<Course[]> {
-        return this.getCourses().pipe(
-            map(res => res.items.slice(0, 3).map((course, index) => ({
-                ...course,
-                progress: [75, 45, 12][index]
-            })))
+        return this.http.get<Course[]>(`${this.baseUrl}/enrolled`).pipe(
+            map(items => Array.isArray(items) ? items : []),
+            catchError(this.handleError)
         );
     }
 
     /**
-     * Enroll in a course
+     * Enroll in a course (after Stripe payment or direct when Stripe not configured)
      * POST /PIproject/api/courses/{id}/enroll
      */
-    enrollCourse(courseId: string): Observable<EnrollmentResponse> {
-        return this.http.post<EnrollmentResponse>(`${this.baseUrl}/${courseId}/enroll`, {}).pipe(
+    enrollCourse(courseId: string, stripeSessionId?: string): Observable<EnrollmentResponse> {
+        const body = stripeSessionId ? { stripeSessionId } : {};
+        return this.http.post<EnrollmentResponse>(`${this.baseUrl}/${courseId}/enroll`, body).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Create Stripe Checkout Session for course purchase. Returns redirect URL.
+     * POST /PIproject/api/courses/{id}/create-checkout-session
+     */
+    createCheckoutSession(courseId: string, successUrl: string, cancelUrl: string): Observable<{ url: string }> {
+        return this.http.post<{ url: string }>(`${this.baseUrl}/${courseId}/create-checkout-session`, {
+            successUrl,
+            cancelUrl
+        }).pipe(
             catchError(this.handleError)
         );
     }
