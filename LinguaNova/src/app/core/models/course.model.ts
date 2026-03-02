@@ -61,6 +61,9 @@ export interface CourseLesson {
     duration?: number; // in minutes (optional; API may not return)
     isPreview: boolean;
     videoUrl?: string;
+    /** PDF or other file URL (from API fileUrl) */
+    fileUrl?: string;
+    fileName?: string;
     resources?: LessonResource[];
 }
 
@@ -177,12 +180,4 @@ export interface EnrollmentResponse {
     enrollmentId: string;
     message: string;
     paymentUrl?: string;
-}
-
-export interface CourseProgress {
-    courseId: string;
-    completedLessons: string[];
-    currentLesson?: string;
-    progressPercentage: number;
-    lastAccessedAt: Date;
 }

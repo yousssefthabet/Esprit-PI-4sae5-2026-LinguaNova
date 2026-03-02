@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Course, CourseFilters, CreateCoursePayload, EnrollmentResponse, CourseProgress } from '../models/course.model';
+import { Course, CourseFilters, CreateCoursePayload, EnrollmentResponse } from '../models/course.model';
 import { API_CONFIG } from '../constants/app.constants';
 import { PaginatedResponse } from '../models/common.model';
 
@@ -127,24 +127,23 @@ export class CourseService {
     }
 
     /**
-     * Get course progress for student
-     * GET /PIproject/api/courses/{courseId}/progress
+     * Update course progress (0-100). Used when viewing a lesson so my-courses cards show correct progress.
+     * POST /PIproject/api/courses/{courseId}/progress
      */
-    getCourseProgress(courseId: string): Observable<CourseProgress> {
-        return this.http.get<CourseProgress>(`${this.baseUrl}/${courseId}/progress`).pipe(
+    updateProgressPercent(courseId: string, progress: number): Observable<{ progress: number }> {
+        return this.http.post<{ progress: number }>(`${this.baseUrl}/${courseId}/progress`, { progress }).pipe(
             catchError(this.handleError)
         );
     }
 
     /**
-     * Update course progress
-     * POST /PIproject/api/courses/{courseId}/progress
+     * Upload a lesson file (PDF or video). Returns { fileUrl, fileName } to store in the lesson.
+     * POST /PIproject/api/courses/upload-lesson-file
      */
-    updateProgress(courseId: string, lessonId: string): Observable<CourseProgress> {
-        return this.http.post<CourseProgress>(
-            `${this.baseUrl}/${courseId}/progress`,
-            { lessonId, completed: true }
-        ).pipe(
+    uploadLessonFile(file: File): Observable<{ fileUrl: string; fileName: string }> {
+        const formData = new FormData();
+        formData.append('file', file, file.name);
+        return this.http.post<{ fileUrl: string; fileName: string }>(`${this.baseUrl}/upload-lesson-file`, formData).pipe(
             catchError(this.handleError)
         );
     }

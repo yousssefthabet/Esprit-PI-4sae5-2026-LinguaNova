@@ -166,6 +166,13 @@ public class CourseService {
             .collect(Collectors.toList());
     }
 
+    public void updateProgress(String courseId, String studentId, int progressPercent) {
+        enrollmentRepository.findByStudentIdAndCourseId(studentId, courseId).ifPresent(e -> {
+            e.setProgress(progressPercent);
+            enrollmentRepository.save(e);
+        });
+    }
+
     // Create Stripe Checkout Session URL for course purchase
     public String createCheckoutSessionUrl(String courseId, String studentId, String successUrl, String cancelUrl) {
         if (stripeSecretKey == null || stripeSecretKey.isBlank()) {

@@ -543,24 +543,34 @@ export class CourseCreationComponent implements OnInit {
     const lesson = this.fb.group({
       title: ['', Validators.required],
       type: ['video', Validators.required],
-      fileName: ['']
+      fileName: [''],
+      fileUrl: ['']
     });
     this.getLessonsFormArray(sectionIndex).push(lesson);
   }
 
   handleFileSelect(event: any, sIdx: number, lIdx: number) {
     const file = event.target.files[0];
-    if (file) {
-      this.getLessonsFormArray(sIdx).at(lIdx).patchValue({
-        fileName: file.name
-      });
-    }
+    if (!file) return;
+    const lessonGroup = this.getLessonsFormArray(sIdx).at(lIdx);
+    lessonGroup.patchValue({ fileName: file.name });
+    this.courseService.uploadLessonFile(file).subscribe({
+      next: (res) => {
+        lessonGroup.patchValue({ fileUrl: res.fileUrl, fileName: res.fileName });
+      },
+      error: (err) => {
+        console.error('Upload failed', err);
+        lessonGroup.patchValue({ fileUrl: '', fileName: '' });
+      }
+    });
+    (event.target as HTMLInputElement).value = '';
   }
 
   setLessonType(sIdx: number, lIdx: number, type: string) {
     this.getLessonsFormArray(sIdx).at(lIdx).patchValue({
       type: type,
-      fileName: ''
+      fileName: '',
+      fileUrl: ''
     });
   }
 
@@ -882,14 +892,14 @@ export class CourseCreationComponent implements OnInit {
       image: this.getImageForPayload(formVal.image), // Course Thumbnail → backend "image" (DB LONGTEXT)
       isPublished: publish,
       language: 'English',
-      syllabus: ((formVal.syllabus || []) as Array<{ title?: string; lessons?: Array<{ title?: string; type?: string; fileName?: string }> }>).map((section) => ({
+      syllabus: ((formVal.syllabus || []) as Array<{ title?: string; lessons?: Array<{ title?: string; type?: string; fileName?: string; fileUrl?: string }> }>).map((section) => ({
         title: section.title ?? '',
         lessons: (section.lessons || []).map((lesson) => ({
           title: lesson.title ?? '',
           type: this.toBackendLessonType(lesson.type ?? 'video'),
           isPreview: false,
           fileName: lesson.fileName ?? '',
-          fileUrl: ''
+          fileUrl: lesson.fileUrl ?? ''
         }))
       })),
       quizzes: (this.quizzes || []).map(q => ({

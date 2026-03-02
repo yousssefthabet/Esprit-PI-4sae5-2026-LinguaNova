@@ -88,7 +88,7 @@ import { CourseService } from '../../../core/services/course.service';
                   {{ course.title }}
                 </h3>
                 <div class="flex items-center gap-2 mb-6 text-sm text-gray-500">
-                   <span class="italic font-medium">By {{ course.instructor.name ?? 'Instructor' }}</span>
+                   <span class="italic font-medium">By {{ course.instructor.name || 'Instructor' }}</span>
                 </div>
 
                 <!-- Progress Section -->

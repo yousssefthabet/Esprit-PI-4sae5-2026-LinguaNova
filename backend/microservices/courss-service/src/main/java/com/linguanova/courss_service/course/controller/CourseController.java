@@ -2,6 +2,7 @@ package com.linguanova.courss_service.course.controller;
 
 import com.linguanova.courss_service.course.dto.*;
 import com.linguanova.courss_service.course.service.CourseService;
+import com.linguanova.courss_service.course.service.LessonFileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +12,14 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -19,6 +27,7 @@ import java.util.List;
 public class CourseController {
 
     private final CourseService courseService;
+    private final LessonFileService lessonFileService;
 
     @Value("${app.course.dev-mode:false}")
     private boolean devMode;
@@ -111,11 +120,55 @@ public class CourseController {
         String studentId = auth != null ? auth.getName() : "anonymous";
         String sessionId = body != null && body.containsKey("stripeSessionId") ? body.get("stripeSessionId") : null;
         courseService.enroll(id, studentId, sessionId);
-        return ResponseEntity.ok(java.util.Map.of(
+        return ResponseEntity.ok(Map.of(
             "courseId", id,
             "enrollmentId", "ok",
             "message", "Enrolled successfully."
         ));
+    }
+
+    /** Update progress for enrolled course. Body: { "progress": 0-100 } */
+    @PostMapping("/{id}/progress")
+    public ResponseEntity<?> updateProgress(
+        @PathVariable String id,
+        @RequestBody(required = false) java.util.Map<String, Number> body,
+        Authentication auth
+    ) {
+        String studentId = auth != null ? auth.getName() : "anonymous";
+        int progress = body != null && body.containsKey("progress") ? body.get("progress").intValue() : 0;
+        progress = Math.max(0, Math.min(100, progress));
+        courseService.updateProgress(id, studentId, progress);
+        return ResponseEntity.ok(Map.of("progress", progress));
+    }
+
+    /** Upload a lesson file (PDF or video). Returns URL path to use as lesson fileUrl. */
+    @PostMapping("/upload-lesson-file")
+    public ResponseEntity<Map<String, String>> uploadLessonFile(
+        @RequestParam("file") MultipartFile file,
+        jakarta.servlet.http.HttpServletRequest request,
+        Authentication auth
+    ) {
+        ensureInstructor(auth);
+        String contextPath = request.getContextPath();
+        String fileUrl = lessonFileService.saveFile(file, contextPath);
+        String fileName = file.getOriginalFilename() != null ? file.getOriginalFilename() : "file";
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("fileUrl", fileUrl, "fileName", fileName));
+    }
+
+    /** Serve an uploaded lesson file by filename (for PDF/view in course flow). */
+    @GetMapping("/files/{filename}")
+    public ResponseEntity<Resource> serveLessonFile(@PathVariable String filename) {
+        Resource resource = lessonFileService.loadFile(filename);
+        if (resource == null) {
+            return ResponseEntity.notFound().build();
+        }
+        String contentType = "application/octet-stream";
+        if (filename.toLowerCase().endsWith(".pdf")) contentType = "application/pdf";
+        if (filename.toLowerCase().matches(".*\\.(mp4|webm|ogg|mov)$")) contentType = "video/mp4";
+        return ResponseEntity.ok()
+            .contentType(MediaType.parseMediaType(contentType))
+            .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename.replaceAll("^[^-]+-", "") + "\"")
+            .body(resource);
     }
 
     private void ensureInstructor(Authentication auth) {
