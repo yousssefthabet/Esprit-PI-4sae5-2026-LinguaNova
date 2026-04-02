@@ -46,11 +46,13 @@
                 @for (copy of copies(); track copy.id) { @let pct = getPercentage(copy);
                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                     <td class="px-5 py-3">
-                        @if (copy.studentProfile) {
+                        @if (copy.student) {
                         <span class="font-medium text-gray-800 dark:text-white">
-                    {{ copy.studentProfile.firstName }} {{ copy.studentProfile.lastName }}
-                  </span> } @else {
-                        <span class="text-gray-400 italic">Profil #{{ copy.studentProfile }}</span> }
+                    {{ copy.student.firstName || copy.student.username || 'Étudiant' }} {{ copy.student.lastName || '' }}
+                  </span>
+                        <div class="text-xs text-gray-400">User #{{ copy.userId }}</div>
+                        } @else {
+                        <span class="text-gray-400 italic">User #{{ copy.userId }}</span> }
                     </td>
                     <td class="px-5 py-3 font-semibold" [class]="getGradeColor(pct)">
                         {{ copy.score }} / {{ exam()?.maxScore }} pts

@@ -2,15 +2,7 @@
     <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Mes résultats</h1>
     <p class="text-gray-500 dark:text-gray-400 text-sm mb-8">Consultez vos résultats d'examens passés.</p>
 
-    @if (profiles().length > 1) {
-    <div class="mb-6 flex flex-wrap gap-2">
-        @for (p of profiles(); track p.id) {
-        <button type="button" (click)="loadResults(p.id!)" class="px-4 py-1.5 rounded-full text-sm border transition font-medium" [class.bg-[#2D6F6B]]="selectedProfileId() === p.id" [class.text-white]="selectedProfileId() === p.id" [class.border-[#2D6F6B]]="selectedProfileId() === p.id"
-            [class.bg-white]="selectedProfileId() !== p.id" [class.border-gray-300]="selectedProfileId() !== p.id" [class.text-gray-700]="selectedProfileId() !== p.id">
-          {{ p.firstName }} {{ p.lastName }}
-        </button> }
-    </div>
-    } @if (loading()) {
+    @if (loading()) {
     <div class="flex items-center justify-center h-40">
         <div class="w-10 h-10 border-4 border-[#2D6F6B] border-t-transparent rounded-full animate-spin"></div>
     </div>
@@ -45,7 +37,7 @@
                 <h3 class="font-semibold text-gray-800 dark:text-white">{{ result.exam?.title ?? 'Examen' }}</h3>
                 <p class="text-xs text-gray-400">{{ result.exam?.courseName }}</p>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                    Score : <span class="font-bold" [class]="getGradeColor(pct)">{{ result.score }}</span> / {{ result.exam?.maxScore }} pts
+                    Score : <span class="font-bold" [class]="getGradeColor(pct)">{{ result.score }}</span> / <span class="text-gray-500">{{ getMaxScore(result) }} pts</span>
                 </p>
                 @if (result.submittedAt) {
                 <p class="text-xs text-gray-400 mt-1">Soumis le {{ result.submittedAt | date:'dd/MM/yyyy à HH:mm' }}</p>
@@ -55,9 +47,17 @@
             <!-- Badge validated -->
             <div class="flex flex-col items-end gap-2">
                 @if (result.validated) {
-                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full font-medium">✓ Validé</span> } @else {
-                <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full font-medium">En attente</span> }
-                <a [routerLink]="['/examens/copies', result.id]" class="text-xs text-[#2D6F6B] hover:underline">Voir la copie →</a>
+                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full font-medium">✓ Validé</span> 
+                <button (click)="downloadCertificate(result)" class="text-xs text-[#2D6F6B] hover:underline font-medium flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Télécharger Certificat
+                </button>
+                } @else {
+                <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full font-medium">En attente</span> 
+                }
+                <a [routerLink]="['/examens/copies', result.id]" class="text-xs text-[#2D6F6B] hover:underline mt-1">Voir la copie →</a>
             </div>
         </div>
         }

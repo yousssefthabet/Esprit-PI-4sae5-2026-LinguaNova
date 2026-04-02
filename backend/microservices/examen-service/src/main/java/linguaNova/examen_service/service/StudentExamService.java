@@ -19,15 +19,18 @@ public class StudentExamService {
     private final QuestionRepository questionRepository;
     private final ReponseRepository reponseRepository;
     private final UserClient userClient;
+    private final CertificateService certificateService;
 
     public StudentExamService(StudentExamRepository studentExamRepository,
                               QuestionRepository questionRepository,
                               ReponseRepository reponseRepository,
-                              UserClient userClient) {
+                              UserClient userClient,
+                              CertificateService certificateService) {
         this.studentExamRepository = studentExamRepository;
         this.questionRepository = questionRepository;
         this.reponseRepository = reponseRepository;
         this.userClient = userClient;
+        this.certificateService = certificateService;
     }
 
     // Créer un examen étudiant
@@ -59,8 +62,8 @@ public class StudentExamService {
         if (studentExamDetails.getValidated() != null) {
             studentExam.setValidated(studentExamDetails.getValidated());
         }
-        if (studentExamDetails.getStudentProfile() != null) {
-            studentExam.setStudentProfile(studentExamDetails.getStudentProfile());
+        if (studentExamDetails.getUserId() != null) {
+            studentExam.setUserId(studentExamDetails.getUserId());
         }
         if (studentExamDetails.getExam() != null) {
             studentExam.setExam(studentExamDetails.getExam());
@@ -77,14 +80,9 @@ public class StudentExamService {
         studentExamRepository.deleteById(id);
     }
 
-    // Récupérer les examens par profil étudiant
-    public List<StudentExam> getStudentExamsByStudentProfile(StudentProfile studentProfile) {
-        return studentExamRepository.findByStudentProfile(studentProfile);
-    }
-
-    // Récupérer les examens par ID de profil étudiant
-    public List<StudentExam> getStudentExamsByStudentProfileId(Long studentProfileId) {
-        return studentExamRepository.findByStudentProfileId(studentProfileId);
+    // Récupérer les examens par userId (user-service)
+    public List<StudentExam> getStudentExamsByUserId(Long userId) {
+        return studentExamRepository.findByUserId(userId);
     }
 
     // Récupérer les examens par examen
@@ -155,9 +153,27 @@ public class StudentExamService {
         
         studentExam.setScore(totalScore);
         studentExam.setSubmittedAt(LocalDateTime.now());
-        studentExam.setValidated(false); // Par défaut, non validé
+        
+        // Auto-validate if all questions are auto-graded
+        boolean allAutoGraded = studentExam.getAnswers() != null && studentExam.getAnswers().stream()
+            .allMatch(a -> a.getQuestion() != null && 
+                           (a.getQuestion().getType() == QuestionType.QCM || a.getQuestion().getType() == QuestionType.TRUE_FALSE));
+                           
+        studentExam.setValidated(allAutoGraded);
 
-        return studentExamRepository.save(studentExam);
+        if (studentExam.getUserId() == null) {
+            throw new RuntimeException("StudentExam sans userId");
+        }
+
+        StudentExam savedExam = studentExamRepository.save(studentExam);
+
+        try {
+            certificateService.generateIfEligible(savedExam.getId());
+        } catch (Exception ignored) {
+            // L'echec de generation du certificat ne doit pas empecher la soumission.
+        }
+
+        return savedExam;
     }
 
     /**
@@ -167,9 +183,10 @@ public class StudentExamService {
         StudentExam studentExam = getStudentExamById(studentExamId);
 
         UserResponse student = null;
-        if (studentExam.getStudentProfile() != null && studentExam.getStudentProfile().getUserId() != null) {
+        Long studentUserId = studentExam.getUserId();
+        if (studentUserId != null) {
             try {
-                student = userClient.getUserById(studentExam.getStudentProfile().getUserId());
+                student = userClient.getUserById(studentUserId);
             } catch (Exception ignored) {}
         }
 
@@ -191,12 +208,33 @@ public class StudentExamService {
      * Récupérer tous les StudentExams d'un étudiant (via userId) enrichis avec ses infos user.
      */
     public List<StudentExamWithUserDTO> getStudentExamsByUserIdWithDetails(Long userId) {
-        return studentExamRepository.findAll().stream()
-                .filter(se -> se.getStudentProfile() != null
-                        && userId.equals(se.getStudentProfile().getUserId()))
+        return studentExamRepository.findByUserId(userId).stream()
                 .map(se -> {
                     UserResponse student = null;
                     try { student = userClient.getUserById(userId); } catch (Exception ignored) {}
+                    UserResponse teacher = null;
+                    if (se.getExam() != null && se.getExam().getTeacherId() != null) {
+                        try { teacher = userClient.getUserById(se.getExam().getTeacherId()); } catch (Exception ignored) {}
+                    }
+                    return StudentExamWithUserDTO.builder()
+                            .studentExam(se)
+                            .student(student)
+                            .teacher(teacher)
+                            .build();
+                })
+                .toList();
+    }
+
+    /**
+     * Récupérer toutes les soumissions d'un examen, enrichies avec les infos user étudiant.
+     */
+    public List<StudentExamWithUserDTO> getStudentExamsByExamIdWithDetails(Long examId) {
+        return studentExamRepository.findByExamId(examId).stream()
+                .map(se -> {
+                    UserResponse student = null;
+                    if (se.getUserId() != null) {
+                        try { student = userClient.getUserById(se.getUserId()); } catch (Exception ignored) {}
+                    }
                     UserResponse teacher = null;
                     if (se.getExam() != null && se.getExam().getTeacherId() != null) {
                         try { teacher = userClient.getUserById(se.getExam().getTeacherId()); } catch (Exception ignored) {}

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import type { StudentExam } from '../models/exam-student-exam.model';
 
 @Injectable({ providedIn: 'root' })
@@ -17,12 +18,30 @@ export class StudentExamService {
     return this.http.get<StudentExam>(`${this.apiUrl}/${id}`);
   }
 
-  getByStudentProfileId(studentProfileId: number): Observable<StudentExam[]> {
-    return this.http.get<StudentExam[]>(`${this.apiUrl}/student/${studentProfileId}`);
+  getByIdWithDetails(id: number): Observable<StudentExam> {
+    return this.http.get<any>(`${this.apiUrl}/${id}/with-users`).pipe(
+      map((item) => ({
+        ...(item.studentExam || {}),
+        student: item.student || undefined,
+      } as StudentExam))
+    );
+  }
+
+  getByUserId(userId: number): Observable<StudentExam[]> {
+    return this.http.get<StudentExam[]>(`${this.apiUrl}/user/${userId}`);
   }
 
   getByExamId(examId: number): Observable<StudentExam[]> {
     return this.http.get<StudentExam[]>(`${this.apiUrl}/exam/${examId}`);
+  }
+
+  getByExamIdWithDetails(examId: number): Observable<StudentExam[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/exam/${examId}/with-details`).pipe(
+      map((list) => (list || []).map((item) => ({
+        ...(item.studentExam || {}),
+        student: item.student || undefined,
+      } as StudentExam)))
+    );
   }
 
   submit(studentExam: StudentExam): Observable<StudentExam> {

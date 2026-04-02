@@ -30,7 +30,7 @@ export class ExamCopiesComponent implements OnInit {
     this.examService.getById(this.examId).subscribe({
       next: (exam) => {
         this.exam.set(exam);
-        this.studentExamService.getByExamId(this.examId).subscribe({
+        this.studentExamService.getByExamIdWithDetails(this.examId).subscribe({
           next: (copies) => { this.copies.set(copies); this.loading.set(false); },
           error: () => { this.error.set('Erreur lors du chargement des copies.'); this.loading.set(false); }
         });

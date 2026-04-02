@@ -37,14 +37,27 @@ import { UserRole } from '../../core/models/user.model';
                   {{ item.label }}
                 </a>
               }
-              @if ((user$ | async)?.role === UserRole.INSTRUCTOR) {
-                <a
-                  routerLink="/examens"
-                  routerLinkActive="text-white font-semibold"
-                  class="text-white/70 hover:text-white transition-all font-medium text-[15px] tracking-wide"
-                >
-                  Gestion
-                </a>
+              @if (user$ | async; as user) {
+                @if (user.role === UserRole.STUDENT) {
+                  <a
+                    routerLink="/mes-notes"
+                    routerLinkActive="text-white font-semibold"
+                    class="text-white/70 hover:text-white transition-all font-medium text-[15px] tracking-wide"
+                  >
+                    Mes notes
+                  </a>
+                }
+              }
+              @if (user$ | async; as user) {
+                @if (user.role === UserRole.INSTRUCTOR) {
+                  <a
+                    routerLink="/examens"
+                    routerLinkActive="text-white font-semibold"
+                    class="text-white/70 hover:text-white transition-all font-medium text-[15px] tracking-wide"
+                  >
+                    Gestion
+                  </a>
+                }
               }
             </div>
           </div>
@@ -159,14 +172,27 @@ import { UserRole } from '../../core/models/user.model';
                   {{ item.label }}
                 </a>
               }
-              @if ((user$ | async)?.role === UserRole.INSTRUCTOR) {
-                <a
-                  routerLink="/examens"
-                  (click)="mobileMenuOpen = false"
-                  class="text-white/80 hover:text-white font-medium text-lg"
-                >
-                  Gestion
-                </a>
+              @if (user$ | async; as user) {
+                @if (user.role === UserRole.STUDENT) {
+                  <a
+                    routerLink="/mes-notes"
+                    (click)="mobileMenuOpen = false"
+                    class="text-white/80 hover:text-white font-medium text-lg"
+                  >
+                    Mes notes
+                  </a>
+                }
+              }
+              @if (user$ | async; as user) {
+                @if (user.role === UserRole.INSTRUCTOR) {
+                  <a
+                    routerLink="/examens"
+                    (click)="mobileMenuOpen = false"
+                    class="text-white/80 hover:text-white font-medium text-lg"
+                  >
+                    Gestion
+                  </a>
+                }
               }
               <div class="flex flex-col gap-3 pt-4 border-t border-white/10">
                 @if (user$ | async; as user) {

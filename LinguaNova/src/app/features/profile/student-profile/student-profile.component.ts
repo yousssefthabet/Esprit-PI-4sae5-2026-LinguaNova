@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { CourseService } from '../../../core/services/course.service';
-import { ExamStudentProfileService } from '../../../core/services/exam-student-profile.service';
 import { StudentExamService } from '../../../core/services/student-exam.service';
+import { CertificateService } from '../../../core/services/certificate.service';
 import { User } from '../../../core/models/user.model';
 import { Course } from '../../../core/models/course.model';
 import { StudentExam } from '../../../core/models/exam-student-exam.model';
+import { Certificate } from '../../../core/models/certificate.model';
 
 @Component({
    selector: 'app-student-profile',
@@ -243,6 +244,41 @@ import { StudentExam } from '../../../core/models/exam-student-exam.model';
           }
         </div>
 
+            <!-- ── Mes certificats ── -->
+            <div class="mt-8 bg-white rounded-[24px] shadow-sm border border-gray-100 p-8">
+               <div class="flex items-center justify-between mb-6">
+                  <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                     <span class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg">🎓</span>
+                     Mes certificats
+                  </h3>
+               </div>
+
+               @if (loadingCertificates) {
+                  <div class="flex items-center justify-center h-20">
+                     <div class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+               } @else if (certificates.length === 0) {
+                  <div class="text-center py-8">
+                     <p class="text-gray-400 italic text-sm">Aucun certificat pour le moment. Obtenez au moins 70% a un examen.</p>
+                  </div>
+               } @else {
+                  <div class="grid gap-3">
+                     @for (cert of certificates; track cert.id) {
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-blue-200 transition">
+                           <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">PDF</div>
+                           <div class="flex-1 min-w-0">
+                              <p class="font-semibold text-gray-800 text-sm truncate">{{ cert.exam?.title || cert.pdfFileName || ('Certificat #' + cert.id) }}</p>
+                              <p class="text-xs text-gray-400">Code: {{ cert.certificateCode }} · Delivre le {{ formatIssuedDate(cert.issuedAt) }}</p>
+                           </div>
+                           <button (click)="openCertificate(cert.id)" class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition">
+                              Ouvrir PDF
+                           </button>
+                        </div>
+                     }
+                  </div>
+               }
+            </div>
+
       </div>
     </div>
   `,
@@ -254,8 +290,8 @@ import { StudentExam } from '../../../core/models/exam-student-exam.model';
 export class StudentProfileComponent implements OnInit {
    authService = inject(AuthService);
    courseService = inject(CourseService);
-   examStudentProfileService = inject(ExamStudentProfileService);
    studentExamService = inject(StudentExamService);
+   certificateService = inject(CertificateService);
    fb = inject(FormBuilder);
 
    user: User | null = null;
@@ -266,13 +302,19 @@ export class StudentProfileComponent implements OnInit {
    enrolledCourses: Course[] = [];
    examResults: StudentExam[] = [];
    loadingResults = false;
+   certificates: Certificate[] = [];
+   loadingCertificates = false;
 
    ngOnInit() {
       this.authService.currentUser$.subscribe(user => {
          this.user = user;
          this.initForm();
-         if (user?.firstName && user?.lastName) {
-            this.loadExamResults(user.firstName, user.lastName);
+         if (user?.id) {
+            const userId = Number(user.id);
+            if (!Number.isNaN(userId)) {
+               this.loadExamResults(userId);
+               this.loadCertificates(userId);
+            }
          }
       });
 
@@ -281,22 +323,12 @@ export class StudentProfileComponent implements OnInit {
       });
    }
 
-   loadExamResults(firstName: string, lastName: string) {
+   loadExamResults(userId: number) {
       this.loadingResults = true;
-      this.examStudentProfileService.getAll().subscribe({
-         next: (profiles) => {
-            const match = profiles.find(p =>
-               p.firstName?.toLowerCase() === firstName.toLowerCase() &&
-               p.lastName?.toLowerCase() === lastName.toLowerCase()
-            );
-            if (match?.id) {
-               this.studentExamService.getByStudentProfileId(match.id).subscribe({
-                  next: (results) => { this.examResults = results; this.loadingResults = false; },
-                  error: () => { this.loadingResults = false; }
-               });
-            } else {
-               this.loadingResults = false;
-            }
+      this.studentExamService.getByUserId(userId).subscribe({
+         next: (results) => {
+            this.examResults = results;
+            this.loadingResults = false;
          },
          error: () => { this.loadingResults = false; }
       });
@@ -306,6 +338,37 @@ export class StudentProfileComponent implements OnInit {
       const max = result.exam?.maxScore;
       if (!max || max === 0) return 0;
       return Math.round(((result.score ?? 0) / max) * 100);
+   }
+
+   loadCertificates(userId: number) {
+      this.loadingCertificates = true;
+      this.certificateService.getByUserId(userId).subscribe({
+         next: (certs) => {
+            this.certificates = certs;
+            this.loadingCertificates = false;
+         },
+         error: () => {
+            this.loadingCertificates = false;
+         }
+      });
+   }
+
+   openCertificate(certificateId: number) {
+      this.certificateService.downloadPdf(certificateId).subscribe({
+         next: (blob) => {
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+         }
+      });
+   }
+
+   formatIssuedDate(issuedAt: string): string {
+      const d = new Date(issuedAt);
+      if (Number.isNaN(d.getTime())) {
+         return '-';
+      }
+      return d.toLocaleString('fr-FR');
    }
 
    initForm() {

@@ -7,12 +7,19 @@
  * /api/exams, /api/questions, /api/quiz, ... -> examen-service (8093)
  * /api                  -> backend générique (3000)
  */
+const NOTE_SERVICE_TARGET = {
+    target: 'http://localhost:8089',
+    secure: false,
+    changeOrigin: true,
+};
+
 const EXAM_SERVICE_TARGET = {
     target: 'http://localhost:8093',
     secure: false,
     changeOrigin: true,
 };
-const Quiz_SERVICE_TARGET = {
+
+const EXAM_DIRECT_TARGET = {
     target: 'http://localhost:8086',
     secure: false,
     changeOrigin: true,
@@ -35,8 +42,11 @@ const PROXY_CONFIG = {
     '/api/reponses': EXAM_SERVICE_TARGET,
     '/api/student-answers': EXAM_SERVICE_TARGET,
     '/api/student-exams': EXAM_SERVICE_TARGET,
-    '/api/student-profiles': EXAM_SERVICE_TARGET,
-    '/api/quiz': Quiz_SERVICE_TARGET,
+    '/api/notes': NOTE_SERVICE_TARGET,
+    '/api/quiz': EXAM_SERVICE_TARGET,
+    '/api/cahiers': NOTE_SERVICE_TARGET,
+    '/api/certificates': EXAM_DIRECT_TARGET,
+
 
     // ── Backend générique (port 3000) ──
     '/api': {

@@ -2,7 +2,6 @@ package linguaNova.examen_service.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -28,9 +27,11 @@ public class StudentExam {
 
     private Boolean validated;
 
-    @JsonBackReference("studentProfile-studentExams")
-    @ManyToOne
-    private StudentProfile studentProfile;
+    /**
+     * Identifiant de l'etudiant dans user-service.
+     * Relation logique inter-microservices (pas de FK SQL).
+     */
+    private Long userId;
 
     @JsonBackReference("exam-studentExams")
     @ManyToOne
@@ -72,12 +73,12 @@ public class StudentExam {
         this.validated = validated;
     }
 
-    public StudentProfile getStudentProfile() {
-        return studentProfile;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setStudentProfile(StudentProfile studentProfile) {
-        this.studentProfile = studentProfile;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Exam getExam() {

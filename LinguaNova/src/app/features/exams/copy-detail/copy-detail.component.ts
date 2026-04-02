@@ -31,7 +31,7 @@ export class CopyDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.submissionId = Number(this.route.snapshot.paramMap.get('submissionId'));
-    this.studentExamService.getById(this.submissionId).subscribe({
+    this.studentExamService.getByIdWithDetails(this.submissionId).subscribe({
       next: (se) => {
         this.studentExam.set(se);
         this.answers.set(se.answers ?? []);
@@ -62,8 +62,24 @@ export class CopyDetailComponent implements OnInit {
     return answer.textAnswer ?? '(Pas de réponse)';
   }
 
+  getMaxScore(): number {
+    const se = this.studentExam();
+    if (!se) return 0;
+    if (se.exam?.maxScore && se.exam.maxScore > 0) {
+      return se.exam.maxScore;
+    }
+    if (se.exam?.questions && se.exam.questions.length > 0) {
+      return se.exam.questions.reduce((sum, q) => sum + (q.score ?? 0), 0);
+    }
+    const ansList = this.answers();
+    if (ansList && ansList.length > 0) {
+      return ansList.reduce((sum, a) => sum + (a.question?.score ?? 0), 0);
+    }
+    return 0;
+  }
+
   getPercentage(): number {
-    const max = this.studentExam()?.exam?.maxScore;
+    const max = this.getMaxScore();
     const score = this.studentExam()?.score;
     if (!max || max === 0 || score == null) return 0;
     return Math.round((score / max) * 100);

@@ -26,15 +26,22 @@ public class ExamService {
         if (examRepository.existsByTitle(exam.getTitle())) {
             throw new RuntimeException("Un examen avec ce titre existe déjà");
         }
+        double calculatedMaxScore = 0;
         if (exam.getQuestions() != null) {
             for (var question : exam.getQuestions()) {
                 question.setExam(exam);
+                if (question.getScore() != null) {
+                    calculatedMaxScore += question.getScore();
+                }
                 if (question.getReponses() != null) {
                     for (var reponse : question.getReponses()) {
                         reponse.setQuestion(question);
                     }
                 }
             }
+        }
+        if (exam.getMaxScore() == null || exam.getMaxScore() == 0) {
+            exam.setMaxScore(calculatedMaxScore);
         }
         return examRepository.save(exam);
     }
@@ -105,14 +112,21 @@ public class ExamService {
         if (examDetails.getQuestions() != null) {
             if (exam.getQuestions() != null) exam.getQuestions().clear();
             else exam.setQuestions(new java.util.ArrayList<>());
+            double calculatedMaxScore = 0;
             for (var question : examDetails.getQuestions()) {
                 question.setExam(exam);
+                if (question.getScore() != null) {
+                    calculatedMaxScore += question.getScore();
+                }
                 if (question.getReponses() != null) {
                     for (var reponse : question.getReponses()) {
                         reponse.setQuestion(question);
                     }
                 }
                 exam.getQuestions().add(question);
+            }
+            if (examDetails.getMaxScore() == null || examDetails.getMaxScore() == 0) {
+                exam.setMaxScore(calculatedMaxScore);
             }
         }
         return examRepository.save(exam);

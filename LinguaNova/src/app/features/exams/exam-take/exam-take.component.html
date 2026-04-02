@@ -32,20 +32,13 @@
         <h1 class="text-xl font-bold text-gray-800 dark:text-white mb-1">{{ exam()!.title }}</h1>
         <p class="text-gray-500 text-sm mb-6">{{ exam()!.courseName }}</p>
 
+      <div class="mb-4 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-700 text-sm">
+        Profil étudiant chargé: {{ loadedStudentLabel() }}
+      </div>
+
         @if (error()) {
         <div class="bg-red-50 border border-red-200 rounded-xl p-3 mb-4 text-red-600 text-sm" role="alert">{{ error() }}</div>
         }
-
-        <!-- Sélection profil -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-5 mb-6">
-            <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">Votre profil étudiant *</label>
-            <select [ngModel]="selectedProfileId()" (ngModelChange)="selectedProfileId.set($event)" name="profile" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]">
-          <option [value]="null">-- Sélectionner --</option>
-          @for (p of profiles(); track p.id) {
-            <option [value]="p.id">{{ p.firstName }} {{ p.lastName }}</option>
-          }
-        </select>
-        </div>
 
         <!-- Barre vocale -->
         @if (voiceMode()) {
@@ -108,7 +101,7 @@
                 Suivant →
                 </button>
                 } @else {
-                <button type="button" (click)="submit()" [disabled]="submitting() || !selectedProfileId()" class="flex-1 py-2 bg-green-600 text-white rounded-xl text-sm font-semibold hover:bg-green-700 transition disabled:opacity-50">
+                <button type="button" (click)="submit()" [disabled]="submitting() || selectedUserId() == null" class="flex-1 py-2 bg-green-600 text-white rounded-xl text-sm font-semibold hover:bg-green-700 transition disabled:opacity-50">
             {{ submitting() ? 'Soumission…' : '✓ Soumettre l\'examen' }}
           </button> }
         </div>

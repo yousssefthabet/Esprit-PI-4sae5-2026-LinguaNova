@@ -71,11 +71,11 @@ public class StudentExamController {
         }
     }
 
-    @Operation(summary = "Récupérer les examens d'un étudiant", description = "Retourne tous les examens passés par un étudiant spécifique")
-    @GetMapping("/student/{studentProfileId}")
-    public ResponseEntity<List<StudentExam>> getStudentExamsByStudentProfileId(
-        @Parameter(description = "ID du profil étudiant") @PathVariable Long studentProfileId) {
-        List<StudentExam> studentExams = studentExamService.getStudentExamsByStudentProfileId(studentProfileId);
+    @Operation(summary = "Récupérer les examens d'un étudiant via userId")
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<StudentExam>> getStudentExamsByUserId(
+        @Parameter(description = "ID user-service de l'étudiant") @PathVariable Long userId) {
+        List<StudentExam> studentExams = studentExamService.getStudentExamsByUserId(userId);
         return ResponseEntity.ok(studentExams);
     }
 
@@ -85,6 +85,13 @@ public class StudentExamController {
         @Parameter(description = "ID de l'examen") @PathVariable Long examId) {
         List<StudentExam> studentExams = studentExamService.getStudentExamsByExamId(examId);
         return ResponseEntity.ok(studentExams);
+    }
+
+    @Operation(summary = "Récupérer les soumissions d'un examen avec détails user")
+    @GetMapping("/exam/{examId}/with-details")
+    public ResponseEntity<List<StudentExamWithUserDTO>> getStudentExamsByExamIdWithDetails(
+        @Parameter(description = "ID de l'examen") @PathVariable Long examId) {
+        return ResponseEntity.ok(studentExamService.getStudentExamsByExamIdWithDetails(examId));
     }
 
     @Operation(summary = "Soumettre un examen", description = "Soumet un examen avec calcul automatique du score pour les questions QCM et Vrai/Faux")

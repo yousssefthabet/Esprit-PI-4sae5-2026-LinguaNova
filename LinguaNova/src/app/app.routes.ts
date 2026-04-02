@@ -148,6 +148,19 @@ export const routes: Routes = [
                 loadComponent: () => import('./features/clubs/clubs.component')
                     .then(m => m.ClubsComponent)
             },
+            {
+                path: 'notes',
+                loadComponent: () => import('./features/notes/notes.component')
+                    .then(m => m.NotesComponent),
+                canActivate: [authGuard]
+            },
+            {
+                path: 'mes-notes',
+                loadComponent: () => import('./features/notes/notes.component')
+                    .then(m => m.NotesComponent),
+                canActivate: [authGuard, roleGuard],
+                data: { role: UserRole.STUDENT }
+            },
 
             // ── Gestion des examens ──────────────────────────────────
             {

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" role="img" aria-labelledby="title desc">
+  <title id="title">Illustration aucune note</title>
+  <desc id="desc">Petit calendrier souriant pour l'etat vide.</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eff9ff"/>
+      <stop offset="1" stop-color="#d9effb"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="420" height="220" rx="20" fill="url(#panel)"/>
+  <ellipse cx="140" cy="170" rx="110" ry="22" fill="#cce5f3"/>
+
+  <g transform="translate(52 42)">
+    <rect x="0" y="18" width="184" height="120" rx="20" fill="#ffffff" stroke="#79b8da" stroke-width="6"/>
+    <circle cx="38" cy="20" r="7" fill="#3b89b7"/>
+    <circle cx="82" cy="20" r="7" fill="#3b89b7"/>
+    <path d="M38 20v22M82 20v22" stroke="#3b89b7" stroke-width="5" stroke-linecap="round"/>
+    <path d="M26 62h130M26 84h130M26 106h130" stroke="#d5eaf7" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="64" cy="92" r="5" fill="#2d2d2d"/>
+    <circle cx="110" cy="92" r="5" fill="#2d2d2d"/>
+    <path d="M68 112c10 8 28 8 38 0" fill="none" stroke="#e38f8f" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <g transform="translate(268 56)">
+    <rect x="0" y="0" width="118" height="92" rx="14" fill="#ffffff" stroke="#d7e8f3"/>
+    <path d="M18 30h84M18 50h84" stroke="#d2deea" stroke-width="7" stroke-linecap="round"/>
+    <path d="M18 70h60" stroke="#d2deea" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <path d="M220 152l18-14 18 14-18 16z" fill="#7dc9ec"/>
+</svg>

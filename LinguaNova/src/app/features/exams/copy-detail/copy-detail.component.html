@@ -22,11 +22,11 @@
             <div>
                 <h1 class="text-xl font-bold text-gray-800 dark:text-white">{{ se.exam?.title }}</h1>
                 <p class="text-gray-500 text-sm">{{ se.exam?.courseName }}</p>
-                @if (se.studentProfile) {
                 <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                    Étudiant : <span class="font-medium">{{ se.studentProfile.firstName }} {{ se.studentProfile.lastName }}</span>
+                    Étudiant : <span class="font-medium">{{ se.student?.firstName || se.student?.username || 'Étudiant' }} {{ se.student?.lastName || '' }}</span>
+                    <span class="text-gray-400">(User #{{ se.userId }})</span>
                 </p>
-                } @if (se.submittedAt) {
+                @if (se.submittedAt) {
                 <p class="text-xs text-gray-400 mt-1">Soumis le {{ se.submittedAt | date:'dd/MM/yyyy à HH:mm' }}</p>
                 }
             </div>
@@ -38,7 +38,7 @@
           </svg>
                 <div class="absolute inset-0 flex flex-col items-center justify-center">
                     <span class="text-sm font-bold text-[#2D6F6B]">{{ se.score }}</span>
-                    <span class="text-xs text-gray-400">/ {{ se.exam?.maxScore }}</span>
+                    <span class="text-xs text-gray-400">/ {{ getMaxScore() }}</span>
                 </div>
             </div>
         </div>

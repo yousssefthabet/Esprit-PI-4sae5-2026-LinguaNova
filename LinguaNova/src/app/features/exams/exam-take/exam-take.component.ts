@@ -5,12 +5,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ExamService } from '../../../core/services/exam.service';
 import { StudentExamService } from '../../../core/services/student-exam.service';
-import { ExamStudentProfileService } from '../../../core/services/exam-student-profile.service';
+import { CertificateService } from '../../../core/services/certificate.service';
 import { VoiceService } from '../../../core/services/voice.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { UserRole } from '../../../core/models/user.model';
 import { Exam } from '../../../core/models/exam.model';
 import { Question } from '../../../core/models/exam-question.model';
-import { ExamStudentProfile } from '../../../core/models/exam-student-profile.model';
 
 @Component({
   selector: 'app-exam-take',
@@ -24,13 +24,13 @@ export class ExamTakeComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private examService = inject(ExamService);
   private studentExamService = inject(StudentExamService);
-  private profileService = inject(ExamStudentProfileService);
+  private certificateService = inject(CertificateService);
   private voiceService = inject(VoiceService);
   private authService = inject(AuthService);
 
   exam = signal<Exam | null>(null);
-  profiles = signal<ExamStudentProfile[]>([]);
-  selectedProfileId = signal<number | null>(null);
+  selectedUserId = signal<number | null>(null);
+  loadedStudentLabel = signal('');
   currentIndex = signal(0);
   answers = signal<{ [questionId: number]: { textAnswer?: string; selectedReponseId?: number } }>({});
   loading = signal(true);
@@ -67,22 +67,27 @@ export class ExamTakeComponent implements OnInit, OnDestroy {
     this.examService.getById(this.examId).subscribe({
       next: (exam) => {
         this.exam.set(exam);
-        this.profileService.getAll().subscribe({
-          next: (profiles) => {
-            this.profiles.set(profiles);
-            // Auto-sélectionner le profil correspondant à l'utilisateur connecté
-            const currentUser = this.authService.currentUserValue;
-            if (currentUser?.firstName && currentUser?.lastName) {
-              const match = profiles.find(p =>
-                p.firstName?.toLowerCase() === currentUser.firstName.toLowerCase() &&
-                p.lastName?.toLowerCase() === currentUser.lastName.toLowerCase()
-              );
-              if (match?.id) this.selectedProfileId.set(match.id);
-            }
-            this.loading.set(false);
-          },
-          error: () => { this.error.set('Erreur lors du chargement des profils.'); this.loading.set(false); }
-        });
+        const currentUser = this.authService.currentUserValue;
+        const currentUserId = currentUser && currentUser.id ? Number(currentUser.id) : NaN;
+
+        if (!currentUser || currentUser.role !== UserRole.STUDENT) {
+          this.error.set('Seul un compte etudiant peut passer cet examen.');
+          this.loading.set(false);
+          return;
+        }
+
+        if (Number.isNaN(currentUserId)) {
+          this.error.set('Impossible d\'identifier votre compte utilisateur.');
+          this.loading.set(false);
+          return;
+        }
+
+        this.selectedUserId.set(currentUserId);
+        const firstName = currentUser.firstName ? currentUser.firstName.trim() : '';
+        const lastName = currentUser.lastName ? currentUser.lastName.trim() : '';
+        const fullName = (firstName + ' ' + lastName).trim();
+        this.loadedStudentLabel.set(fullName || currentUser.email || 'Etudiant');
+        this.loading.set(false);
       },
       error: () => { this.error.set('Erreur lors du chargement de l\'examen.'); this.loading.set(false); }
     });
@@ -117,30 +122,136 @@ export class ExamTakeComponent implements OnInit, OnDestroy {
   toggleVoiceMode(): void {
     this.voiceMode.update(v => !v);
     if (!this.voiceMode()) {
-      this.voiceService.stopListening();
-      this.listenSub?.unsubscribe();
-      this.voiceActive.set(false);
+      this.stopVoiceLoop();
+      this.voiceService.stopSpeaking();
+    } else {
+      // Auto-start reading immediately when turned on
+      setTimeout(() => this.readQuestionAndListen(), 500);
     }
   }
 
   toggleListening(): void {
     if (this.voiceActive()) {
-      this.voiceService.stopListening();
-      this.listenSub?.unsubscribe();
-      this.voiceActive.set(false);
+      this.stopVoiceLoop();
     } else {
-      this.voiceActive.set(true);
-      this.listenSub = this.voiceService.listen().subscribe({
-        next: (text: string) => {
-          this.recognizedText.set(text);
-          const q = this.currentQuestion();
-          if (q?.id != null) {
-            this.answers.update(a => ({ ...a, [q.id!]: { textAnswer: text } }));
-          }
-          this.voiceActive.set(false);
-        },
-        error: () => { this.voiceActive.set(false); }
+      this.startVoiceLoop();
+    }
+  }
+
+  private stopVoiceLoop(): void {
+    this.voiceService.stopListening();
+    this.listenSub?.unsubscribe();
+    this.voiceActive.set(false);
+  }
+
+  private startVoiceLoop(): void {
+    this.stopVoiceLoop();
+    this.voiceActive.set(true);
+    this.listenSub = this.voiceService.listen().subscribe({
+      next: (text: string) => {
+        this.recognizedText.set(text);
+        this.handleVoiceCommand(text);
+      },
+      error: () => { 
+        this.voiceActive.set(false); 
+      }
+    });
+  }
+
+  private handleVoiceCommand(text: string): void {
+    this.voiceActive.set(false);
+    const cmd = text.toLowerCase();
+    
+    if (cmd.includes('repeat') || cmd.includes('read question')) {
+      this.readQuestionAndListen();
+    } else if (cmd.includes('read option') || cmd.includes('options')) {
+      this.readOptionsAndListen();
+    } else if (cmd.includes('next')) {
+      if (this.currentIndex() < this.totalQuestions() - 1) {
+        this.next();
+        this.readQuestionAndListen();
+      } else {
+        this.voiceService.speak("This is the last question. Say submit to finish.").then(() => this.startVoiceLoop());
+      }
+    } else if (cmd.includes('previous') || cmd.includes('back')) {
+      if (this.currentIndex() > 0) {
+        this.prev();
+        this.readQuestionAndListen();
+      } else {
+        this.voiceService.speak("This is the first question.").then(() => this.startVoiceLoop());
+      }
+    } else if (cmd.includes('submit')) {
+      this.voiceService.speak("Submitting your exam now.").then(() => {
+        if (!this.submitting() && this.selectedUserId() != null) {
+          this.submit();
+        }
       });
+    } else {
+      // Check if it matches an option selection
+      const q = this.currentQuestion();
+      if (q && (q.type === 'QCM' || q.type === 'TRUE_FALSE')) {
+        const optionWords = ['one', 'two', 'three', 'four'];
+        let matched = false;
+        
+        for (let i = 0; i < (q.reponses?.length || 0); i++) {
+          const numStr = (i + 1).toString();
+          const wordStr = optionWords[i];
+          if (cmd.includes('option ' + numStr) || cmd.includes('option ' + wordStr) || cmd.match(new RegExp(`^${numStr}$`)) || cmd.match(new RegExp(`^${wordStr}$`))) {
+            const repId = q.reponses![i].id!;
+            this.selectReponse(q.id!, repId);
+            this.voiceService.speak(`Selected option ${i + 1}`).then(() => this.startVoiceLoop());
+            matched = true;
+            break;
+          }
+        }
+        
+        // If not matched, maybe read error
+        if (!matched) {
+          this.voiceService.speak("Command not recognized. Say repeat, next, or choose an option.").then(() => this.startVoiceLoop());
+        }
+      } else if (q && q.type === 'TEXT') {
+        // Treat as dictated answer
+        this.setTextAnswer(q.id!, text);
+        this.voiceService.speak("Answer recorded. Say next to continue, or repeat to dictate again.").then(() => this.startVoiceLoop());
+      }
+    }
+  }
+
+  readQuestionAndListen(): void {
+    const q = this.currentQuestion();
+    if (q) {
+      let prompt = `Question ${this.currentIndex() + 1}. ${q.content}. `;
+      
+      if ((q.type === 'QCM' || q.type === 'TRUE_FALSE') && q.reponses && q.reponses.length > 0) {
+        prompt += 'The options are: ';
+        q.reponses.forEach((r, idx) => {
+          prompt += `Option ${idx + 1}: ${r.content}. `;
+        });
+        prompt += 'You can speak your option like option one, or say next or previous.';
+      } else if (q.type === 'TEXT') {
+        prompt += 'This is an open ended question. Please dictate your answer after the beep, or say next or previous.';
+      } else {
+        prompt += 'Say next or previous.';
+      }
+
+      this.voiceService.speak(prompt).then(() => {
+        this.startVoiceLoop();
+      });
+    }
+  }
+  
+  readOptionsAndListen(): void {
+    const q = this.currentQuestion();
+    if (q && (q.type === 'QCM' || q.type === 'TRUE_FALSE') && q.reponses) {
+      let text = "Options are: ";
+      q.reponses.forEach((r, idx) => {
+        text += `Option ${idx + 1}: ${r.content}. `;
+      });
+      this.voiceService.speak(text).then(() => {
+        this.startVoiceLoop();
+      });
+    } else {
+      this.voiceService.speak("This question has no specific options.").then(() => this.startVoiceLoop());
     }
   }
 
@@ -150,14 +261,14 @@ export class ExamTakeComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
-    if (!this.selectedProfileId()) {
-      this.error.set('Veuillez sélectionner votre profil étudiant.');
+    if (this.selectedUserId() == null) {
+      this.error.set('Utilisateur etudiant non charge.');
       return;
     }
     this.submitting.set(true);
     const payload: any = {
+      userId: this.selectedUserId(),
       exam: { id: this.examId },
-      studentProfile: { id: this.selectedProfileId() },
       answers: Object.entries(this.answers()).map(([qId, ans]) => ({
         question: { id: Number(qId) },
         textAnswer: ans.textAnswer ?? null,
@@ -165,9 +276,25 @@ export class ExamTakeComponent implements OnInit, OnDestroy {
       })),
     };
     this.studentExamService.submit(payload).subscribe({
-      next: () => {
-        this.submitting.set(false);
-        this.router.navigate(['/mes-resultats']);
+      next: (submittedExam) => {
+        const submittedId = submittedExam.id;
+        if (!submittedId) {
+          this.submitting.set(false);
+          this.router.navigate(['/mes-resultats']);
+          return;
+        }
+
+        this.certificateService.generate(submittedId).subscribe({
+          next: () => {
+            this.submitting.set(false);
+            this.router.navigate(['/mes-resultats']);
+          },
+          error: () => {
+            // L'endpoint est idempotent et peut retourner une erreur si non éligible.
+            this.submitting.set(false);
+            this.router.navigate(['/mes-resultats']);
+          }
+        });
       },
       error: () => {
         this.error.set('Erreur lors de la soumission de l\'examen.');
