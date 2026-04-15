@@ -6,7 +6,13 @@ import { NoteService } from '../../core/services/note.service';
 import { CahierService } from '../../core/services/cahier.service';
 import { AuthService } from '../../core/services/auth.service';
 import { NotesVoiceService, NotesVoiceApi } from '../../core/services/notes-voice.service';
-import type { Note } from '../../core/models/note.model';
+import { NotesImportService } from '../../core/services/notes-import.service';
+import { VoiceService } from '../../core/services/voice.service';
+import type {
+  Note,
+  NoteImportBatchResponse,
+  NoteImportCandidate,
+} from '../../core/models/note.model';
 import type { Cahier } from '../../core/models/cahier.model';
 import type { NoteContextType } from '../../core/models/note-context-type';
 
@@ -43,9 +49,21 @@ export class NotesComponent implements OnInit {
   editorCahierId = signal<number | null>(null);
   saving = signal(false);
   deleting = signal(false);
-  
+
   uploadingAttachment = signal(false);
   deletingAttachment = signal<number | null>(null);
+
+  importPrompt = signal('');
+  importCandidates = signal<NoteImportCandidate[]>([]);
+  discoveringArticles = signal(false);
+  listeningImportPrompt = signal(false);
+  importingArticles = signal(false);
+  importResult = signal<NoteImportBatchResponse | null>(null);
+
+  selectedImportCount = computed(() => this.importCandidates().filter((c) => c.selected).length);
+
+  // Expose Math to template for score bar calculations
+  readonly Math = Math;
 
   // UI helpers for modern design
   getCahierGradient(type: string): string {
@@ -56,7 +74,7 @@ export class NotesComponent implements OnInit {
       default: return 'from-gray-500 to-slate-700 shadow-gray-500/30';
     }
   }
-  
+
   getCahierBadge(type: string): string {
     switch (type) {
       case 'COURSE': return 'bg-blue-400/20 text-blue-100 border-blue-400/30';
@@ -77,9 +95,7 @@ export class NotesComponent implements OnInit {
     return this.cahiers().filter((c) => c.contextType === tab);
   });
 
-  filteredNotes = computed(() => {
-    return this.notes();
-  });
+  filteredNotes = computed(() => this.notes());
 
   selected = computed(() => {
     const id = this.selectedId();
@@ -90,6 +106,8 @@ export class NotesComponent implements OnInit {
     private noteService: NoteService,
     private cahierService: CahierService,
     private authService: AuthService,
+    private notesImportService: NotesImportService,
+    private voiceService: VoiceService,
     public notesVoiceService: NotesVoiceService
   ) {}
 
@@ -117,7 +135,7 @@ export class NotesComponent implements OnInit {
       },
       error: () => {
         this.cahiersLoading.set(false);
-        this.error.set("Impossible de charger les cahiers.");
+        this.error.set('Impossible de charger les cahiers.');
       }
     });
   }
@@ -125,12 +143,14 @@ export class NotesComponent implements OnInit {
   openCahier(cahierId: number): void {
     this.activeCahierId.set(cahierId);
     this.openNewNote();
+    this.clearImportState();
     this.reloadNotes();
   }
 
   closeCahier(): void {
     this.activeCahierId.set(null);
     this.notes.set([]);
+    this.clearImportState();
   }
 
   createCahier(): void {
@@ -140,7 +160,7 @@ export class NotesComponent implements OnInit {
 
     this.creatingCahier.set(true);
     this.cahierService.create({ userId, nomContexte: nom, contextType: this.newCahierType() }).subscribe({
-      next: (cahier) => {
+      next: () => {
         this.creatingCahier.set(false);
         this.newCahierMode.set(false);
         this.newCahierName.set('');
@@ -148,7 +168,7 @@ export class NotesComponent implements OnInit {
       },
       error: () => {
         this.creatingCahier.set(false);
-        this.error.set("Erreur lors de la création du cahier.");
+        this.error.set('Erreur lors de la creation du cahier.');
       }
     });
   }
@@ -203,9 +223,9 @@ export class NotesComponent implements OnInit {
     const cahierId = this.editorCahierId();
     const content = this.editorContent().trim();
 
-    if (!userId) { this.error.set('Utilisateur non connecté.'); return; }
-    if (!content) { this.error.set('Le contenu ne peut pas être vide.'); return; }
-    if (!cahierId) { this.error.set("Cahier non défini."); return; }
+    if (!userId) { this.error.set('Utilisateur non connecte.'); return; }
+    if (!content) { this.error.set('Le contenu ne peut pas etre vide.'); return; }
+    if (!cahierId) { this.error.set('Cahier non defini.'); return; }
 
     this.saving.set(true);
     this.error.set(null);
@@ -226,7 +246,7 @@ export class NotesComponent implements OnInit {
         }
         this.reloadNotes();
       },
-      error: (err: unknown) => {
+      error: () => {
         this.saving.set(false);
         this.error.set("Erreur lors de l'enregistrement.");
       },
@@ -262,48 +282,137 @@ export class NotesComponent implements OnInit {
 
     this.uploadingAttachment.set(true);
     this.noteService.uploadAttachment(noteId, file, userId).subscribe({
-        next: () => {
-            this.uploadingAttachment.set(false);
-            this.reloadNotes();
-            input.value = '';
-        },
-        error: () => {
-            this.uploadingAttachment.set(false);
-            this.error.set("Erreur lors de l'envoi de la pièce jointe.");
-            input.value = '';
-        }
+      next: () => {
+        this.uploadingAttachment.set(false);
+        this.reloadNotes();
+        input.value = '';
+      },
+      error: () => {
+        this.uploadingAttachment.set(false);
+        this.error.set("Erreur lors de l'envoi de la piece jointe.");
+        input.value = '';
+      }
     });
   }
 
   downloadAttachment(id: number, fileName: string): void {
-      this.noteService.downloadAttachment(id).subscribe({
-          next: (blob) => {
-              const url = window.URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = fileName;
-              document.body.appendChild(a);
-              a.click();
-              window.URL.revokeObjectURL(url);
-              document.body.removeChild(a);
-          },
-          error: () => this.error.set('Erreur de téléchargement.')
-      });
+    this.noteService.downloadAttachment(id).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      },
+      error: () => this.error.set('Erreur de telechargement.')
+    });
   }
 
   deleteAttachment(id: number): void {
-      if (!confirm('Supprimer cette pièce jointe ?')) return;
-      this.deletingAttachment.set(id);
-      this.noteService.deleteAttachment(id).subscribe({
-          next: () => {
-              this.deletingAttachment.set(null);
-              this.reloadNotes();
-          },
-          error: () => {
-              this.deletingAttachment.set(null);
-              this.error.set('Erreur suppression pièce jointe.');
-          }
-      });
+    if (!confirm('Supprimer cette piece jointe ?')) return;
+    this.deletingAttachment.set(id);
+    this.noteService.deleteAttachment(id).subscribe({
+      next: () => {
+        this.deletingAttachment.set(null);
+        this.reloadNotes();
+      },
+      error: () => {
+        this.deletingAttachment.set(null);
+        this.error.set('Erreur suppression piece jointe.');
+      }
+    });
+  }
+
+  recordImportPrompt(): void {
+    if (!this.voiceService.isSTTSupported) {
+      this.error.set('Speech-to-text indisponible dans ce navigateur.');
+      return;
+    }
+
+    this.listeningImportPrompt.set(true);
+    this.voiceService.listen().subscribe({
+      next: (transcript) => {
+        this.importPrompt.set(transcript);
+        this.listeningImportPrompt.set(false);
+      },
+      error: () => {
+        this.listeningImportPrompt.set(false);
+        this.error.set("Impossible d'enregistrer votre prompt vocal.");
+      }
+    });
+  }
+
+  discoverArticles(): void {
+    const prompt = this.importPrompt().trim();
+    if (!prompt) {
+      this.error.set('Ajoutez un prompt avant de chercher des articles.');
+      return;
+    }
+
+    this.discoveringArticles.set(true);
+    this.importCandidates.set([]);
+    this.importResult.set(null);
+    this.error.set(null);
+
+    this.notesImportService.discoverFromPrompt(prompt, 12).subscribe({
+      next: (candidates) => {
+        this.importCandidates.set(candidates);
+        this.discoveringArticles.set(false);
+        if (candidates.length === 0) {
+          this.error.set('Aucun article recuperable (souvent a cause du CORS source).');
+        }
+      },
+      error: () => {
+        this.discoveringArticles.set(false);
+        this.error.set('Echec de recherche RSS. Verifiez la connexion et le CORS.');
+      }
+    });
+  }
+
+  toggleCandidate(index: number): void {
+    const next = [...this.importCandidates()];
+    if (!next[index]) return;
+    next[index] = { ...next[index], selected: !next[index].selected };
+    this.importCandidates.set(next);
+  }
+
+  importSelectedArticles(): void {
+    const userId = this.userId();
+    const cahierId = this.activeCahierId();
+    const prompt = this.importPrompt().trim();
+    const selected = this.importCandidates().filter((c) => c.selected);
+
+    if (!userId) { this.error.set('Utilisateur non connecte.'); return; }
+    if (!cahierId) { this.error.set('Ouvrez un cahier avant import.'); return; }
+    if (!prompt) { this.error.set('Prompt manquant.'); return; }
+    if (selected.length === 0) { this.error.set('Selectionnez au moins un article.'); return; }
+
+    const request = this.notesImportService.buildImportBatchRequest(userId, cahierId, prompt, selected);
+    this.importingArticles.set(true);
+
+    this.noteService.importBatch(request).subscribe({
+      next: (result) => {
+        this.importingArticles.set(false);
+        this.importResult.set(result);
+        this.reloadNotes();
+      },
+      error: () => {
+        this.importingArticles.set(false);
+        this.error.set("Import impossible pour le moment.");
+      }
+    });
+  }
+
+  clearImportState(): void {
+    this.importPrompt.set('');
+    this.importCandidates.set([]);
+    this.importResult.set(null);
+    this.discoveringArticles.set(false);
+    this.listeningImportPrompt.set(false);
+    this.importingArticles.set(false);
   }
 
   toggleVoiceMode(): void {

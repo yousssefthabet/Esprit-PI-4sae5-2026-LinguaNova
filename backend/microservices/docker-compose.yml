@@ -46,10 +46,12 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
-      GEMINI_API_KEY: AIzaSyAVsxiT1ki-R465Iu27FOuApKYytiahJhg
+      GEMINI_API_KEY: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     depends_on:
-      - mysql
-      - eureka
+      mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_started
 
   note-service:
     build:
@@ -62,9 +64,12 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
+      GEMINI_API_KEY: Bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
     depends_on:
-      - mysql
-      - eureka
+      mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_started
 
   user-service:
     build:
@@ -82,8 +87,10 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
     depends_on:
-      - mysql
-      - eureka
+      mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_started
 
   course-service:
     build:
@@ -100,9 +107,31 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
     depends_on:
-      - mysql
-      - eureka
+      mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_started
+
+  event-service:
+    build:
+      context: ./event-service
+    container_name: event-service
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/LinguaNova?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_started
 
 volumes:
   mysql_data:
-

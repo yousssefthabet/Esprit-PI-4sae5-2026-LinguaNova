@@ -1,9 +1,11 @@
-﻿import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DashboardService } from '../../../core/services/dashboard.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { StudentStats, RecentActivity, ClassSchedule } from '../../../core/models/dashboard.model';
+import { Course } from '../../../core/models/course.model';
+import { CourseService } from '../../../core/services/course.service';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -102,38 +104,46 @@ import { StudentStats, RecentActivity, ClassSchedule } from '../../../core/model
             <div class="bg-white rounded-[32px] p-8 border border-gray-100 shadow-sm">
               <div class="flex items-center justify-between mb-8">
                  <div>
-                    <h2 class="text-2xl font-black text-gray-900 tracking-tight">Your  Classes</h2>
+                    <h2 class="text-2xl font-black text-gray-900 tracking-tight">Your Courses</h2>
                     
                  </div>
-                 <a routerLink="/courses/my-courses" class="text-[#0D9488] font-bold text-sm hover:underline">View All classes</a>
+                 <div class="flex items-center gap-4">
+                   <a routerLink="/courses/my-courses" class="text-[#0D9488] font-bold text-sm hover:underline">View All classes</a>
+                   <span class="text-gray-300">•</span>
+                   <a routerLink="/dashboard/student/events" class="text-[#0D9488] font-bold text-sm hover:underline">View All events</a>
+                 </div>
               </div>
 
               <div class="space-y-6">
-                @for (cls of upcomingClasses; track cls.id) {
+                @if (enrolledCourses.length === 0) {
+                  <div class="bg-white rounded-[24px] p-6 shadow-sm border border-gray-100 text-gray-500 font-bold">
+                    You are not enrolled in any course yet.
+                  </div>
+                } @else {
+                @for (course of enrolledCourses.slice(0, 3); track course.id) {
                   <div class="bg-white rounded-[24px] p-6 shadow-sm shadow-teal-900/5 relative group transition-all hover:shadow-md border border-gray-100 hover:border-teal-100">
                     
                   
 
                     <div class="flex flex-col md:flex-row items-center gap-6">
                       <!-- Date Badge (Left) -->
-                      <div class="w-16 h-20 bg-gray-50 rounded-2xl flex flex-col items-center justify-center border border-gray-100 transition-colors group-hover:bg-teal-50 group-hover:border-teal-100">
-                        <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">{{ cls.startTime | date:'MMM' }}</span>
-                        <span class="text-2xl font-black text-gray-900">{{ cls.startTime | date:'dd' }}</span>
+                      <div class="w-16 h-20 bg-gray-50 rounded-2xl flex flex-col items-center justify-center border border-gray-100 transition-colors group-hover:bg-teal-50 group-hover:border-teal-100 overflow-hidden">
+                        <img [src]="course.image" [alt]="course.title" class="w-full h-full object-cover" />
                       </div>
 
                       <!-- Content (Middle) -->
                       <div class="flex-grow space-y-3">
                         <div>
                           <h3 class="font-bold text-gray-900 text-lg tracking-tight group-hover:text-[#0D9488] transition-colors leading-tight">
-                            {{ cls.courseName }}
+                            {{ course.title }}
                           </h3>
                         </div>
                         
                         <div class="flex items-center justify-between">
                           <div class="space-y-1">
                             <div class="flex items-center gap-4 text-sm font-medium">
-                              <span class="text-gray-400 italic">By {{ cls.instructorName }}</span>
-                              <span class="text-[#0D9488] font-bold">{{ cls.startTime | date:'HH:mm' }} - {{ cls.endTime | date:'HH:mm' }}</span>
+                              <span class="text-gray-400 italic">By {{ course.instructor?.name }}</span>
+                              <span class="text-[#0D9488] font-bold">{{ course.progress ?? 0 }}%</span>
                             </div>
                           </div>
                         </div>
@@ -141,23 +151,28 @@ import { StudentStats, RecentActivity, ClassSchedule } from '../../../core/model
                         <!-- Progress Section -->
                         <div class="flex items-center gap-4 mt-2">
                           <div class="flex-grow h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-[#0D9488] rounded-full transition-all duration-500" [style.width.%]="cls.progress || 0"></div>
+                            <div class="h-full bg-[#0D9488] rounded-full transition-all duration-500" [style.width.%]="course.progress ?? 0"></div>
                           </div>
-                          @if (cls.currentLesson) {
-                            <span class="text-[11px] font-bold text-gray-400 whitespace-nowrap">{{ cls.currentLesson }}</span>
-                          }
+                          <span class="text-[11px] font-bold text-gray-400 whitespace-nowrap">
+                            {{ course.lessonsCount }} lessons
+                          </span>
                         </div>
                       </div>
 
                       <!-- Action Button (Right) -->
                       <div class="flex-shrink-0 w-full md:w-auto">
-                        <button class="w-full md:w-auto px-8 py-3 bg-[#0D9488] text-white font-black text-sm rounded-2xl shadow-lg shadow-teal-100 hover:bg-[#09776d] transition-all active:scale-95">
-                          {{ cls.status === 'live' ? 'Join Classroom' : 'Join classrom' }}
-                        </button>
+                        <a
+                          [routerLink]="['/courses/course-flow']"
+                          [queryParams]="{ courseId: course.id }"
+                          class="w-full md:w-auto inline-flex items-center justify-center px-8 py-3 bg-[#0D9488] text-white font-black text-sm rounded-2xl shadow-lg shadow-teal-100 hover:bg-[#09776d] transition-all active:scale-95"
+                        >
+                          Continue learning
+                        </a>
                       </div>
 
                     </div>
                   </div>
+                }
                 }
               </div>
             </div>
@@ -213,11 +228,13 @@ import { StudentStats, RecentActivity, ClassSchedule } from '../../../core/model
 })
 export class StudentDashboardComponent implements OnInit {
   private readonly dashboardService = inject(DashboardService);
+  private readonly courseService = inject(CourseService);
   readonly authService = inject(AuthService);
 
   stats?: StudentStats;
   activities: RecentActivity[] = [];
   upcomingClasses: ClassSchedule[] = [];
+  enrolledCourses: Course[] = [];
   loading = true;
 
   ngOnInit(): void {
@@ -241,6 +258,16 @@ export class StudentDashboardComponent implements OnInit {
     this.dashboardService.getUpcomingClasses().subscribe(classes => {
       this.upcomingClasses = classes;
       this.loading = false;
+    });
+
+    // Load enrolled courses for "Continue learning"
+    this.courseService.getEnrolledCourses().subscribe({
+      next: (courses) => {
+        this.enrolledCourses = Array.isArray(courses) ? courses : [];
+      },
+      error: () => {
+        this.enrolledCourses = [];
+      }
     });
   }
 }

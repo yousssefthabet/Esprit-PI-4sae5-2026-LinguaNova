@@ -58,6 +58,15 @@ public class ApiGatewayApplication {
                         .path("/api/cahiers/**")
                         .uri("lb://note-service"))
 
+                .route("event-service", r -> r
+                        .path("/api/events/**")
+                        .uri("lb://event-service"))
+
+                .route("course-service", r -> r
+                        .path("/api/courses/**")
+                        .uri("lb://course-service"))
+
+
                 .build();
     }
 }

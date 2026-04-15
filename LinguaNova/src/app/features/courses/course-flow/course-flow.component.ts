@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 import { CourseService } from '../../../core/services/course.service';
 import { Course, CourseLesson, CourseQuiz } from '../../../core/models/course.model';
 
@@ -94,18 +95,34 @@ const LESSON_COLORS = ['#2BBCB0', '#E67E22', '#2C3E50', '#E87B7B'] as const;
                 {{ selectedLesson.type === 'video' ? 'Video lesson' : selectedLesson.type === 'reading' ? 'Reading' : 'Lesson' }}
                 @if (selectedLesson.duration) { · {{ selectedLesson.duration }} min }
               </p>
-                @if (getLessonMediaUrl(selectedLesson)) {
-                <div class="rounded-xl border border-gray-200 bg-gray-900 overflow-hidden flex flex-col min-h-[480px]">
-                  @if (isLessonPdf(selectedLesson)) {
-                    <iframe [src]="getSanitizedLessonUrl(selectedLesson)" class="w-full flex-1 min-h-[500px]" title="{{ selectedLesson.title }}"></iframe>
-                  } @else if (isLessonVideo(selectedLesson)) {
-                    <video [src]="getSanitizedLessonUrl(selectedLesson)" controls class="w-full" controlsList="nodownload"></video>
-                  } @else {
-                    <iframe [src]="getSanitizedLessonUrl(selectedLesson)" class="w-full flex-1 min-h-[500px]" title="{{ selectedLesson.title }}"></iframe>
+              @if (getLessonMediaUrl(selectedLesson)) {
+                @if (lessonMediaStatus === 'missing') {
+                  <div class="rounded-xl bg-red-50 border border-red-100 p-6 text-red-700 text-sm font-semibold">
+                    File not found on server. Please re-upload this lesson PDF/video from Course Creation.
+                    <div class="mt-3">
+                      <a
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-red-200 text-red-700 font-bold hover:bg-red-50 transition-colors"
+                        [href]="getLessonMediaUrl(selectedLesson)!"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Open file in new tab
+                      </a>
+                    </div>
+                  </div>
+                } @else {
+                  <div class="rounded-xl border border-gray-200 bg-gray-900 overflow-hidden flex flex-col min-h-[480px]">
+                    @if (isLessonPdf(selectedLesson)) {
+                      <iframe [src]="getSanitizedLessonUrl(selectedLesson)" class="w-full flex-1 min-h-[500px]" title="{{ selectedLesson.title }}"></iframe>
+                    } @else if (isLessonVideo(selectedLesson)) {
+                      <video [src]="getSanitizedLessonUrl(selectedLesson)" controls class="w-full" controlsList="nodownload"></video>
+                    } @else {
+                      <iframe [src]="getSanitizedLessonUrl(selectedLesson)" class="w-full flex-1 min-h-[500px]" title="{{ selectedLesson.title }}"></iframe>
+                    }
+                  </div>
+                  @if (selectedLesson.fileName) {
+                    <p class="text-xs text-gray-500 mt-2">{{ selectedLesson.fileName }}</p>
                   }
-                </div>
-                @if (selectedLesson.fileName) {
-                  <p class="text-xs text-gray-500 mt-2">{{ selectedLesson.fileName }}</p>
                 }
               } @else {
                 <div class="rounded-xl bg-gray-50 border border-gray-100 p-6 text-gray-600 text-sm leading-relaxed">
@@ -237,6 +254,7 @@ export class CourseFlowComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);
     private readonly courseService = inject(CourseService);
     private readonly sanitizer = inject(DomSanitizer);
+    private readonly http = inject(HttpClient);
 
     readonly LESSON_COLORS = LESSON_COLORS;
     course: Course | null = null;
@@ -246,6 +264,7 @@ export class CourseFlowComponent implements OnInit {
     selectedQuizId: string | null = null;
     selectedLesson: CourseLesson | null = null;
     selectedQuizItem: CourseQuiz | null = null;
+    lessonMediaStatus: 'unknown' | 'ok' | 'missing' = 'unknown';
 
     ngOnInit(): void {
         this.route.queryParams.subscribe(params => {
@@ -287,10 +306,29 @@ export class CourseFlowComponent implements OnInit {
         this.selectedQuizId = null;
         this.selectedLesson = lesson;
         this.selectedQuizItem = null;
+        this.lessonMediaStatus = 'unknown';
+        this.checkSelectedLessonMedia();
         const progress = this.currentLessonProgress;
         if (this.course?.id && progress >= 0) {
             this.courseService.updateProgressPercent(this.course.id, progress).subscribe({ error: () => {} });
         }
+    }
+
+    private checkSelectedLessonMedia(): void {
+        const lesson = this.selectedLesson;
+        if (!lesson) return;
+        const url = this.getLessonMediaUrl(lesson);
+        if (!url) return;
+
+        // Quick existence check so we can show a helpful message instead of a blank/blocked iframe.
+        this.http.head(url, { observe: 'response', responseType: 'text' as any }).subscribe({
+            next: (res) => {
+                this.lessonMediaStatus = res.status >= 200 && res.status < 400 ? 'ok' : 'missing';
+            },
+            error: (err) => {
+                this.lessonMediaStatus = err?.status === 404 ? 'missing' : 'unknown';
+            }
+        });
     }
 
     /** All lessons in order (across all sections) for progress calculation. */
@@ -325,8 +363,15 @@ export class CourseFlowComponent implements OnInit {
         const s = raw.trim();
         if (!s) return null;
         if (s.startsWith('http://') || s.startsWith('https://')) return s;
+        // Backends may return either:
+        // - "/PIproject/api/courses/files/..." (expected)
+        // - "/api/courses/files/..." or "api/courses/files/..." (missing /PIproject prefix)
+        // Normalize so the Angular dev proxy routes to the course-service.
+        const normalized = s.startsWith('/api/courses/')
+            ? `/PIproject${s}`
+            : (s.startsWith('api/courses/') ? `/PIproject/${s}` : s);
         const base = typeof window !== 'undefined' ? window.location.origin : '';
-        const path = s.startsWith('/') ? s : `/${s}`;
+        const path = normalized.startsWith('/') ? normalized : `/${normalized}`;
         return base + path;
     }
 

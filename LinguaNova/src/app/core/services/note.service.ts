@@ -2,8 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import type { Note } from '../models/note.model';
-import type { NoteContextType } from '../models/note-context-type';
-import type { NoteCreateRequest, NoteUpdateRequest, AttachmentResponse } from '../models/note.model';
+import type {
+  NoteCreateRequest,
+  NoteUpdateRequest,
+  AttachmentResponse,
+  NoteImportBatchRequest,
+  NoteImportBatchResponse,
+} from '../models/note.model';
 
 @Injectable({ providedIn: 'root' })
 export class NoteService {
@@ -59,5 +64,9 @@ export class NoteService {
 
   downloadAttachment(id: number): Observable<Blob> {
     return this.http.get(`${this.apiUrl}/attachments/${id}/download`, { responseType: 'blob' });
+  }
+
+  importBatch(req: NoteImportBatchRequest): Observable<NoteImportBatchResponse> {
+    return this.http.post<NoteImportBatchResponse>(`${this.apiUrl}/import-batch`, req);
   }
 }

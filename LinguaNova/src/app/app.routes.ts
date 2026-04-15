@@ -91,9 +91,23 @@ export const routes: Routes = [
                 canActivate: [authGuard]
             },
             {
+                path: 'dashboard/student/events',
+                loadComponent: () => import('./features/events/student-joined-events/student-joined-events.component')
+                    .then(m => m.StudentJoinedEventsComponent),
+                canActivate: [authGuard, roleGuard],
+                data: { role: UserRole.STUDENT }
+            },
+            {
                 path: 'dashboard/instructor',
                 loadComponent: () => import('./features/dashboard/instructor-dashboard/instructor-dashboard.component')
                     .then(m => m.InstructorDashboardComponent),
+                canActivate: [authGuard, roleGuard],
+                data: { role: UserRole.INSTRUCTOR }
+            },
+            {
+                path: 'dashboard/instructor/events',
+                loadComponent: () => import('./features/events/instructor-events/instructor-events.component')
+                    .then(m => m.InstructorEventsComponent),
                 canActivate: [authGuard, roleGuard],
                 data: { role: UserRole.INSTRUCTOR }
             },
@@ -125,6 +139,24 @@ export const routes: Routes = [
                 path: 'event/create',
                 loadComponent: () => import('./features/events/event-creation/event-creation.component')
                     .then(m => m.EventCreationComponent),
+                canActivate: [authGuard]
+            },
+            {
+                path: 'event/edit/:id',
+                loadComponent: () => import('./features/events/event-creation/event-creation.component')
+                    .then(m => m.EventCreationComponent),
+                canActivate: [authGuard]
+            },
+            {
+                path: 'event/chat/:id',
+                loadComponent: () => import('./features/events/event-chat/event-chat.component')
+                    .then(m => m.EventChatComponent),
+                canActivate: [authGuard]
+            },
+            {
+                path: 'event/meet/:id',
+                loadComponent: () => import('./features/events/event-meet/event-meet.component')
+                    .then(m => m.EventMeetComponent),
                 canActivate: [authGuard]
             },
             {

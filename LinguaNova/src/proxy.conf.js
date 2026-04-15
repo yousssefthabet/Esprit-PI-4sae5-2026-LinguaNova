@@ -24,6 +24,13 @@ const EXAM_DIRECT_TARGET = {
     secure: false,
     changeOrigin: true,
 };
+
+const EVENT_SERVICE_TARGET = {
+    target: 'http://localhost:8085',
+    secure: false,
+    changeOrigin: true,
+    ws: true,
+};
 const PROXY_CONFIG = {
     '/PIproject/api/courses': {
         target: 'http://localhost:8081',
@@ -46,6 +53,8 @@ const PROXY_CONFIG = {
     '/api/quiz': EXAM_SERVICE_TARGET,
     '/api/cahiers': NOTE_SERVICE_TARGET,
     '/api/certificates': EXAM_DIRECT_TARGET,
+    '/api/events': EVENT_SERVICE_TARGET,
+    '/ws': EVENT_SERVICE_TARGET,
 
 
     // ── Backend générique (port 3000) ──
