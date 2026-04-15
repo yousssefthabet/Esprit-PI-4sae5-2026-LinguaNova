@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: course-service
+          uri: lb://course-service
+          predicates:
+            - Path=/courses
+
+        - id: event-service
+          uri: lb://event-service
+          predicates:
+            - Path=/events
+
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/users
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+    instance-id: localhost:${spring.application.name}:${server.port}

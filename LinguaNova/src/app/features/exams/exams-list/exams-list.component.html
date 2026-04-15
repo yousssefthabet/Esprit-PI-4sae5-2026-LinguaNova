@@ -1,0 +1,177 @@
+<div class="container mx-auto px-4 py-8 animate-in">
+
+    <!-- ══════════════════════════════════════════════════════
+       VUE ENSEIGNANT
+  ══════════════════════════════════════════════════════ -->
+    @if (isTeacher()) {
+    <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Gestion des examens</h1>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Créez, modifiez et consultez toutes les copies.</p>
+        </div>
+        <a [routerLink]="['/examens', 'nouveau']" class="px-5 py-2.5 bg-[#2D6F6B] text-white rounded-xl hover:bg-[#245a57] transition font-semibold shadow-sm">
+        + Ajouter un examen
+      </a>
+    </div>
+
+    @if (loading()) {
+    <div class="flex items-center justify-center h-40">
+        <div class="w-10 h-10 border-4 border-[#2D6F6B] border-t-transparent rounded-full animate-spin"></div>
+    </div>
+    } @else if (error()) {
+    <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-6" role="alert">
+        <p class="text-red-600">{{ error() }}</p>
+    </div>
+    } @else if (exams().length === 0) {
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-12 text-center">
+        <p class="text-5xl mb-4">📝</p>
+        <p class="text-gray-500 mb-4">Aucun examen créé.</p>
+        <a [routerLink]="['/examens', 'nouveau']" class="px-5 py-2.5 bg-[#2D6F6B] text-white rounded-xl hover:bg-[#245a57] transition font-semibold">
+          + Créer le premier examen
+        </a>
+    </div>
+    } @else {
+    <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        @for (exam of exams(); track exam.id) {
+        <li class="bg-white dark:bg-gray-800 rounded-2xl shadow hover:shadow-md transition p-6 flex flex-col gap-3">
+            <div class="flex items-start justify-between gap-2">
+                <h3 class="font-bold text-gray-800 dark:text-white text-lg leading-snug">
+                    <a [routerLink]="['/examens', exam.id]" class="hover:text-[#2D6F6B] transition">{{ exam.title }}</a>
+                </h3>
+                <span class="flex-shrink-0 px-2 py-0.5 text-xs rounded-full font-medium" [class]="getStatusClass(exam.examStatus)">
+                {{ getStatusLabel(exam.examStatus) }}
+              </span>
+            </div>
+            <p class="text-xs text-gray-400">{{ exam.courseName }} · {{ exam.maxScore }} pts</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 flex-1">{{ exam.description }}</p>
+            <div class="flex gap-2 flex-wrap pt-2 border-t border-gray-100 dark:border-gray-700">
+                <a [routerLink]="['/examens', exam.id, 'modifier']" class="px-3 py-1.5 text-xs border border-[#2D6F6B] text-[#2D6F6B] rounded-lg hover:bg-[#2D6F6B] hover:text-white transition font-medium">
+                ✏️ Modifier
+              </a>
+                <a [routerLink]="['/examens', exam.id, 'copies']" class="px-3 py-1.5 text-xs border border-gray-300 rounded-lg hover:bg-gray-100 transition font-medium">
+                📋 Copies
+              </a>
+                <button type="button" (click)="deleteExam(exam, $event)" class="px-3 py-1.5 text-xs bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition font-medium">
+                🗑 Supprimer
+              </button>
+            </div>
+        </li>
+        }
+    </ul>
+    } }
+
+    <!-- ══════════════════════════════════════════════════════
+       VUE ÉTUDIANT
+  ══════════════════════════════════════════════════════ -->
+    @else {
+    <div class="flex items-center justify-between mb-2 flex-wrap gap-4">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Examens disponibles</h1>
+            <p class="text-gray-500 dark:text-gray-400 mt-1 text-sm">
+                Passez les examens publiés et consultez vos résultats.
+            </p>
+        </div>
+        <a routerLink="/mes-resultats" class="px-5 py-2.5 border border-[#2D6F6B] text-[#2D6F6B] rounded-xl hover:bg-[#2D6F6B] hover:text-white transition font-semibold">
+        📋 Mes résultats
+      </a>
+    </div>
+
+    <!-- Section Quiz IA -->
+    <section class="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 mb-8 mt-6">
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-1">Générer un quiz pratique (IA)</h2>
+        <p class="text-sm text-gray-400 mb-4">Choisissez un thème, une difficulté et le nombre de questions.</p>
+        <div class="flex flex-wrap gap-4 items-end">
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-gray-600 dark:text-gray-300">Thème</label>
+                <input type="text" [(ngModel)]="quizTopic" placeholder="ex. Present simple, Vocabulary: travel" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]" />
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-gray-600 dark:text-gray-300">Difficulté</label>
+                <select [(ngModel)]="quizDifficulty" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]">
+            @for (opt of difficultyOptions; track opt.value) {
+              <option [value]="opt.value">{{ opt.label }}</option>
+            }
+          </select>
+            </div>
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-gray-600 dark:text-gray-300">Nb questions</label>
+                <input type="number" [(ngModel)]="quizNumQuestions" min="1" max="20" class="border border-gray-300 rounded-lg px-3 py-2 text-sm w-24 focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]" />
+            </div>
+            <button type="button" [disabled]="generatingQuiz()" (click)="generateQuiz()" class="px-5 py-2 bg-[#2D6F6B] text-white rounded-lg hover:bg-[#245a57] transition font-medium disabled:opacity-50">
+          {{ generatingQuiz() ? 'Génération…' : '✨ Générer le quiz' }}
+        </button>
+        </div>
+
+        @if (quizError()) {
+        <p class="mt-3 text-red-600 text-sm" role="alert">{{ quizError() }}</p>
+        } @if (generatedQuiz() && !quizSubmitted()) {
+        <div class="mt-6">
+            <h3 class="font-semibold text-gray-700 dark:text-white mb-4">{{ generatedQuiz()!.title }}</h3>
+            @for (q of generatedQuiz()!.questions; track $index; let i = $index) {
+            <div class="mb-5 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                <p class="font-medium text-gray-700 dark:text-white mb-2">Q{{ i + 1 }}. {{ q.content }}</p>
+                <fieldset class="flex flex-col gap-2">
+                    @for (opt of q.options; track $index; let oi = $index) {
+                    <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-600 dark:text-gray-300">
+                    <input type="radio" [name]="'quiz-q-' + i" [value]="oi" [checked]="getQuizAnswer(i) === oi"
+                      (change)="setQuizAnswer(i, oi)" />
+                    {{ opt }}
+                  </label> }
+                </fieldset>
+            </div>
+            }
+            <div class="flex gap-3">
+                <button type="button" class="px-5 py-2 bg-[#2D6F6B] text-white rounded-lg transition font-medium" (click)="submitQuiz()">Voir ma note</button>
+                <button type="button" class="px-5 py-2 border border-gray-300 rounded-lg transition font-medium" (click)="resetQuiz()">Annuler</button>
+            </div>
+        </div>
+        } @if (quizSubmitted()) {
+        <div class="mt-6 p-4 bg-green-50 dark:bg-green-900 rounded-xl text-center" role="status">
+            <p class="text-2xl font-bold text-green-700 dark:text-green-300">{{ quizSubmitted()!.correct }} / {{ quizSubmitted()!.total }}</p>
+            <button type="button" class="mt-3 px-5 py-2 border border-gray-300 rounded-lg transition font-medium" (click)="resetQuiz()">Générer un autre quiz</button>
+        </div>
+        }
+    </section>
+
+    <!-- Liste des examens publiés -->
+    <section>
+        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-4">Examens à passer</h2>
+        @if (loading()) {
+        <div class="flex items-center justify-center h-32">
+            <div class="w-10 h-10 border-4 border-[#2D6F6B] border-t-transparent rounded-full animate-spin"></div>
+        </div>
+        } @else if (error()) {
+        <div class="bg-red-50 border border-red-200 rounded-xl p-4" role="alert">
+            <p class="text-red-600">{{ error() }}</p>
+        </div>
+        } @else if (exams().length === 0) {
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-12 text-center">
+            <p class="text-5xl mb-4">📭</p>
+            <p class="text-gray-500">Aucun examen publié pour le moment.</p>
+        </div>
+        } @else {
+        <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            @for (exam of exams(); track exam.id) {
+            <li class="bg-white dark:bg-gray-800 rounded-2xl shadow hover:shadow-md transition p-5 flex flex-col gap-3">
+                <div>
+                    <h3 class="font-bold text-gray-800 dark:text-white text-lg">
+                        <a [routerLink]="['/examens', exam.id]" class="hover:text-[#2D6F6B] transition">{{ exam.title }}</a>
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">{{ exam.courseName }} · {{ exam.maxScore }} points</p>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-3 flex-1">{{ exam.description }}</p>
+                <div class="flex gap-2 flex-wrap pt-2 border-t border-gray-100 dark:border-gray-700">
+                    <a [routerLink]="['/examens', exam.id]" class="px-4 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-100 transition">
+                  Détail
+                </a>
+                    <a [routerLink]="['/examens', exam.id, 'passer']" class="px-4 py-1.5 text-sm bg-[#2D6F6B] text-white rounded-lg hover:bg-[#245a57] transition font-medium">
+                  ▶ Passer l'examen
+                </a>
+                </div>
+            </li>
+            }
+        </ul>
+        }
+    </section>
+    }
+</div>

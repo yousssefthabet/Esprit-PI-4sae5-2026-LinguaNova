@@ -1,0 +1,110 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    @if (loading()) {
+    <div class="flex items-center justify-center h-64">
+        <div class="w-10 h-10 border-4 border-[#2D6F6B] border-t-transparent rounded-full animate-spin"></div>
+    </div>
+    } @else if (error()) {
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-red-50 border border-red-200 rounded-xl p-4 text-red-600">{{ error() }}</div>
+    </div>
+    } @else if (exam()) {
+    <!-- Barre de progression -->
+    <div class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex-1">
+                <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                    <span>Question {{ currentIndex() + 1 }} / {{ totalQuestions() }}</span>
+                    <span>{{ progress() }}%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div class="bg-[#2D6F6B] h-1.5 rounded-full transition-all" [style.width.%]="progress()"></div>
+                </div>
+            </div>
+            <div class="ml-6 flex gap-2">
+                <button type="button" (click)="toggleVoiceMode()" class="p-2 rounded-lg text-sm font-medium transition" [class.bg-blue-100]="voiceMode()" [class.text-blue-700]="voiceMode()" [class.bg-gray-100]="!voiceMode()" [class.text-gray-600]="!voiceMode()">
+            {{ voiceMode() ? '🔊 Mode voix ON' : '🔇 Mode voix' }}
+          </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-3xl">
+        <h1 class="text-xl font-bold text-gray-800 dark:text-white mb-1">{{ exam()!.title }}</h1>
+        <p class="text-gray-500 text-sm mb-6">{{ exam()!.courseName }}</p>
+
+      <div class="mb-4 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-700 text-sm">
+        Profil étudiant chargé: {{ loadedStudentLabel() }}
+      </div>
+
+        @if (error()) {
+        <div class="bg-red-50 border border-red-200 rounded-xl p-3 mb-4 text-red-600 text-sm" role="alert">{{ error() }}</div>
+        }
+
+        <!-- Barre vocale -->
+        @if (voiceMode()) {
+        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-6 flex flex-wrap items-center gap-3">
+            <button type="button" (click)="readQuestion()" class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition">
+            🔊 Lire la question
+          </button>
+            <button type="button" (click)="toggleListening()" class="px-4 py-1.5 text-sm rounded-lg transition font-medium" [class.bg-red-500]="voiceActive()" [class.text-white]="voiceActive()" [class.bg-gray-200]="!voiceActive()" [class.text-gray-700]="!voiceActive()">
+            {{ voiceActive() ? '⏹ Arrêter' : '🎤 Dicter ma réponse' }}
+          </button> @if (recognizedText()) {
+            <span class="text-xs text-blue-700 italic">« {{ recognizedText() }} »</span> }
+        </div>
+        }
+
+        <!-- Question courante -->
+        @if (currentQuestion(); as q) {
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 mb-6">
+            <div class="flex items-start gap-3 mb-4">
+                <span class="flex-shrink-0 w-8 h-8 bg-[#2D6F6B] text-white text-sm rounded-full flex items-center justify-center font-bold">
+              {{ currentIndex() + 1 }}
+            </span>
+                <p class="text-gray-800 dark:text-white font-medium leading-relaxed">{{ q.content }}</p>
+            </div>
+            <p class="text-xs text-gray-400 mb-4">{{ q.score }} point{{ q.score > 1 ? 's' : '' }} · {{ q.type }}</p>
+
+            @if (q.type === 'QCM' || q.type === 'TRUE_FALSE') {
+            <div class="space-y-2">
+                @for (rep of q.reponses || []; track rep.id) {
+                <button type="button" (click)="selectReponse(q.id!, rep.id!)" class="w-full flex items-center gap-3 border rounded-xl px-4 py-3 text-sm text-left transition" [class.border-[#2D6F6B]]="isSelected(q.id!, rep.id!)" [class.bg-[#f0faf9]]="isSelected(q.id!, rep.id!)"
+                    [class.font-semibold]="isSelected(q.id!, rep.id!)" [class.border-gray-200]="!isSelected(q.id!, rep.id!)" [class.hover:bg-gray-50]="!isSelected(q.id!, rep.id!)">
+                  <span class="w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center"
+                    [class.border-[#2D6F6B]]="isSelected(q.id!, rep.id!)"
+                    [class.border-gray-400]="!isSelected(q.id!, rep.id!)">
+                    @if (isSelected(q.id!, rep.id!)) {
+                      <span class="w-2 h-2 rounded-full bg-[#2D6F6B]"></span>
+                    }
+                  </span>
+                  {{ rep.content }}
+                </button> }
+            </div>
+            } @if (q.type === 'TEXT') {
+            <textarea rows="5" [value]="getTextAnswer(q.id!)" (input)="setTextAnswer(q.id!, $any($event.target).value)" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]" placeholder="Votre réponse…"></textarea>            }
+        </div>
+        }
+
+        <!-- Navigation entre questions -->
+        <div class="flex flex-wrap gap-2 mb-6 justify-center">
+            @for (q of exam()!.questions || []; track $index) {
+            <button type="button" (click)="goTo($index)" class="w-9 h-9 rounded-full text-sm font-medium border transition" [class.bg-[#2D6F6B]]="currentIndex() === $index" [class.text-white]="currentIndex() === $index" [class.border-[#2D6F6B]]="currentIndex() === $index"
+                [class.bg-green-100]="answers()[q.id!] && currentIndex() !== $index" [class.border-green-400]="answers()[q.id!] && currentIndex() !== $index" [class.bg-white]="!answers()[q.id!] && currentIndex() !== $index" [class.border-gray-300]="!answers()[q.id!] && currentIndex() !== $index">
+            {{ $index + 1 }}
+          </button> }
+        </div>
+
+        <div class="flex gap-3">
+            <button type="button" (click)="prev()" [disabled]="currentIndex() === 0" class="flex-1 py-2 border border-gray-300 rounded-xl text-sm hover:bg-gray-50 transition disabled:opacity-40">
+          ← Précédent
+        </button> @if (currentIndex()
+            < totalQuestions() - 1) { <button type="button" (click)="next()" class="flex-1 py-2 bg-[#2D6F6B] text-white rounded-xl text-sm hover:bg-[#245a57] transition">
+                Suivant →
+                </button>
+                } @else {
+                <button type="button" (click)="submit()" [disabled]="submitting() || selectedUserId() == null" class="flex-1 py-2 bg-green-600 text-white rounded-xl text-sm font-semibold hover:bg-green-700 transition disabled:opacity-50">
+            {{ submitting() ? 'Soumission…' : '✓ Soumettre l\'examen' }}
+          </button> }
+        </div>
+    </div>
+    }
+</div>

@@ -1,0 +1,81 @@
+<div class="container mx-auto px-4 py-8 max-w-5xl">
+    <!-- En-tête -->
+    <nav class="flex items-center gap-2 text-sm text-gray-400 mb-4">
+        <a routerLink="/examens" class="hover:text-[#2D6F6B]">Examens</a>
+        <span>›</span>
+        <span class="text-gray-600 dark:text-white">{{ exam()?.title || 'Copies' }}</span>
+        <span>›</span>
+        <span class="text-gray-600 dark:text-white">Copies</span>
+    </nav>
+
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Copies des étudiants</h1>
+            @if (exam()) {
+            <p class="text-gray-500 dark:text-gray-400 text-sm">{{ exam()!.title }} · {{ exam()!.courseName }}</p>
+            }
+        </div>
+        <a [routerLink]="['/examens', exam()?.id]" class="text-sm text-[#2D6F6B] hover:underline">← Retour à l'examen</a>
+    </div>
+
+    @if (loading()) {
+    <div class="flex items-center justify-center h-40">
+        <div class="w-10 h-10 border-4 border-[#2D6F6B] border-t-transparent rounded-full animate-spin"></div>
+    </div>
+    } @else if (error()) {
+    <div class="bg-red-50 border border-red-200 rounded-xl p-4 text-red-600 text-sm" role="alert">{{ error() }}</div>
+    } @else if (copies().length === 0) {
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-12 text-center">
+        <p class="text-5xl mb-4">📋</p>
+        <p class="text-gray-500">Aucune copie soumise pour cet examen.</p>
+    </div>
+    } @else {
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-gray-50 dark:bg-gray-700 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th class="px-5 py-3 text-left">Étudiant</th>
+                    <th class="px-5 py-3 text-left">Score</th>
+                    <th class="px-5 py-3 text-left">%</th>
+                    <th class="px-5 py-3 text-left">Soumis le</th>
+                    <th class="px-5 py-3 text-left">Statut</th>
+                    <th class="px-5 py-3 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                @for (copy of copies(); track copy.id) { @let pct = getPercentage(copy);
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <td class="px-5 py-3">
+                        @if (copy.student) {
+                        <span class="font-medium text-gray-800 dark:text-white">
+                    {{ copy.student.firstName || copy.student.username || 'Étudiant' }} {{ copy.student.lastName || '' }}
+                  </span>
+                        <div class="text-xs text-gray-400">User #{{ copy.userId }}</div>
+                        } @else {
+                        <span class="text-gray-400 italic">User #{{ copy.userId }}</span> }
+                    </td>
+                    <td class="px-5 py-3 font-semibold" [class]="getGradeColor(pct)">
+                        {{ copy.score }} / {{ exam()?.maxScore }} pts
+                    </td>
+                    <td class="px-5 py-3">
+                        <span class="font-medium" [class]="getGradeColor(pct)">{{ pct }}%</span>
+                    </td>
+                    <td class="px-5 py-3 text-gray-500">
+                        {{ copy.submittedAt | date:'dd/MM/yyyy' }}
+                    </td>
+                    <td class="px-5 py-3">
+                        @if (copy.validated) {
+                        <span class="px-2 py-0.5 bg-green-100 text-green-700 rounded-full text-xs">✓ Validé</span> } @else {
+                        <span class="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full text-xs">En attente</span> }
+                    </td>
+                    <td class="px-5 py-3">
+                        <a [routerLink]="['/examens/copies', copy.id]" class="text-[#2D6F6B] hover:underline font-medium">Voir →</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p class="text-xs text-gray-400 mt-3 text-right">{{ copies().length }} copie{{ copies().length > 1 ? 's' : '' }} au total</p>
+    }
+</div>
