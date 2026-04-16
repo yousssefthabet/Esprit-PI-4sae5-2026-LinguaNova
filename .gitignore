@@ -1,0 +1,8 @@
+backend/microservices/logs/
+*.log
+.claude/
+.maven-user-home/
+.maven-user-home-real/
+node_modules/
+dist/
+target/
