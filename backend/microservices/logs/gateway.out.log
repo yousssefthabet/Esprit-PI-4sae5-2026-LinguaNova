@@ -3270,3 +3270,38 @@ Unconditional classes:
 2026-04-16T02:52:31.262+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
 2026-04-16T02:52:31.266+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
 2026-04-16T02:52:31.266+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Reading to [org.springframework.cloud.netflix.eureka.http.EurekaApplications]
+2026-04-16T02:53:01.222+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : HTTP PUT http://localhost:8761/eureka/apps/API-GATEWAY/localhost:API-GATEWAY:8093?status=UP&lastDirtyTimestamp=1776297448501
+2026-04-16T02:53:01.222+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2026-04-16T02:53:01.227+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
+2026-04-16T02:53:01.269+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : HTTP GET http://localhost:8761/eureka/apps/delta
+2026-04-16T02:53:01.269+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2026-04-16T02:53:01.272+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
+2026-04-16T02:53:01.272+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Reading to [org.springframework.cloud.netflix.eureka.http.EurekaApplications]
+2026-04-16T02:53:31.228+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : HTTP PUT http://localhost:8761/eureka/apps/API-GATEWAY/localhost:API-GATEWAY:8093?status=UP&lastDirtyTimestamp=1776297448501
+2026-04-16T02:53:31.228+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2026-04-16T02:53:31.232+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
+2026-04-16T02:53:31.275+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : HTTP GET http://localhost:8761/eureka/apps/delta
+2026-04-16T02:53:31.275+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2026-04-16T02:53:31.278+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
+2026-04-16T02:53:31.279+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Reading to [org.springframework.cloud.netflix.eureka.http.EurekaApplications]
+2026-04-16T02:54:01.234+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : HTTP PUT http://localhost:8761/eureka/apps/API-GATEWAY/localhost:API-GATEWAY:8093?status=UP&lastDirtyTimestamp=1776297448501
+2026-04-16T02:54:01.235+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2026-04-16T02:54:01.240+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
+2026-04-16T02:54:01.282+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : HTTP GET http://localhost:8761/eureka/apps/delta
+2026-04-16T02:54:01.282+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2026-04-16T02:54:01.286+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
+2026-04-16T02:54:01.286+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Reading to [org.springframework.cloud.netflix.eureka.http.EurekaApplications]
+2026-04-16T02:54:31.243+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : HTTP PUT http://localhost:8761/eureka/apps/API-GATEWAY/localhost:API-GATEWAY:8093?status=UP&lastDirtyTimestamp=1776297448501
+2026-04-16T02:54:31.243+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2026-04-16T02:54:31.247+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
+2026-04-16T02:54:31.288+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : HTTP GET http://localhost:8761/eureka/apps/delta
+2026-04-16T02:54:31.288+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2026-04-16T02:54:31.292+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
+2026-04-16T02:54:31.292+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Reading to [org.springframework.cloud.netflix.eureka.http.EurekaApplications]
+2026-04-16T02:55:01.248+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : HTTP PUT http://localhost:8761/eureka/apps/API-GATEWAY/localhost:API-GATEWAY:8093?status=UP&lastDirtyTimestamp=1776297448501
+2026-04-16T02:55:01.248+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2026-04-16T02:55:01.253+01:00 DEBUG 10340 --- [API-GATEWAY] [beatExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
+2026-04-16T02:55:01.295+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : HTTP GET http://localhost:8761/eureka/apps/delta
+2026-04-16T02:55:01.296+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2026-04-16T02:55:01.300+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Response 200 OK
+2026-04-16T02:55:01.301+01:00 DEBUG 10340 --- [API-GATEWAY] [reshExecutor-%d] o.s.web.client.RestTemplate              : Reading to [org.springframework.cloud.netflix.eureka.http.EurekaApplications]

@@ -1655,3 +1655,7 @@ Unconditional classes:
 2026-04-16T02:50:06.852+01:00  INFO 20180 --- [Eureka-Server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
 2026-04-16T02:51:06.852+01:00  INFO 20180 --- [Eureka-Server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
 2026-04-16T02:52:06.852+01:00  INFO 20180 --- [Eureka-Server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-04-16T02:53:06.853+01:00  INFO 20180 --- [Eureka-Server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-04-16T02:54:06.544+01:00  INFO 20180 --- [Eureka-Server] [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 6
+2026-04-16T02:54:06.604+01:00  WARN 20180 --- [Eureka-Server] [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2026-04-16T02:54:06.853+01:00  INFO 20180 --- [Eureka-Server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
