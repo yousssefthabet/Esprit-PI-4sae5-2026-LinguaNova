@@ -1,0 +1,148 @@
+<div class="container mx-auto px-4 py-8 max-w-3xl">
+    <nav class="flex items-center gap-2 text-sm text-gray-400 mb-6">
+        <a routerLink="/examens" class="hover:text-[#2D6F6B]">Examens</a>
+        <span>›</span>
+        <span class="text-gray-600 dark:text-white">{{ isEdit() ? 'Modifier l\'examen' : 'Nouvel examen' }}</span>
+    </nav>
+
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        {{ isEdit() ? 'Modifier l\'examen' : 'Ajouter un examen' }}
+    </h1>
+    <p class="text-gray-500 dark:text-gray-400 mb-8 text-sm">
+        Remplissez les informations de l'examen et ajoutez vos questions.
+    </p>
+
+    @if (loading()) {
+    <p class="text-gray-400">Chargement…</p>
+    } @else { @if (error()) {
+    <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-6" role="alert">
+        <p class="text-red-600 text-sm">{{ error() }}</p>
+    </div>
+    }
+
+    <form (ngSubmit)="save()" class="space-y-6">
+        <!-- Infos générales -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 space-y-4">
+            <h2 class="font-semibold text-gray-700 dark:text-white">Informations générales</h2>
+            <div>
+                <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Titre *</label>
+                <input type="text" [ngModel]="title()" (ngModelChange)="setField('title', $event)" name="title" minlength="3" maxlength="255" required class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]"
+                    placeholder="Titre de l'examen" />
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Description *</label>
+                <textarea [ngModel]="description()" (ngModelChange)="setField('description', $event)" name="description" rows="3" minlength="10" maxlength="1000" required class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]"
+                    placeholder="Description de l'examen"></textarea>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Nom du cours *</label>
+                    <input type="text" [ngModel]="courseName()" (ngModelChange)="setField('courseName', $event)" name="courseName" minlength="2" maxlength="100" required class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Score max *</label>
+                    <input type="number" min="0.5" step="0.5" [ngModel]="maxScore()" (ngModelChange)="setField('maxScore', $event)" name="maxScore" required class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Statut</label>
+                    <select [ngModel]="examStatus()" (ngModelChange)="setField('examStatus', $event)" name="examStatus" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]">
+              @for (opt of statusOptions; track opt.value) {
+                <option [value]="opt.value">{{ opt.label }}</option>
+              }
+            </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Génération IA -->
+        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 space-y-4">
+            <h2 class="font-semibold text-gray-700 dark:text-white">✨ Générer des questions avec l'IA <span class="text-xs font-normal text-gray-400">(optionnel)</span></h2>
+            <p class="text-xs text-gray-400">Remplissez d'abord le titre, la description et le cours.</p>
+            <div class="flex flex-wrap gap-4 items-end">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Difficulté</label>
+                    <select [(ngModel)]="aiDifficulty" name="aiDifficulty" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]">
+              @for (opt of difficultyOptions; track opt.value) {
+                <option [value]="opt.value">{{ opt.label }}</option>
+              }
+            </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Nb questions</label>
+                    <input type="number" min="1" max="20" [(ngModel)]="aiNumQuestions" name="aiNumQuestions" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm w-20 focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]" />
+                </div>
+                <button type="button" [disabled]="generatingAi()" (click)="generateQuestionsWithAi()" class="px-5 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition font-medium disabled:opacity-50">
+            {{ generatingAi() ? '⏳ Génération…' : '✨ Générer avec l\'IA' }}
+          </button>
+            </div>
+            @if (aiError()) {
+            <p class="text-red-600 text-sm" role="alert">{{ aiError() }}</p>
+            }
+        </div>
+
+        <!-- Questions -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 space-y-4">
+            <h2 class="font-semibold text-gray-700 dark:text-white">Questions <span class="text-xs font-normal text-gray-400">(au moins une requise)</span></h2>
+
+            @for (question of questions(); track $index) {
+            <div class="border border-gray-200 dark:border-gray-600 rounded-xl p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-medium text-gray-700 dark:text-white text-sm">Question {{ $index + 1 }}</h3>
+                    <button type="button" (click)="removeQuestion($index)" class="text-red-500 hover:text-red-700 text-sm font-medium">Supprimer</button>
+                </div>
+                <textarea [ngModel]="question.content" (ngModelChange)="updateQuestionField($index, 'content', $event)" [name]="'question-content-' + $index" rows="2" placeholder="Contenu de la question" minlength="5" maxlength="1000" required class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]"></textarea>
+                <div class="flex gap-4 flex-wrap">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Points</label>
+                        <input type="number" min="0.5" step="0.5" [ngModel]="question.score" (ngModelChange)="updateQuestionField($index, 'score', $event)" [name]="'q-score-' + $index" required class="border border-gray-300 rounded-lg px-2 py-1 text-sm w-20 focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]"
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Type</label>
+                        <select [ngModel]="question.type" (ngModelChange)="updateQuestionField($index, 'type', $event)" [name]="'q-type-' + $index" class="border border-gray-300 rounded-lg px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]">
+                  @for (opt of questionTypeOptions; track opt.value) {
+                    <option [value]="opt.value">{{ opt.label }}</option>
+                  }
+                </select>
+                    </div>
+                </div>
+
+                @if (question.type === 'QCM' || question.type === 'TRUE_FALSE') {
+                <div class="space-y-2">
+                    <h4 class="text-xs font-medium text-gray-500">Réponses {{ question.type === 'TRUE_FALSE' ? '(Vrai/Faux)' : '' }}</h4>
+                    @let qIdx = $index; @for (reponse of question.reponses || []; track $index) {
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" [ngModel]="reponse.correct" (ngModelChange)="updateReponseField(qIdx, $index, 'correct', $event)" [name]="'r-correct-' + qIdx + '-' + $index" class="accent-[#2D6F6B]" />
+                        <span class="text-xs text-gray-500">Correcte</span>
+                        <input type="text" [ngModel]="reponse.content" (ngModelChange)="updateReponseField(qIdx, $index, 'content', $event)" [name]="'r-content-' + qIdx + '-' + $index" placeholder="Réponse" maxlength="500" class="flex-1 border border-gray-300 rounded-lg px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D6F6B]"
+                        /> @if (question.type === 'QCM') {
+                        <button type="button" (click)="removeReponse(qIdx, $index)" class="text-red-400 hover:text-red-600 text-xs">✕</button> }
+                    </div>
+                    } @if (question.type === 'QCM') {
+                    <button type="button" (click)="addReponse($index)" class="text-sm text-[#2D6F6B] hover:underline">+ Ajouter une réponse</button> }
+                </div>
+                } @if (question.type === 'TEXT') {
+                <p class="text-xs text-gray-400 italic">Les questions texte ne nécessitent pas de réponses prédéfinies.</p>
+                }
+            </div>
+            }
+
+            <button type="button" (click)="addQuestion()" class="px-4 py-2 border border-dashed border-gray-300 rounded-xl text-sm text-gray-500 hover:bg-gray-50 transition w-full">
+          + Ajouter une question
+        </button>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-3">
+            <button type="submit" [disabled]="saving()" class="px-6 py-2 bg-[#2D6F6B] text-white rounded-lg hover:bg-[#245a57] transition font-medium disabled:opacity-50">
+          {{ saving() ? 'Enregistrement…' : 'Enregistrer' }}
+        </button>
+            <a routerLink="/examens" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition font-medium">
+          Annuler
+        </a>
+        </div>
+    </form>
+    }
+</div>

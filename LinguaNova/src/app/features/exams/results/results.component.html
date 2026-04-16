@@ -1,0 +1,66 @@
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Mes résultats</h1>
+    <p class="text-gray-500 dark:text-gray-400 text-sm mb-8">Consultez vos résultats d'examens passés.</p>
+
+    @if (loading()) {
+    <div class="flex items-center justify-center h-40">
+        <div class="w-10 h-10 border-4 border-[#2D6F6B] border-t-transparent rounded-full animate-spin"></div>
+    </div>
+    } @else if (error()) {
+    <div class="bg-red-50 border border-red-200 rounded-xl p-4 text-red-600 text-sm" role="alert">{{ error() }}</div>
+    } @else if (results().length === 0) {
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-12 text-center">
+        <p class="text-5xl mb-4">📋</p>
+        <p class="text-gray-500">Aucun résultat trouvé pour ce profil.</p>
+        <a routerLink="/examens" class="mt-4 inline-block px-5 py-2 bg-[#2D6F6B] text-white rounded-lg text-sm hover:bg-[#245a57] transition">
+        Passer un examen
+      </a>
+    </div>
+    } @else {
+    <div class="grid gap-4">
+        @for (result of results(); track result.id) { @let pct = getPercentage(result);
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <!-- Score circulaire -->
+            <div class="flex-shrink-0 w-16 h-16 relative">
+                <svg viewBox="0 0 36 36" class="w-full h-full -rotate-90">
+              <circle cx="18" cy="18" r="15.9" stroke="#e5e7eb" stroke-width="3" fill="none"/>
+              <circle cx="18" cy="18" r="15.9" stroke="#2D6F6B" stroke-width="3" fill="none"
+                [attr.stroke-dasharray]="pct + ' 100'" stroke-linecap="round"/>
+            </svg>
+                <span class="absolute inset-0 flex items-center justify-center text-sm font-bold" [class]="getGradeColor(pct)">
+              {{ pct }}%
+            </span>
+            </div>
+
+            <!-- Infos -->
+            <div class="flex-1">
+                <h3 class="font-semibold text-gray-800 dark:text-white">{{ result.exam?.title ?? 'Examen' }}</h3>
+                <p class="text-xs text-gray-400">{{ result.exam?.courseName }}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                    Score : <span class="font-bold" [class]="getGradeColor(pct)">{{ result.score }}</span> / <span class="text-gray-500">{{ getMaxScore(result) }} pts</span>
+                </p>
+                @if (result.submittedAt) {
+                <p class="text-xs text-gray-400 mt-1">Soumis le {{ result.submittedAt | date:'dd/MM/yyyy à HH:mm' }}</p>
+                }
+            </div>
+
+            <!-- Badge validated -->
+            <div class="flex flex-col items-end gap-2">
+                @if (result.validated) {
+                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full font-medium">✓ Validé</span> 
+                <button (click)="downloadCertificate(result)" class="text-xs text-[#2D6F6B] hover:underline font-medium flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Télécharger Certificat
+                </button>
+                } @else {
+                <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full font-medium">En attente</span> 
+                }
+                <a [routerLink]="['/examens/copies', result.id]" class="text-xs text-[#2D6F6B] hover:underline mt-1">Voir la copie →</a>
+            </div>
+        </div>
+        }
+    </div>
+    }
+</div>

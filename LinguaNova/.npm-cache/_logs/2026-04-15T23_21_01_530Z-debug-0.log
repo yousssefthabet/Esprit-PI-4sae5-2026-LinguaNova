@@ -1,0 +1,1328 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.8.0
+2 info using node@v24.13.1
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\neffa\Downloads\Esprit-PI-4sae5-2026-LinguaNova-final\LinguaNova\.npmrc
+5 silly config load:file:C:\Users\neffa\.npmrc
+6 silly config load:file:C:\Users\neffa\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:C:\Users\neffa\Downloads\Esprit-PI-4sae5-2026-LinguaNova-final\LinguaNova\.npm-cache\_logs\2026-04-15T23_21_01_530Z-
+10 verbose logfile C:\Users\neffa\Downloads\Esprit-PI-4sae5-2026-LinguaNova-final\LinguaNova\.npm-cache\_logs\2026-04-15T23_21_01_530Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 http fetch GET https://registry.npmjs.org/npm attempt 1 failed with EACCES
+14 silly idealTree buildDeps
+15 silly reify mark retired [
+15 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\faye-websocket'
+15 silly reify ]
+16 silly reify mark retired [
+16 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\http-parser-js'
+16 silly reify ]
+17 silly reify mark retired [
+17 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\leaflet'
+17 silly reify ]
+18 silly reify mark retired [
+18 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\querystringify'
+18 silly reify ]
+19 silly reify mark retired [
+19 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\requires-port'
+19 silly reify ]
+20 silly reify mark retired [
+20 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\safe-buffer'
+20 silly reify ]
+21 silly reify mark retired [
+21 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\sockjs-client'
+21 silly reify ]
+22 silly reify mark retired [
+22 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\url-parse'
+22 silly reify ]
+23 silly reify mark retired [
+23 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\websocket-driver'
+23 silly reify ]
+24 silly reify mark retired [
+24 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\websocket-extensions'
+24 silly reify ]
+25 silly reify mark retired [
+25 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@stomp\\stompjs'
+25 silly reify ]
+26 silly reify mark retired [
+26 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@types\\geojson'
+26 silly reify ]
+27 silly reify mark retired [
+27 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@types\\leaflet'
+27 silly reify ]
+28 silly reify mark retired [
+28 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@types\\sockjs-client'
+28 silly reify ]
+29 silly reify mark retired [
+29 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\autoprefixer',
+29 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\autoprefixer',
+29 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\autoprefixer.cmd',
+29 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\autoprefixer.ps1'
+29 silly reify ]
+30 silly reify mark retired [
+30 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\baseline-browser-mapping',
+30 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\baseline-browser-mapping',
+30 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\baseline-browser-mapping.cmd',
+30 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\baseline-browser-mapping.ps1'
+30 silly reify ]
+31 silly reify mark retired [
+31 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\browserslist',
+31 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\browserslist',
+31 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\browserslist.cmd',
+31 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\browserslist.ps1'
+31 silly reify ]
+32 silly reify mark retired [
+32 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\cssesc',
+32 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\cssesc',
+32 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\cssesc.cmd',
+32 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\cssesc.ps1'
+32 silly reify ]
+33 silly reify mark retired [
+33 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\esbuild',
+33 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\esbuild',
+33 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\esbuild.cmd',
+33 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\esbuild.ps1'
+33 silly reify ]
+34 silly reify mark retired [
+34 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\jiti',
+34 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jiti',
+34 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jiti.cmd',
+34 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jiti.ps1'
+34 silly reify ]
+35 silly reify mark retired [
+35 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\jsesc',
+35 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jsesc',
+35 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jsesc.cmd',
+35 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jsesc.ps1'
+35 silly reify ]
+36 silly reify mark retired [
+36 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\json5',
+36 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\json5',
+36 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\json5.cmd',
+36 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\json5.ps1'
+36 silly reify ]
+37 silly reify mark retired [
+37 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\lmdb',
+37 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-lmdb-prebuilds',
+37 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-lmdb-prebuilds.cmd',
+37 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-lmdb-prebuilds.ps1'
+37 silly reify ]
+38 silly reify mark retired [
+38 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\msgpackr-extract',
+38 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-msgpackr-prebuilds',
+38 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-msgpackr-prebuilds.cmd',
+38 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-msgpackr-prebuilds.ps1'
+38 silly reify ]
+39 silly reify mark retired [
+39 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\nanoid',
+39 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nanoid',
+39 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nanoid.cmd',
+39 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nanoid.ps1'
+39 silly reify ]
+40 silly reify mark retired [
+40 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\node-gyp',
+40 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp',
+40 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp.cmd',
+40 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp.ps1'
+40 silly reify ]
+41 silly reify mark retired [
+41 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\nopt',
+41 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nopt',
+41 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nopt.cmd',
+41 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nopt.ps1'
+41 silly reify ]
+42 silly reify mark retired [
+42 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\node-gyp-build-optional-packages',
+42 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages',
+42 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages.cmd',
+42 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages.ps1',
+42 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-optional',
+42 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-optional.cmd',
+42 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-optional.ps1',
+42 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-test',
+42 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-test.cmd',
+42 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-test.ps1'
+42 silly reify ]
+43 silly reify mark retired [
+43 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\pacote',
+43 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\pacote',
+43 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\pacote.cmd',
+43 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\pacote.ps1'
+43 silly reify ]
+44 silly reify mark retired [
+44 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\resolve',
+44 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\resolve',
+44 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\resolve.cmd',
+44 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\resolve.ps1'
+44 silly reify ]
+45 silly reify mark retired [
+45 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\rolldown',
+45 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rolldown',
+45 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rolldown.cmd',
+45 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rolldown.ps1'
+45 silly reify ]
+46 silly reify mark retired [
+46 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\rollup',
+46 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rollup',
+46 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rollup.cmd',
+46 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rollup.ps1'
+46 silly reify ]
+47 silly reify mark retired [
+47 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\semver',
+47 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\semver',
+47 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\semver.cmd',
+47 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\semver.ps1'
+47 silly reify ]
+48 silly reify mark retired [
+48 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\sass',
+48 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sass',
+48 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sass.cmd',
+48 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sass.ps1'
+48 silly reify ]
+49 silly reify mark retired [
+49 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\sucrase',
+49 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase',
+49 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase.cmd',
+49 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase.ps1',
+49 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase-node',
+49 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase-node.cmd',
+49 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase-node.ps1'
+49 silly reify ]
+50 silly reify mark retired [
+50 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\tailwindcss',
+50 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwind',
+50 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwind.cmd',
+50 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwind.ps1',
+50 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwindcss',
+50 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwindcss.cmd',
+50 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwindcss.ps1'
+50 silly reify ]
+51 silly reify mark retired [
+51 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\tldts',
+51 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tldts',
+51 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tldts.cmd',
+51 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tldts.ps1'
+51 silly reify ]
+52 silly reify mark retired [
+52 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\typescript',
+52 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsc',
+52 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsc.cmd',
+52 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsc.ps1',
+52 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsserver',
+52 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsserver.cmd',
+52 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsserver.ps1'
+52 silly reify ]
+53 silly reify mark retired [
+53 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\update-browserslist-db',
+53 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\update-browserslist-db',
+53 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\update-browserslist-db.cmd',
+53 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\update-browserslist-db.ps1'
+53 silly reify ]
+54 silly reify mark retired [
+54 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\vite',
+54 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vite',
+54 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vite.cmd',
+54 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vite.ps1'
+54 silly reify ]
+55 silly reify mark retired [
+55 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\vitest',
+55 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vitest',
+55 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vitest.cmd',
+55 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vitest.ps1'
+55 silly reify ]
+56 silly reify mark retired [
+56 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\why-is-node-running',
+56 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\why-is-node-running',
+56 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\why-is-node-running.cmd',
+56 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\why-is-node-running.ps1'
+56 silly reify ]
+57 silly reify mark retired [
+57 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\which',
+57 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-which',
+57 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-which.cmd',
+57 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-which.ps1'
+57 silly reify ]
+58 silly reify mark retired [
+58 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@angular\\cli',
+58 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng',
+58 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng.cmd',
+58 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng.ps1'
+58 silly reify ]
+59 silly reify mark retired [
+59 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@angular\\compiler-cli',
+59 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ngc',
+59 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ngc.cmd',
+59 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ngc.ps1',
+59 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng-xi18n',
+59 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng-xi18n.cmd',
+59 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng-xi18n.ps1'
+59 silly reify ]
+60 silly reify mark retired [
+60 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@angular-devkit\\architect',
+60 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\architect',
+60 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\architect.cmd',
+60 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\architect.ps1'
+60 silly reify ]
+61 silly reify mark retired [
+61 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\semver',
+61 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\.bin\\semver',
+61 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\.bin\\semver.cmd',
+61 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\.bin\\semver.ps1'
+61 silly reify ]
+62 silly reify mark retired [
+62 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\semver',
+62 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\.bin\\semver',
+62 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\.bin\\semver.cmd',
+62 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\.bin\\semver.ps1'
+62 silly reify ]
+63 silly reify mark retired [
+63 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\parser',
+63 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\parser',
+63 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\parser.cmd',
+63 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\parser.ps1'
+63 silly reify ]
+64 silly reify mark retired [
+64 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\which',
+64 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\.bin\\node-which',
+64 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\.bin\\node-which.cmd',
+64 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\.bin\\node-which.ps1'
+64 silly reify ]
+65 silly reify mark retired [
+65 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\installed-package-contents',
+65 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\installed-package-contents',
+65 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\installed-package-contents.cmd',
+65 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\installed-package-contents.ps1'
+65 silly reify ]
+66 silly reify mark retired [
+66 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\which',
+66 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\.bin\\node-which',
+66 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\.bin\\node-which.cmd',
+66 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\.bin\\node-which.ps1'
+66 silly reify ]
+67 silly reify mark retired [
+67 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\which',
+67 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\.bin\\node-which',
+67 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\.bin\\node-which.cmd',
+67 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\.bin\\node-which.ps1'
+67 silly reify ]
+68 silly reify moves {
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\faye-websocket': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.faye-websocket-r6VUUQXN',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\http-parser-js': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.http-parser-js-l29iSMWs',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\leaflet': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.leaflet-Tjuv8Fhb',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\querystringify': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.querystringify-X0yEfWm7',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\requires-port': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.requires-port-KWdVL0X2',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\safe-buffer': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.safe-buffer-fYuQ25U8',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\sockjs-client': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.sockjs-client-c8YQ5hou',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\url-parse': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.url-parse-XdsotI1L',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\websocket-driver': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.websocket-driver-7mvLlDyJ',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\websocket-extensions': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.websocket-extensions-Gn1YGV7l',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@stomp\\stompjs': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@stomp\\.stompjs-Jy1U7LO6',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@types\\geojson': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@types\\.geojson-l6SfO4Tg',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@types\\leaflet': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@types\\.leaflet-w2lhglpz',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@types\\sockjs-client': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@types\\.sockjs-client-LthoewRX',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\autoprefixer': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.autoprefixer-hsT0kI6D',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\autoprefixer': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.autoprefixer-2JWsbGxz',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\autoprefixer.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.autoprefixer.cmd-4Q9XMUgv',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\autoprefixer.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.autoprefixer.ps1-oNUrGPLb',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\baseline-browser-mapping': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.baseline-browser-mapping-iKO512Os',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\baseline-browser-mapping': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.baseline-browser-mapping-lCUwzpO1',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\baseline-browser-mapping.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.baseline-browser-mapping.cmd-wS5MQLbY',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\baseline-browser-mapping.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.baseline-browser-mapping.ps1-qOGwe2ZN',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\browserslist': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.browserslist-dd0V2sGR',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\browserslist': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.browserslist-nFGIa2GE',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\browserslist.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.browserslist.cmd-jc4RWQnJ',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\browserslist.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.browserslist.ps1-v4u0TtGb',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\cssesc': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.cssesc-SFHROlP1',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\cssesc': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.cssesc-4r73TcRW',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\cssesc.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.cssesc.cmd-3HogLbm5',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\cssesc.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.cssesc.ps1-xtWS4s57',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\esbuild': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.esbuild-6RrfnpEX',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\esbuild': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.esbuild-nRgy5J3H',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\esbuild.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.esbuild.cmd-aVsXMGbR',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\esbuild.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.esbuild.ps1-M3OCWGbg',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\jiti': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.jiti-CdgLkBC4',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jiti': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.jiti-Q5VaDk0s',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jiti.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.jiti.cmd-qkpp1ykS',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jiti.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.jiti.ps1-pRQE13Gx',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\jsesc': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.jsesc-iwyioy8r',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jsesc': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.jsesc-I6lbbT49',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jsesc.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.jsesc.cmd-OFC8lCFj',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\jsesc.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.jsesc.ps1-q7RQtoYB',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\json5': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.json5-6bUGXKI9',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\json5': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.json5-ZaZYLE2R',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\json5.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.json5.cmd-W0LNfME1',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\json5.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.json5.ps1-tolq1s0O',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\lmdb': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.lmdb-Dkr0mCeS',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-lmdb-prebuilds': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.download-lmdb-prebuilds-AtjZJu8U',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-lmdb-prebuilds.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.download-lmdb-prebuilds.cmd-P62QTv0x',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-lmdb-prebuilds.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.download-lmdb-prebuilds.ps1-bBwNDSeb',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\msgpackr-extract': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.msgpackr-extract-BqWr9rze',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-msgpackr-prebuilds': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.download-msgpackr-prebuilds-7EqSymWu',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-msgpackr-prebuilds.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.download-msgpackr-prebuilds.cmd-Ojlsknwg',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\download-msgpackr-prebuilds.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.download-msgpackr-prebuilds.ps1-gS6FrnJI',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\nanoid': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.nanoid-aEzam3eV',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nanoid': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.nanoid-8xUu9b9M',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nanoid.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.nanoid.cmd-a8PIHBrQ',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nanoid.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.nanoid.ps1-QrdU5Xud',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\node-gyp': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.node-gyp-2XKMUuL0',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp-lYwEGoKS',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp.cmd-Li4oDHmn',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp.ps1-Tb4FtXp8',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\nopt': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.nopt-TXsWG0Sm',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nopt': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.nopt-fhwhkaHk',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nopt.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.nopt.cmd-Vt50R02P',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\nopt.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.nopt.ps1-16Fib7Xn',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\node-gyp-build-optional-packages': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.node-gyp-build-optional-packages-pGMUu8cA',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp-build-optional-packages-j2vR8SGg',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp-build-optional-packages.cmd-pYmjYdRC',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp-build-optional-packages.ps1-kYnAryhi',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-optional': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp-build-optional-packages-optional-FVI06eiY',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-optional.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp-build-optional-packages-optional.cmd-mtIXlvLu',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-optional.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp-build-optional-packages-optional.ps1-QY5HIFEd',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-test': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp-build-optional-packages-test-emDGg2Qk',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-test.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp-build-optional-packages-test.cmd-fp0XlkRi',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-gyp-build-optional-packages-test.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-gyp-build-optional-packages-test.ps1-F1VK2t4z',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\pacote': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.pacote-oIN46VAJ',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\pacote': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.pacote-wiIpoZ7k',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\pacote.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.pacote.cmd-UpUMPlPh',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\pacote.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.pacote.ps1-jGD5E0rq',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\resolve': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.resolve-J3OAjBu7',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\resolve': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.resolve-SQ7iu9vF',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\resolve.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.resolve.cmd-up4W5yyi',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\resolve.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.resolve.ps1-S27CHRU2',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\rolldown': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.rolldown-6NH1gtHX',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rolldown': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.rolldown-Oi63SSwV',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rolldown.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.rolldown.cmd-tmk7RSI6',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rolldown.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.rolldown.ps1-k8ICo4eR',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\rollup': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.rollup-Pc3ygE5m',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rollup': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.rollup-W5YuAE9e',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rollup.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.rollup.cmd-y3OPM97j',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\rollup.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.rollup.ps1-jquS9cUi',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\semver': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.semver-phkM7z3L',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\semver': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.semver-RB68xZc6',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\semver.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.semver.cmd-KEf0WUrf',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\semver.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.semver.ps1-qToG9y5a',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\sass': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.sass-o9lLl6AX',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sass': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.sass-xhZIaeVV',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sass.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.sass.cmd-YZXh3X73',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sass.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.sass.ps1-DTh3Pw47',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\sucrase': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.sucrase-DqkoQEEa',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.sucrase-Y09yPedH',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.sucrase.cmd-x66rKgE1',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.sucrase.ps1-d7iJY72D',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase-node': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.sucrase-node-5EGRa2iy',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase-node.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.sucrase-node.cmd-XJlieqZC',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\sucrase-node.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.sucrase-node.ps1-7El8grAU',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\tailwindcss': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.tailwindcss-Cq5Lx8Lw',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwind': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tailwind-h0q5Lt2G',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwind.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tailwind.cmd-tlzcBbxA',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwind.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tailwind.ps1-GPlidUrj',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwindcss': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tailwindcss-iadfEqnv',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwindcss.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tailwindcss.cmd-yLwS2TPB',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tailwindcss.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tailwindcss.ps1-1qy5BQhZ',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\tldts': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.tldts-m5BLG8C3',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tldts': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tldts-khL3xBsg',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tldts.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tldts.cmd-P3fcW5WP',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tldts.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tldts.ps1-bi7f5JjI',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\typescript': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.typescript-1DPfvn8Z',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsc': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tsc-BWcZnwjm',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsc.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tsc.cmd-CDoHTPnB',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsc.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tsc.ps1-6JG11p1t',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsserver': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tsserver-krN08CnD',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsserver.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tsserver.cmd-4KpoA1fF',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\tsserver.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.tsserver.ps1-XGCajPcy',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\update-browserslist-db': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.update-browserslist-db-Mj9dZwia',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\update-browserslist-db': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.update-browserslist-db-YrAJaU5w',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\update-browserslist-db.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.update-browserslist-db.cmd-LLqT00ts',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\update-browserslist-db.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.update-browserslist-db.ps1-u4rTy3dm',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\vite': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.vite-iqHNbYuj',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vite': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.vite-YRyQwcFi',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vite.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.vite.cmd-SVaUOFAA',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vite.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.vite.ps1-fSsSl01B',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\vitest': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.vitest-EkYth3dE',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vitest': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.vitest-4UauybbV',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vitest.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.vitest.cmd-oejE3R7M',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\vitest.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.vitest.ps1-BWFpuQla',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\why-is-node-running': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.why-is-node-running-EVy7cjol',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\why-is-node-running': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.why-is-node-running-uLTt4ATK',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\why-is-node-running.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.why-is-node-running.cmd-M0It1WI9',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\why-is-node-running.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.why-is-node-running.ps1-w3xIvb41',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\which': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.which-odbPPToI',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-which': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-which-cyebeuWb',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-which.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-which.cmd-yum5hJPl',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\node-which.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.node-which.ps1-pHkClsxY',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@angular\\cli': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@angular\\.cli-lE6tbxHw',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.ng-VzLDbzw8',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.ng.cmd-NyChrZe5',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.ng.ps1-zYAusAPu',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@angular\\compiler-cli': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@angular\\.compiler-cli-GWzKuGQf',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ngc': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.ngc-CIjdo7f9',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ngc.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.ngc.cmd-WvYMwXbQ',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ngc.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.ngc.ps1-cFNCPCed',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng-xi18n': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.ng-xi18n-bH9EM1Ma',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng-xi18n.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.ng-xi18n.cmd-shGWaHVU',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\ng-xi18n.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.ng-xi18n.ps1-Ai1UErw4',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@angular-devkit\\architect': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@angular-devkit\\.architect-yVjsEvgf',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\architect': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.architect-UIlgTqYC',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\architect.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.architect.cmd-cZkddD9m',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\architect.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.architect.ps1-x76vDLFC',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\semver': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\.semver-cak26eMf',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\.bin\\semver': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\.bin\\.semver-gF22vexE',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\.bin\\semver.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\.bin\\.semver.cmd-g8dM1Bpc',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\.bin\\semver.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\core\\node_modules\\.bin\\.semver.ps1-XCQUMQNu',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\semver': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\.semver-YE98LZGd',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\.bin\\semver': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\.bin\\.semver-7ApqjZ90',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\.bin\\semver.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\.bin\\.semver.cmd-d4I2uohF',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\.bin\\semver.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\helper-compilation-targets\\node_modules\\.bin\\.semver.ps1-EHC3ebLe',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\parser': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@babel\\.parser-RglQrfDj',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\parser': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.parser-ydwHSlpd',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\parser.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.parser.cmd-dqPicDNN',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\parser.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.parser.ps1-7O8MdESm',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\which': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\.which-WwZW4Ca5',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\.bin\\node-which': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\.bin\\.node-which-F0z4Q8UN',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\.bin\\node-which.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\.bin\\.node-which.cmd-2vafs7Mm',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\.bin\\node-which.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\git\\node_modules\\.bin\\.node-which.ps1-LFFvK8wx',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\installed-package-contents': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\.installed-package-contents-4tf5seLW',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\installed-package-contents': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.installed-package-contents-jVG5SNIt',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\installed-package-contents.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.installed-package-contents.cmd-U4EAA33t',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\installed-package-contents.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\.bin\\.installed-package-contents.ps1-7SOrcilZ',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\which': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\.which-406zBfsO',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\.bin\\node-which': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\.bin\\.node-which-KqllVEeO',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\.bin\\node-which.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\.bin\\.node-which.cmd-N9Implyh',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\.bin\\node-which.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\promise-spawn\\node_modules\\.bin\\.node-which.ps1-Ta4OXZPU',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\which': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\.which-39jw3RMZ',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\.bin\\node-which': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\.bin\\.node-which-PO0Bq3e4',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\.bin\\node-which.cmd': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\.bin\\.node-which.cmd-In6AWR4d',
+68 silly reify   'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\.bin\\node-which.ps1': 'C:\\Users\\neffa\\Downloads\\Esprit-PI-4sae5-2026-LinguaNova-final\\LinguaNova\\node_modules\\@npmcli\\run-script\\node_modules\\.bin\\.node-which.ps1-o3cpRtMm'
+68 silly reify }
+69 silly audit bulk request {
+69 silly audit   '@acemir/cssom': [ '0.9.31' ],
+69 silly audit   '@algolia/abtesting': [ '1.12.2' ],
+69 silly audit   '@algolia/client-abtesting': [ '5.46.2' ],
+69 silly audit   '@algolia/client-analytics': [ '5.46.2' ],
+69 silly audit   '@algolia/client-common': [ '5.46.2' ],
+69 silly audit   '@algolia/client-insights': [ '5.46.2' ],
+69 silly audit   '@algolia/client-personalization': [ '5.46.2' ],
+69 silly audit   '@algolia/client-query-suggestions': [ '5.46.2' ],
+69 silly audit   '@algolia/client-search': [ '5.46.2' ],
+69 silly audit   '@algolia/ingestion': [ '1.46.2' ],
+69 silly audit   '@algolia/monitoring': [ '1.46.2' ],
+69 silly audit   '@algolia/recommend': [ '5.46.2' ],
+69 silly audit   '@algolia/requester-browser-xhr': [ '5.46.2' ],
+69 silly audit   '@algolia/requester-fetch': [ '5.46.2' ],
+69 silly audit   '@algolia/requester-node-http': [ '5.46.2' ],
+69 silly audit   '@alloc/quick-lru': [ '5.2.0' ],
+69 silly audit   '@ampproject/remapping': [ '2.3.0' ],
+69 silly audit   '@angular-devkit/architect': [ '0.2101.3' ],
+69 silly audit   '@angular-devkit/core': [ '21.1.3' ],
+69 silly audit   '@angular-devkit/schematics': [ '21.1.3' ],
+69 silly audit   '@angular/build': [ '21.1.3' ],
+69 silly audit   '@angular/cli': [ '21.1.3' ],
+69 silly audit   '@angular/common': [ '21.1.3' ],
+69 silly audit   '@angular/compiler': [ '21.1.3' ],
+69 silly audit   '@angular/compiler-cli': [ '21.1.3' ],
+69 silly audit   '@angular/core': [ '21.1.3' ],
+69 silly audit   '@angular/forms': [ '21.1.3' ],
+69 silly audit   '@angular/platform-browser': [ '21.1.3' ],
+69 silly audit   '@angular/platform-server': [ '21.1.3' ],
+69 silly audit   '@angular/router': [ '21.1.3' ],
+69 silly audit   '@angular/ssr': [ '21.1.3' ],
+69 silly audit   '@asamuzakjp/css-color': [ '4.1.2' ],
+69 silly audit   'lru-cache': [ '11.2.6', '5.1.1' ],
+69 silly audit   '@asamuzakjp/dom-selector': [ '6.7.8' ],
+69 silly audit   '@asamuzakjp/nwsapi': [ '2.3.9' ],
+69 silly audit   '@babel/code-frame': [ '7.29.0' ],
+69 silly audit   '@babel/compat-data': [ '7.29.0' ],
+69 silly audit   '@babel/core': [ '7.28.5' ],
+69 silly audit   'convert-source-map': [ '2.0.0', '1.9.0' ],
+69 silly audit   semver: [ '6.3.1', '7.7.3' ],
+69 silly audit   '@babel/generator': [ '7.29.1' ],
+69 silly audit   '@babel/helper-annotate-as-pure': [ '7.27.3' ],
+69 silly audit   '@babel/helper-compilation-targets': [ '7.28.6' ],
+69 silly audit   '@babel/helper-globals': [ '7.28.0' ],
+69 silly audit   '@babel/helper-module-imports': [ '7.28.6' ],
+69 silly audit   '@babel/helper-module-transforms': [ '7.28.6' ],
+69 silly audit   '@babel/helper-split-export-declaration': [ '7.24.7' ],
+69 silly audit   '@babel/helper-string-parser': [ '7.27.1' ],
+69 silly audit   '@babel/helper-validator-identifier': [ '7.28.5' ],
+69 silly audit   '@babel/helper-validator-option': [ '7.27.1' ],
+69 silly audit   '@babel/helpers': [ '7.28.6' ],
+69 silly audit   '@babel/parser': [ '7.29.0' ],
+69 silly audit   '@babel/template': [ '7.28.6' ],
+69 silly audit   '@babel/traverse': [ '7.29.0' ],
+69 silly audit   '@babel/types': [ '7.29.0' ],
+69 silly audit   '@csstools/color-helpers': [ '6.0.1' ],
+69 silly audit   '@csstools/css-calc': [ '3.0.1' ],
+69 silly audit   '@csstools/css-color-parser': [ '4.0.1' ],
+69 silly audit   '@csstools/css-parser-algorithms': [ '4.0.0' ],
+69 silly audit   '@csstools/css-syntax-patches-for-csstree': [ '1.0.27' ],
+69 silly audit   '@csstools/css-tokenizer': [ '4.0.0' ],
+69 silly audit   '@emnapi/core': [ '1.8.1' ],
+69 silly audit   '@emnapi/runtime': [ '1.8.1' ],
+69 silly audit   '@emnapi/wasi-threads': [ '1.1.0' ],
+69 silly audit   '@esbuild/aix-ppc64': [ '0.27.2' ],
+69 silly audit   '@esbuild/android-arm': [ '0.27.2' ],
+69 silly audit   '@esbuild/android-arm64': [ '0.27.2' ],
+69 silly audit   '@esbuild/android-x64': [ '0.27.2' ],
+69 silly audit   '@esbuild/darwin-arm64': [ '0.27.2' ],
+69 silly audit   '@esbuild/darwin-x64': [ '0.27.2' ],
+69 silly audit   '@esbuild/freebsd-arm64': [ '0.27.2' ],
+69 silly audit   '@esbuild/freebsd-x64': [ '0.27.2' ],
+69 silly audit   '@esbuild/linux-arm': [ '0.27.2' ],
+69 silly audit   '@esbuild/linux-arm64': [ '0.27.2' ],
+69 silly audit   '@esbuild/linux-ia32': [ '0.27.2' ],
+69 silly audit   '@esbuild/linux-loong64': [ '0.27.2' ],
+69 silly audit   '@esbuild/linux-mips64el': [ '0.27.2' ],
+69 silly audit   '@esbuild/linux-ppc64': [ '0.27.2' ],
+69 silly audit   '@esbuild/linux-riscv64': [ '0.27.2' ],
+69 silly audit   '@esbuild/linux-s390x': [ '0.27.2' ],
+69 silly audit   '@esbuild/linux-x64': [ '0.27.2' ],
+69 silly audit   '@esbuild/netbsd-arm64': [ '0.27.2' ],
+69 silly audit   '@esbuild/netbsd-x64': [ '0.27.2' ],
+69 silly audit   '@esbuild/openbsd-arm64': [ '0.27.2' ],
+69 silly audit   '@esbuild/openbsd-x64': [ '0.27.2' ],
+69 silly audit   '@esbuild/openharmony-arm64': [ '0.27.2' ],
+69 silly audit   '@esbuild/sunos-x64': [ '0.27.2' ],
+69 silly audit   '@esbuild/win32-arm64': [ '0.27.2' ],
+69 silly audit   '@esbuild/win32-ia32': [ '0.27.2' ],
+69 silly audit   '@esbuild/win32-x64': [ '0.27.2' ],
+69 silly audit   '@exodus/bytes': [ '1.13.0' ],
+69 silly audit   '@hono/node-server': [ '1.19.9' ],
+69 silly audit   '@inquirer/ansi': [ '1.0.2' ],
+69 silly audit   '@inquirer/checkbox': [ '4.3.2' ],
+69 silly audit   '@inquirer/confirm': [ '5.1.21' ],
+69 silly audit   '@inquirer/core': [ '10.3.2' ],
+69 silly audit   '@inquirer/editor': [ '4.2.23' ],
+69 silly audit   '@inquirer/expand': [ '4.0.23' ],
+69 silly audit   '@inquirer/external-editor': [ '1.0.3' ],
+69 silly audit   '@inquirer/figures': [ '1.0.15' ],
+69 silly audit   '@inquirer/input': [ '4.3.1' ],
+69 silly audit   '@inquirer/number': [ '3.0.23' ],
+69 silly audit   '@inquirer/password': [ '4.0.23' ],
+69 silly audit   '@inquirer/prompts': [ '7.10.1' ],
+69 silly audit   '@inquirer/rawlist': [ '4.1.11' ],
+69 silly audit   '@inquirer/search': [ '3.2.2' ],
+69 silly audit   '@inquirer/select': [ '4.4.2' ],
+69 silly audit   '@inquirer/type': [ '3.0.10' ],
+69 silly audit   '@isaacs/balanced-match': [ '4.0.1' ],
+69 silly audit   '@isaacs/brace-expansion': [ '5.0.1' ],
+69 silly audit   '@isaacs/fs-minipass': [ '4.0.1' ],
+69 silly audit   '@istanbuljs/schema': [ '0.1.3' ],
+69 silly audit   '@jridgewell/gen-mapping': [ '0.3.13' ],
+69 silly audit   '@jridgewell/remapping': [ '2.3.5' ],
+69 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+69 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ],
+69 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+69 silly audit   '@listr2/prompt-adapter-inquirer': [ '3.0.5' ],
+69 silly audit   '@lmdb/lmdb-darwin-arm64': [ '3.4.4' ],
+69 silly audit   '@lmdb/lmdb-darwin-x64': [ '3.4.4' ],
+69 silly audit   '@lmdb/lmdb-linux-arm': [ '3.4.4' ],
+69 silly audit   '@lmdb/lmdb-linux-arm64': [ '3.4.4' ],
+69 silly audit   '@lmdb/lmdb-linux-x64': [ '3.4.4' ],
+69 silly audit   '@lmdb/lmdb-win32-arm64': [ '3.4.4' ],
+69 silly audit   '@lmdb/lmdb-win32-x64': [ '3.4.4' ],
+69 silly audit   '@modelcontextprotocol/sdk': [ '1.26.0' ],
+69 silly audit   '@msgpackr-extract/msgpackr-extract-darwin-arm64': [ '3.0.3' ],
+69 silly audit   '@msgpackr-extract/msgpackr-extract-darwin-x64': [ '3.0.3' ],
+69 silly audit   '@msgpackr-extract/msgpackr-extract-linux-arm': [ '3.0.3' ],
+69 silly audit   '@msgpackr-extract/msgpackr-extract-linux-arm64': [ '3.0.3' ],
+69 silly audit   '@msgpackr-extract/msgpackr-extract-linux-x64': [ '3.0.3' ],
+69 silly audit   '@msgpackr-extract/msgpackr-extract-win32-x64': [ '3.0.3' ],
+69 silly audit   '@napi-rs/nice': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-android-arm-eabi': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-android-arm64': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-darwin-arm64': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-darwin-x64': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-freebsd-x64': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-linux-arm-gnueabihf': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-linux-arm64-gnu': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-linux-arm64-musl': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-linux-ppc64-gnu': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-linux-riscv64-gnu': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-linux-s390x-gnu': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-linux-x64-gnu': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-linux-x64-musl': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-openharmony-arm64': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-win32-arm64-msvc': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-win32-ia32-msvc': [ '1.1.1' ],
+69 silly audit   '@napi-rs/nice-win32-x64-msvc': [ '1.1.1' ],
+69 silly audit   '@napi-rs/wasm-runtime': [ '1.1.1' ],
+69 silly audit   '@nodelib/fs.scandir': [ '2.1.5' ],
+69 silly audit   '@nodelib/fs.stat': [ '2.0.5' ],
+69 silly audit   '@nodelib/fs.walk': [ '1.2.8' ],
+69 silly audit   '@npmcli/agent': [ '4.0.0' ],
+69 silly audit   '@npmcli/fs': [ '5.0.0' ],
+69 silly audit   '@npmcli/git': [ '7.0.1' ],
+69 silly audit   isexe: [ '4.0.0', '2.0.0' ],
+69 silly audit   which: [ '6.0.1', '2.0.2' ],
+69 silly audit   '@npmcli/installed-package-contents': [ '4.0.0' ],
+69 silly audit   '@npmcli/node-gyp': [ '5.0.0' ],
+69 silly audit   '@npmcli/package-json': [ '7.0.4' ],
+69 silly audit   '@npmcli/promise-spawn': [ '9.0.1' ],
+69 silly audit   '@npmcli/redact': [ '4.0.0' ],
+69 silly audit   '@npmcli/run-script': [ '10.0.3' ],
+69 silly audit   '@oxc-project/types': [ '0.106.0' ],
+69 silly audit   '@parcel/watcher': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-android-arm64': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-darwin-arm64': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-darwin-x64': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-freebsd-x64': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-linux-arm-glibc': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-linux-arm-musl': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-linux-arm64-glibc': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-linux-arm64-musl': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-linux-x64-glibc': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-linux-x64-musl': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-win32-arm64': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-win32-ia32': [ '2.5.6' ],
+69 silly audit   '@parcel/watcher-win32-x64': [ '2.5.6' ],
+69 silly audit   'node-addon-api': [ '7.1.1', '6.1.0' ],
+69 silly audit   '@rolldown/binding-android-arm64': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-darwin-arm64': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-darwin-x64': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-freebsd-x64': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-linux-arm-gnueabihf': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-linux-arm64-gnu': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-linux-arm64-musl': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-linux-x64-gnu': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-linux-x64-musl': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-openharmony-arm64': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-wasm32-wasi': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-win32-arm64-msvc': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/binding-win32-x64-msvc': [ '1.0.0-beta.58' ],
+69 silly audit   '@rolldown/pluginutils': [ '1.0.0-beta.58' ],
+69 silly audit   '@rollup/rollup-android-arm-eabi': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-android-arm64': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-darwin-arm64': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-darwin-x64': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-freebsd-arm64': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-freebsd-x64': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-arm-gnueabihf': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-arm-musleabihf': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-arm64-gnu': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-arm64-musl': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-loong64-gnu': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-loong64-musl': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-ppc64-gnu': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-ppc64-musl': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-riscv64-gnu': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-riscv64-musl': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-s390x-gnu': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-linux-x64-musl': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-openbsd-x64': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-openharmony-arm64': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-win32-arm64-msvc': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-win32-ia32-msvc': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-win32-x64-gnu': [ '4.57.1' ],
+69 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.57.1' ],
+69 silly audit   '@schematics/angular': [ '21.1.3' ],
+69 silly audit   '@sigstore/bundle': [ '4.0.0' ],
+69 silly audit   '@sigstore/core': [ '3.1.0' ],
+69 silly audit   '@sigstore/protobuf-specs': [ '0.5.0' ],
+69 silly audit   '@sigstore/sign': [ '4.1.0' ],
+69 silly audit   '@sigstore/tuf': [ '4.0.1' ],
+69 silly audit   '@sigstore/verify': [ '3.1.0' ],
+69 silly audit   '@standard-schema/spec': [ '1.1.0' ],
+69 silly audit   '@stomp/stompjs': [ '7.3.0' ],
+69 silly audit   '@tailwindcss/node': [ '4.1.18' ],
+69 silly audit   tailwindcss: [ '4.1.18', '3.4.19' ],
+69 silly audit   '@tailwindcss/oxide': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-android-arm64': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-darwin-arm64': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-darwin-x64': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-freebsd-x64': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-linux-arm-gnueabihf': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-linux-arm64-gnu': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-linux-arm64-musl': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-linux-x64-gnu': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-linux-x64-musl': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-wasm32-wasi': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-win32-arm64-msvc': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/oxide-win32-x64-msvc': [ '4.1.18' ],
+69 silly audit   '@tailwindcss/postcss': [ '4.1.18' ],
+69 silly audit   '@tufjs/canonical-json': [ '2.0.0' ],
+69 silly audit   '@tufjs/models': [ '4.1.0' ],
+69 silly audit   '@tybys/wasm-util': [ '0.10.1' ],
+69 silly audit   '@types/body-parser': [ '1.19.6' ],
+69 silly audit   '@types/chai': [ '5.2.3' ],
+69 silly audit   '@types/connect': [ '3.4.38' ],
+69 silly audit   '@types/deep-eql': [ '4.0.2' ],
+69 silly audit   '@types/estree': [ '1.0.8' ],
+69 silly audit   '@types/express': [ '5.0.6' ],
+69 silly audit   '@types/express-serve-static-core': [ '5.1.1' ],
+69 silly audit   '@types/geojson': [ '7946.0.16' ],
+69 silly audit   '@types/http-errors': [ '2.0.5' ],
+69 silly audit   '@types/leaflet': [ '1.9.21' ],
+69 silly audit   '@types/node': [ '20.19.33' ],
+69 silly audit   '@types/qs': [ '6.14.0' ],
+69 silly audit   '@types/range-parser': [ '1.2.7' ],
+69 silly audit   '@types/send': [ '1.2.1' ],
+69 silly audit   '@types/serve-static': [ '2.2.0' ],
+69 silly audit   '@types/sockjs-client': [ '1.5.4' ],
+69 silly audit   '@vitejs/plugin-basic-ssl': [ '2.1.0' ],
+69 silly audit   '@vitest/expect': [ '4.0.18' ],
+69 silly audit   '@vitest/mocker': [ '4.0.18' ],
+69 silly audit   '@vitest/pretty-format': [ '4.0.18' ],
+69 silly audit   '@vitest/runner': [ '4.0.18' ],
+69 silly audit   '@vitest/snapshot': [ '4.0.18' ],
+69 silly audit   '@vitest/spy': [ '4.0.18' ],
+69 silly audit   '@vitest/utils': [ '4.0.18' ],
+69 silly audit   '@yarnpkg/lockfile': [ '1.1.0' ],
+69 silly audit   abbrev: [ '4.0.0' ],
+69 silly audit   accepts: [ '2.0.0' ],
+69 silly audit   'agent-base': [ '7.1.4' ],
+69 silly audit   ajv: [ '8.17.1' ],
+69 silly audit   'ajv-formats': [ '3.0.1' ],
+69 silly audit   algoliasearch: [ '5.46.2' ],
+69 silly audit   'ansi-escapes': [ '7.3.0' ],
+69 silly audit   'ansi-regex': [ '6.2.2', '5.0.1' ],
+69 silly audit   'ansi-styles': [ '6.2.3', '4.3.0' ],
+69 silly audit   'any-promise': [ '1.3.0' ],
+69 silly audit   anymatch: [ '3.1.3' ],
+69 silly audit   picomatch: [ '2.3.1', '4.0.3' ],
+69 silly audit   arg: [ '5.0.2' ],
+69 silly audit   'assertion-error': [ '2.0.1' ],
+69 silly audit   autoprefixer: [ '10.4.24' ],
+69 silly audit   'baseline-browser-mapping': [ '2.9.19' ],
+69 silly audit   beasties: [ '0.3.5' ],
+69 silly audit   'bidi-js': [ '1.0.3' ],
+69 silly audit   'binary-extensions': [ '2.3.0' ],
+69 silly audit   'body-parser': [ '2.2.2' ],
+69 silly audit   boolbase: [ '1.0.0' ],
+69 silly audit   braces: [ '3.0.3' ],
+69 silly audit   browserslist: [ '4.28.1' ],
+69 silly audit   'buffer-from': [ '1.1.2' ],
+69 silly audit   bytes: [ '3.1.2' ],
+69 silly audit   cacache: [ '20.0.3' ],
+69 silly audit   'call-bind-apply-helpers': [ '1.0.2' ],
+69 silly audit   'call-bound': [ '1.0.4' ],
+69 silly audit   'camelcase-css': [ '2.0.1' ],
+69 silly audit   'caniuse-lite': [ '1.0.30001769' ],
+69 silly audit   chai: [ '6.2.2' ],
+69 silly audit   chalk: [ '5.6.2' ],
+69 silly audit   chardet: [ '2.1.1' ],
+69 silly audit   chokidar: [ '5.0.0', '4.0.3', '3.6.0' ],
+69 silly audit   chownr: [ '3.0.0' ],
+69 silly audit   'cli-cursor': [ '5.0.0' ],
+69 silly audit   'cli-spinners': [ '3.4.0' ],
+69 silly audit   'cli-truncate': [ '5.1.1' ],
+69 silly audit   'cli-width': [ '4.1.0' ],
+69 silly audit   cliui: [ '9.0.1' ],
+69 silly audit   'string-width': [ '7.2.0', '8.1.1', '4.2.3' ],
+69 silly audit   'wrap-ansi': [ '9.0.2', '6.2.0' ],
+69 silly audit   'color-convert': [ '2.0.1' ],
+69 silly audit   'color-name': [ '1.1.4' ],
+69 silly audit   colorette: [ '2.0.20' ],
+69 silly audit   commander: [ '4.1.1' ],
+69 silly audit   'content-disposition': [ '1.0.1' ],
+69 silly audit   'content-type': [ '1.0.5' ],
+69 silly audit   cookie: [ '0.7.2' ],
+69 silly audit   'cookie-signature': [ '1.2.2' ],
+69 silly audit   cors: [ '2.8.6' ],
+69 silly audit   'cross-spawn': [ '7.0.6' ],
+69 silly audit   'css-select': [ '6.0.0' ],
+69 silly audit   'css-tree': [ '3.1.0' ],
+69 silly audit   'css-what': [ '7.0.0' ],
+69 silly audit   cssesc: [ '3.0.0' ],
+69 silly audit   cssstyle: [ '5.3.7' ],
+69 silly audit   'data-urls': [ '6.0.1' ],
+69 silly audit   'whatwg-mimetype': [ '5.0.0', '4.0.0' ],
+69 silly audit   debug: [ '4.4.3', '3.2.7' ],
+69 silly audit   'decimal.js': [ '10.6.0' ],
+69 silly audit   depd: [ '2.0.0' ],
+69 silly audit   'detect-libc': [ '2.1.2' ],
+69 silly audit   didyoumean: [ '1.2.2' ],
+69 silly audit   dlv: [ '1.1.3' ],
+69 silly audit   'dom-serializer': [ '2.0.0' ],
+69 silly audit   domelementtype: [ '2.3.0' ],
+69 silly audit   domhandler: [ '5.0.3' ],
+69 silly audit   domutils: [ '3.2.2' ],
+69 silly audit   'dunder-proto': [ '1.0.1' ],
+69 silly audit   'ee-first': [ '1.1.1' ],
+69 silly audit   'electron-to-chromium': [ '1.5.286' ],
+69 silly audit   'emoji-regex': [ '10.6.0', '8.0.0' ],
+69 silly audit   encodeurl: [ '2.0.0' ],
+69 silly audit   encoding: [ '0.1.13' ],
+69 silly audit   'iconv-lite': [ '0.6.3', '0.7.2' ],
+69 silly audit   'enhanced-resolve': [ '5.19.0' ],
+69 silly audit   entities: [ '4.5.0', '7.0.1', '6.0.1' ],
+69 silly audit   'env-paths': [ '2.2.1' ],
+69 silly audit   environment: [ '1.1.0' ],
+69 silly audit   'err-code': [ '2.0.3' ],
+69 silly audit   'es-define-property': [ '1.0.1' ],
+69 silly audit   'es-errors': [ '1.3.0' ],
+69 silly audit   'es-module-lexer': [ '1.7.0' ],
+69 silly audit   'es-object-atoms': [ '1.1.1' ],
+69 silly audit   esbuild: [ '0.27.2' ],
+69 silly audit   escalade: [ '3.2.0' ],
+69 silly audit   'escape-html': [ '1.0.3' ],
+69 silly audit   'estree-walker': [ '3.0.3' ],
+69 silly audit   etag: [ '1.8.1' ],
+69 silly audit   eventemitter3: [ '5.0.4' ],
+69 silly audit   eventsource: [ '3.0.7', '2.0.2' ],
+69 silly audit   'eventsource-parser': [ '3.0.6' ],
+69 silly audit   'expect-type': [ '1.3.0' ],
+69 silly audit   'exponential-backoff': [ '3.1.3' ],
+69 silly audit   express: [ '5.2.1' ],
+69 silly audit   'express-rate-limit': [ '8.2.1' ],
+69 silly audit   'fast-deep-equal': [ '3.1.3' ],
+69 silly audit   'fast-glob': [ '3.3.3' ],
+69 silly audit   'glob-parent': [ '5.1.2', '6.0.2' ],
+69 silly audit   'fast-uri': [ '3.1.0' ],
+69 silly audit   fastq: [ '1.20.1' ],
+69 silly audit   'faye-websocket': [ '0.11.4' ],
+69 silly audit   fdir: [ '6.5.0' ],
+69 silly audit   'fill-range': [ '7.1.1' ],
+69 silly audit   finalhandler: [ '2.1.1' ],
+69 silly audit   forwarded: [ '0.2.0' ],
+69 silly audit   'fraction.js': [ '5.3.4' ],
+69 silly audit   fresh: [ '2.0.0' ],
+69 silly audit   'fs-minipass': [ '3.0.3' ],
+69 silly audit   fsevents: [ '2.3.3' ],
+69 silly audit   'function-bind': [ '1.1.2' ],
+69 silly audit   gensync: [ '1.0.0-beta.2' ],
+69 silly audit   'get-caller-file': [ '2.0.5' ],
+69 silly audit   'get-east-asian-width': [ '1.4.0' ],
+69 silly audit   'get-intrinsic': [ '1.3.0' ],
+69 silly audit   'get-proto': [ '1.0.1' ],
+69 silly audit   glob: [ '13.0.2' ],
+69 silly audit   'glob-to-regexp': [ '0.4.1' ],
+69 silly audit   gopd: [ '1.2.0' ],
+69 silly audit   'graceful-fs': [ '4.2.11' ],
+69 silly audit   'has-symbols': [ '1.1.0' ],
+69 silly audit   hasown: [ '2.0.2' ],
+69 silly audit   hono: [ '4.11.9' ],
+69 silly audit   'hosted-git-info': [ '9.0.2' ],
+69 silly audit   'html-encoding-sniffer': [ '6.0.0' ],
+69 silly audit   htmlparser2: [ '10.1.0' ],
+69 silly audit   'http-cache-semantics': [ '4.2.0' ],
+69 silly audit   'http-errors': [ '2.0.1' ],
+69 silly audit   'http-parser-js': [ '0.5.10' ],
+69 silly audit   'http-proxy-agent': [ '7.0.2' ],
+69 silly audit   'https-proxy-agent': [ '7.0.6' ],
+69 silly audit   'ignore-walk': [ '8.0.0' ],
+69 silly audit   immutable: [ '5.1.4' ],
+69 silly audit   imurmurhash: [ '0.1.4' ],
+69 silly audit   inherits: [ '2.0.4' ],
+69 silly audit   ini: [ '6.0.0' ],
+69 silly audit   'ip-address': [ '10.0.1' ],
+69 silly audit   'ipaddr.js': [ '1.9.1' ],
+69 silly audit   'is-binary-path': [ '2.1.0' ],
+69 silly audit   'is-core-module': [ '2.16.1' ],
+69 silly audit   'is-extglob': [ '2.1.1' ],
+69 silly audit   'is-fullwidth-code-point': [ '5.1.0', '3.0.0' ],
+69 silly audit   'is-glob': [ '4.0.3' ],
+69 silly audit   'is-interactive': [ '2.0.0' ],
+69 silly audit   'is-number': [ '7.0.0' ],
+69 silly audit   'is-potential-custom-element-name': [ '1.0.1' ],
+69 silly audit   'is-promise': [ '4.0.0' ],
+69 silly audit   'is-unicode-supported': [ '2.1.0' ],
+69 silly audit   'istanbul-lib-coverage': [ '3.2.2' ],
+69 silly audit   'istanbul-lib-instrument': [ '6.0.3' ],
+69 silly audit   jiti: [ '2.6.1', '1.21.7' ],
+69 silly audit   jose: [ '6.1.3' ],
+69 silly audit   'js-tokens': [ '4.0.0' ],
+69 silly audit   jsdom: [ '27.4.0' ],
+69 silly audit   jsesc: [ '3.1.0' ],
+69 silly audit   'json-parse-even-better-errors': [ '5.0.0' ],
+69 silly audit   'json-schema-traverse': [ '1.0.0' ],
+69 silly audit   'json-schema-typed': [ '8.0.2' ],
+69 silly audit   json5: [ '2.2.3' ],
+69 silly audit   'jsonc-parser': [ '3.3.1' ],
+69 silly audit   jsonparse: [ '1.3.1' ],
+69 silly audit   leaflet: [ '1.9.4' ],
+69 silly audit   lightningcss: [ '1.30.2' ],
+69 silly audit   'lightningcss-android-arm64': [ '1.30.2' ],
+69 silly audit   'lightningcss-darwin-arm64': [ '1.30.2' ],
+69 silly audit   'lightningcss-darwin-x64': [ '1.30.2' ],
+69 silly audit   'lightningcss-freebsd-x64': [ '1.30.2' ],
+69 silly audit   'lightningcss-linux-arm-gnueabihf': [ '1.30.2' ],
+69 silly audit   'lightningcss-linux-arm64-gnu': [ '1.30.2' ],
+69 silly audit   'lightningcss-linux-arm64-musl': [ '1.30.2' ],
+69 silly audit   'lightningcss-linux-x64-gnu': [ '1.30.2' ],
+69 silly audit   'lightningcss-linux-x64-musl': [ '1.30.2' ],
+69 silly audit   'lightningcss-win32-arm64-msvc': [ '1.30.2' ],
+69 silly audit   'lightningcss-win32-x64-msvc': [ '1.30.2' ],
+69 silly audit   lilconfig: [ '3.1.3' ],
+69 silly audit   'lines-and-columns': [ '1.2.4' ],
+69 silly audit   listr2: [ '9.0.5' ],
+69 silly audit   lmdb: [ '3.4.4' ],
+69 silly audit   'log-symbols': [ '7.0.1' ],
+69 silly audit   'log-update': [ '6.1.0' ],
+69 silly audit   'lucide-angular': [ '0.563.0' ],
+69 silly audit   'magic-string': [ '0.30.21' ],
+69 silly audit   'make-fetch-happen': [ '15.0.3' ],
+69 silly audit   'math-intrinsics': [ '1.1.0' ],
+69 silly audit   'mdn-data': [ '2.12.2' ],
+69 silly audit   'media-typer': [ '1.1.0' ],
+69 silly audit   'merge-descriptors': [ '2.0.0' ],
+69 silly audit   merge2: [ '1.4.1' ],
+69 silly audit   micromatch: [ '4.0.8' ],
+69 silly audit   'mime-db': [ '1.54.0' ],
+69 silly audit   'mime-types': [ '3.0.2' ],
+69 silly audit   'mimic-function': [ '5.0.1' ],
+69 silly audit   minimatch: [ '10.1.2' ],
+69 silly audit   minipass: [ '7.1.2', '3.3.6' ],
+69 silly audit   'minipass-collect': [ '2.0.1' ],
+69 silly audit   'minipass-fetch': [ '5.0.1' ],
+69 silly audit   'minipass-flush': [ '1.0.5' ],
+69 silly audit   yallist: [ '4.0.0', '5.0.0', '3.1.1' ],
+69 silly audit   'minipass-pipeline': [ '1.2.4' ],
+69 silly audit   'minipass-sized': [ '2.0.0' ],
+69 silly audit   minizlib: [ '3.1.0' ],
+69 silly audit   mrmime: [ '2.0.1' ],
+69 silly audit   ms: [ '2.1.3' ],
+69 silly audit   msgpackr: [ '1.11.8' ],
+69 silly audit   'msgpackr-extract': [ '3.0.3' ],
+69 silly audit   'mute-stream': [ '2.0.0' ],
+69 silly audit   mz: [ '2.7.0' ],
+69 silly audit   nanoid: [ '3.3.11' ],
+69 silly audit   negotiator: [ '1.0.0' ],
+69 silly audit   'node-gyp': [ '12.2.0' ],
+69 silly audit   'node-gyp-build-optional-packages': [ '5.2.2' ],
+69 silly audit   'node-releases': [ '2.0.27' ],
+69 silly audit   nopt: [ '9.0.0' ],
+69 silly audit   'normalize-path': [ '3.0.0' ],
+69 silly audit   'npm-bundled': [ '5.0.0' ],
+69 silly audit   'npm-install-checks': [ '8.0.0' ],
+69 silly audit   'npm-normalize-package-bin': [ '5.0.0' ],
+69 silly audit   'npm-package-arg': [ '13.0.2' ],
+69 silly audit   'npm-packlist': [ '10.0.3' ],
+69 silly audit   'npm-pick-manifest': [ '11.0.3' ],
+69 silly audit   'npm-registry-fetch': [ '19.1.1' ],
+69 silly audit   'nth-check': [ '2.1.1' ],
+69 silly audit   'object-assign': [ '4.1.1' ],
+69 silly audit   'object-hash': [ '3.0.0' ],
+69 silly audit   'object-inspect': [ '1.13.4' ],
+69 silly audit   obug: [ '2.1.1' ],
+69 silly audit   'on-finished': [ '2.4.1' ],
+69 silly audit   once: [ '1.4.0' ],
+69 silly audit   onetime: [ '7.0.0' ],
+69 silly audit   ora: [ '9.0.0' ],
+69 silly audit   'ordered-binary': [ '1.6.1' ],
+69 silly audit   'p-map': [ '7.0.4' ],
+69 silly audit   pacote: [ '21.0.4' ],
+69 silly audit   parse5: [ '8.0.0' ],
+69 silly audit   'parse5-html-rewriting-stream': [ '8.0.0' ],
+69 silly audit   'parse5-sax-parser': [ '8.0.0' ],
+69 silly audit   parseurl: [ '1.3.3' ],
+69 silly audit   'path-key': [ '3.1.1' ],
+69 silly audit   'path-parse': [ '1.0.7' ],
+69 silly audit   'path-scurry': [ '2.0.1' ],
+69 silly audit   'path-to-regexp': [ '8.3.0' ],
+69 silly audit   pathe: [ '2.0.3' ],
+69 silly audit   picocolors: [ '1.1.1' ],
+69 silly audit   pify: [ '2.3.0' ],
+69 silly audit   pirates: [ '4.0.7' ],
+69 silly audit   piscina: [ '5.1.4' ],
+69 silly audit   'pkce-challenge': [ '5.0.1' ],
+69 silly audit   postcss: [ '8.5.6' ],
+69 silly audit   'postcss-import': [ '15.1.0' ],
+69 silly audit   'postcss-js': [ '4.1.0' ],
+69 silly audit   'postcss-load-config': [ '6.0.1' ],
+69 silly audit   'postcss-media-query-parser': [ '0.2.3' ],
+69 silly audit   'postcss-nested': [ '6.2.0' ],
+69 silly audit   'postcss-selector-parser': [ '6.1.2' ],
+69 silly audit   'postcss-value-parser': [ '4.2.0' ],
+69 silly audit   'proc-log': [ '6.1.0' ],
+69 silly audit   'promise-retry': [ '2.0.1' ],
+69 silly audit   'proxy-addr': [ '2.0.7' ],
+69 silly audit   punycode: [ '2.3.1' ],
+69 silly audit   qs: [ '6.14.1' ],
+69 silly audit   querystringify: [ '2.2.0' ],
+69 silly audit   'queue-microtask': [ '1.2.3' ],
+69 silly audit   'range-parser': [ '1.2.1' ],
+69 silly audit   'raw-body': [ '3.0.2' ],
+69 silly audit   'read-cache': [ '1.0.0' ],
+69 silly audit   readdirp: [ '5.0.0', '4.1.2', '3.6.0' ],
+69 silly audit   'reflect-metadata': [ '0.2.2' ],
+69 silly audit   'require-from-string': [ '2.0.2' ],
+69 silly audit   'requires-port': [ '1.0.0' ],
+69 silly audit   resolve: [ '1.22.11' ],
+69 silly audit   'restore-cursor': [ '5.1.0' ],
+69 silly audit   retry: [ '0.12.0' ],
+69 silly audit   reusify: [ '1.1.0' ],
+69 silly audit   rfdc: [ '1.4.1' ],
+69 silly audit   rolldown: [ '1.0.0-beta.58' ],
+69 silly audit   rollup: [ '4.57.1' ],
+69 silly audit   router: [ '2.2.0' ],
+69 silly audit   'run-parallel': [ '1.2.0' ],
+69 silly audit   rxjs: [ '7.8.2' ],
+69 silly audit   'safe-buffer': [ '5.2.1' ],
+69 silly audit   'safer-buffer': [ '2.1.2' ],
+69 silly audit   sass: [ '1.97.1' ],
+69 silly audit   saxes: [ '6.0.0' ],
+69 silly audit   send: [ '1.2.1' ],
+69 silly audit   'serve-static': [ '2.2.1' ],
+69 silly audit   setprototypeof: [ '1.2.0' ],
+69 silly audit   'shebang-command': [ '2.0.0' ],
+69 silly audit   'shebang-regex': [ '3.0.0' ],
+69 silly audit   'side-channel': [ '1.1.0' ],
+69 silly audit   'side-channel-list': [ '1.0.0' ],
+69 silly audit   'side-channel-map': [ '1.0.1' ],
+69 silly audit   'side-channel-weakmap': [ '1.0.2' ],
+69 silly audit   siginfo: [ '2.0.0' ],
+69 silly audit   'signal-exit': [ '4.1.0' ],
+69 silly audit   sigstore: [ '4.1.0' ],
+69 silly audit   'slice-ansi': [ '7.1.2' ],
+69 silly audit   'smart-buffer': [ '4.2.0' ],
+69 silly audit   'sockjs-client': [ '1.6.1' ],
+69 silly audit   socks: [ '2.8.7' ],
+69 silly audit   'socks-proxy-agent': [ '8.0.5' ],
+69 silly audit   'source-map': [ '0.7.6', '0.6.1' ],
+69 silly audit   'source-map-js': [ '1.2.1' ],
+69 silly audit   'source-map-support': [ '0.5.21' ],
+69 silly audit   'spdx-correct': [ '3.2.0' ],
+69 silly audit   'spdx-exceptions': [ '2.5.0' ],
+69 silly audit   'spdx-expression-parse': [ '3.0.1' ],
+69 silly audit   'spdx-license-ids': [ '3.0.22' ],
+69 silly audit   ssri: [ '13.0.1' ],
+69 silly audit   stackback: [ '0.0.2' ],
+69 silly audit   statuses: [ '2.0.2' ],
+69 silly audit   'std-env': [ '3.10.0' ],
+69 silly audit   'stdin-discarder': [ '0.2.2' ],
+69 silly audit   'strip-ansi': [ '7.1.2', '6.0.1' ],
+69 silly audit   sucrase: [ '3.35.1' ],
+69 silly audit   'supports-preserve-symlinks-flag': [ '1.0.0' ],
+69 silly audit   'symbol-tree': [ '3.2.4' ],
+69 silly audit   tapable: [ '2.3.0' ],
+69 silly audit   tar: [ '7.5.7' ],
+69 silly audit   thenify: [ '3.3.1' ],
+69 silly audit   'thenify-all': [ '1.6.0' ],
+69 silly audit   tinybench: [ '2.9.0' ],
+69 silly audit   tinyexec: [ '1.0.2' ],
+69 silly audit   tinyglobby: [ '0.2.15' ],
+69 silly audit   tinyrainbow: [ '3.0.3' ],
+69 silly audit   tldts: [ '7.0.23' ],
+69 silly audit   'tldts-core': [ '7.0.23' ],
+69 silly audit   'to-regex-range': [ '5.0.1' ],
+69 silly audit   toidentifier: [ '1.0.1' ],
+69 silly audit   'tough-cookie': [ '6.0.0' ],
+69 silly audit   tr46: [ '6.0.0' ],
+69 silly audit   'ts-interface-checker': [ '0.1.13' ],
+69 silly audit   tslib: [ '2.8.1' ],
+69 silly audit   'tuf-js': [ '4.1.0' ],
+69 silly audit   'type-is': [ '2.0.1' ],
+69 silly audit   typescript: [ '5.9.3' ],
+69 silly audit   undici: [ '7.20.0' ],
+69 silly audit   'undici-types': [ '6.21.0' ],
+69 silly audit   'unique-filename': [ '5.0.0' ],
+69 silly audit   'unique-slug': [ '6.0.0' ],
+69 silly audit   unpipe: [ '1.0.0' ],
+69 silly audit   'update-browserslist-db': [ '1.2.3' ],
+69 silly audit   'url-parse': [ '1.5.10' ],
+69 silly audit   'util-deprecate': [ '1.0.2' ],
+69 silly audit   'validate-npm-package-license': [ '3.0.4' ],
+69 silly audit   'validate-npm-package-name': [ '7.0.2' ],
+69 silly audit   vary: [ '1.1.2' ],
+69 silly audit   vite: [ '7.3.0' ],
+69 silly audit   vitest: [ '4.0.18' ],
+69 silly audit   'w3c-xmlserializer': [ '5.0.0' ],
+69 silly audit   watchpack: [ '2.5.0' ],
+69 silly audit   'weak-lru-cache': [ '1.2.2' ],
+69 silly audit   'webidl-conversions': [ '8.0.1' ],
+69 silly audit   'websocket-driver': [ '0.7.4' ],
+69 silly audit   'websocket-extensions': [ '0.1.4' ],
+69 silly audit   'whatwg-url': [ '15.1.0' ],
+69 silly audit   'why-is-node-running': [ '2.3.0' ],
+69 silly audit   wrappy: [ '1.0.2' ],
+69 silly audit   ws: [ '8.19.0' ],
+69 silly audit   xhr2: [ '0.2.1' ],
+69 silly audit   'xml-name-validator': [ '5.0.0' ],
+69 silly audit   xmlchars: [ '2.2.0' ],
+69 silly audit   y18n: [ '5.0.8' ],
+69 silly audit   yargs: [ '18.0.0' ],
+69 silly audit   'yargs-parser': [ '22.0.0' ],
+69 silly audit   yoctocolors: [ '2.1.2' ],
+69 silly audit   'yoctocolors-cjs': [ '2.1.3' ],
+69 silly audit   zod: [ '4.3.5' ],
+69 silly audit   'zod-to-json-schema': [ '3.25.1' ],
+69 silly audit   'zone.js': [ '0.15.1' ]
+69 silly audit }
+70 verbose audit error FetchError: request to https://registry.npmjs.org/-/npm/v1/security/advisories/bulk failed, reason: 
+70 verbose audit error     at ClientRequest.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\minipass-fetch\lib\index.js:130:14)
+70 verbose audit error     at ClientRequest.emit (node:events:508:28)
+70 verbose audit error     at emitErrorEvent (node:_http_client:108:11)
+70 verbose audit error     at _destroy (node:_http_client:963:9)
+70 verbose audit error     at onSocketNT (node:_http_client:983:5)
+70 verbose audit error     at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+70 verbose audit error   code: 'EACCES',
+70 verbose audit error   errno: 'EACCES',
+70 verbose audit error   type: 'system'
+70 verbose audit error }
+71 silly audit error undefined
+72 silly audit report null
+73 http cache @npmcli/installed-package-contents@https://registry.npmjs.org/@npmcli/installed-package-contents/-/installed-package-contents-4.0.0.tgz 1ms (cache hit)
+74 http cache @babel/parser@https://registry.npmjs.org/@babel/parser/-/parser-7.29.0.tgz 0ms (cache hit)
+75 http cache @angular-devkit/architect@https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.2101.3.tgz 0ms (cache hit)
+76 http cache @angular/compiler-cli@https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-21.1.3.tgz 0ms (cache hit)
+77 http cache @angular/cli@https://registry.npmjs.org/@angular/cli/-/cli-21.1.3.tgz 0ms (cache hit)
+78 http cache which@https://registry.npmjs.org/which/-/which-2.0.2.tgz 0ms (cache hit)
+79 http cache why-is-node-running@https://registry.npmjs.org/why-is-node-running/-/why-is-node-running-2.3.0.tgz 0ms (cache hit)
+80 http cache vitest@https://registry.npmjs.org/vitest/-/vitest-4.0.18.tgz 0ms (cache hit)
+81 http cache vite@https://registry.npmjs.org/vite/-/vite-7.3.0.tgz 0ms (cache hit)
+82 http cache update-browserslist-db@https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz 0ms (cache hit)
+83 http cache sucrase@https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz 0ms (cache hit)
+84 http cache tldts@https://registry.npmjs.org/tldts/-/tldts-7.0.23.tgz 0ms (cache hit)
+85 http cache typescript@https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz 0ms (cache hit)
+86 http cache tailwindcss@https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.19.tgz 0ms (cache hit)
+87 http cache sass@https://registry.npmjs.org/sass/-/sass-1.97.1.tgz 0ms (cache hit)
+88 http cache semver@https://registry.npmjs.org/semver/-/semver-7.7.3.tgz 0ms (cache hit)
+89 http cache rollup@https://registry.npmjs.org/rollup/-/rollup-4.57.1.tgz 0ms (cache hit)
+90 http cache resolve@https://registry.npmjs.org/resolve/-/resolve-1.22.11.tgz 0ms (cache hit)
+91 http cache pacote@https://registry.npmjs.org/pacote/-/pacote-21.0.4.tgz 0ms (cache hit)
+92 http cache rolldown@https://registry.npmjs.org/rolldown/-/rolldown-1.0.0-beta.58.tgz 0ms (cache hit)
+93 http cache node-gyp-build-optional-packages@https://registry.npmjs.org/node-gyp-build-optional-packages/-/node-gyp-build-optional-packages-5.2.2.tgz 0ms (cache hit)
+94 http cache nopt@https://registry.npmjs.org/nopt/-/nopt-9.0.0.tgz 0ms (cache hit)
+95 http cache node-gyp@https://registry.npmjs.org/node-gyp/-/node-gyp-12.2.0.tgz 0ms (cache hit)
+96 http cache msgpackr-extract@https://registry.npmjs.org/msgpackr-extract/-/msgpackr-extract-3.0.3.tgz 0ms (cache hit)
+97 http cache lmdb@https://registry.npmjs.org/lmdb/-/lmdb-3.4.4.tgz 0ms (cache hit)
+98 http cache nanoid@https://registry.npmjs.org/nanoid/-/nanoid-3.3.11.tgz 0ms (cache hit)
+99 http cache jsesc@https://registry.npmjs.org/jsesc/-/jsesc-3.1.0.tgz 0ms (cache hit)
+100 http cache json5@https://registry.npmjs.org/json5/-/json5-2.2.3.tgz 0ms (cache hit)
+101 http cache jiti@https://registry.npmjs.org/jiti/-/jiti-2.6.1.tgz 0ms (cache hit)
+102 http cache cssesc@https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz 0ms (cache hit)
+103 http cache browserslist@https://registry.npmjs.org/browserslist/-/browserslist-4.28.1.tgz 0ms (cache hit)
+104 http cache esbuild@https://registry.npmjs.org/esbuild/-/esbuild-0.27.2.tgz 0ms (cache hit)
+105 http cache baseline-browser-mapping@https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.9.19.tgz 0ms (cache hit)
+106 http cache autoprefixer@https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.24.tgz 0ms (cache hit)
+107 http cache @stomp/stompjs@https://registry.npmjs.org/@stomp/stompjs/-/stompjs-7.3.0.tgz 0ms (cache hit)
+108 http cache websocket-extensions@https://registry.npmjs.org/websocket-extensions/-/websocket-extensions-0.1.4.tgz 0ms (cache hit)
+109 http cache @types/sockjs-client@https://registry.npmjs.org/@types/sockjs-client/-/sockjs-client-1.5.4.tgz 0ms (cache hit)
+110 http cache @types/leaflet@https://registry.npmjs.org/@types/leaflet/-/leaflet-1.9.21.tgz 0ms (cache hit)
+111 http cache @types/geojson@https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.16.tgz 0ms (cache hit)
+112 http cache url-parse@https://registry.npmjs.org/url-parse/-/url-parse-1.5.10.tgz 0ms (cache hit)
+113 http cache websocket-driver@https://registry.npmjs.org/websocket-driver/-/websocket-driver-0.7.4.tgz 0ms (cache hit)
+114 http cache safe-buffer@https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz 0ms (cache hit)
+115 http cache sockjs-client@https://registry.npmjs.org/sockjs-client/-/sockjs-client-1.6.1.tgz 0ms (cache hit)
+116 http cache querystringify@https://registry.npmjs.org/querystringify/-/querystringify-2.2.0.tgz 0ms (cache hit)
+117 http cache leaflet@https://registry.npmjs.org/leaflet/-/leaflet-1.9.4.tgz 0ms (cache hit)
+118 http cache requires-port@https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz 0ms (cache hit)
+119 http cache http-parser-js@https://registry.npmjs.org/http-parser-js/-/http-parser-js-0.5.10.tgz 0ms (cache hit)
+120 http cache faye-websocket@https://registry.npmjs.org/faye-websocket/-/faye-websocket-0.11.4.tgz 0ms (cache hit)
+121 http cache which@https://registry.npmjs.org/which/-/which-6.0.1.tgz 0ms (cache hit)
+122 http cache which@https://registry.npmjs.org/which/-/which-6.0.1.tgz 0ms (cache hit)
+123 http cache which@https://registry.npmjs.org/which/-/which-6.0.1.tgz 0ms (cache hit)
+124 http cache semver@https://registry.npmjs.org/semver/-/semver-6.3.1.tgz 0ms (cache hit)
+125 http cache which@https://registry.npmjs.org/which/-/which-6.0.1.tgz 0ms (cache hit)
+126 http cache jiti@https://registry.npmjs.org/jiti/-/jiti-1.21.7.tgz 0ms (cache hit)
+127 silly tarball no local data for @npmcli/installed-package-contents@https://registry.npmjs.org/@npmcli/installed-package-contents/-/installed-package-contents-4.0.0.tgz. Extracting by manifest.
+128 http cache semver@https://registry.npmjs.org/semver/-/semver-6.3.1.tgz 0ms (cache hit)
+129 silly tarball no local data for @babel/parser@https://registry.npmjs.org/@babel/parser/-/parser-7.29.0.tgz. Extracting by manifest.
+130 silly tarball no local data for @angular-devkit/architect@https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.2101.3.tgz. Extracting by manifest.
+131 silly tarball no local data for @angular/compiler-cli@https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-21.1.3.tgz. Extracting by manifest.
+132 silly tarball no local data for @angular/cli@https://registry.npmjs.org/@angular/cli/-/cli-21.1.3.tgz. Extracting by manifest.
+133 silly tarball no local data for which@https://registry.npmjs.org/which/-/which-2.0.2.tgz. Extracting by manifest.
+134 silly tarball no local data for why-is-node-running@https://registry.npmjs.org/why-is-node-running/-/why-is-node-running-2.3.0.tgz. Extracting by manifest.
+135 silly tarball no local data for vitest@https://registry.npmjs.org/vitest/-/vitest-4.0.18.tgz. Extracting by manifest.
+136 http cache eventsource@https://registry.npmjs.org/eventsource/-/eventsource-2.0.2.tgz 0ms (cache hit)
+137 http cache debug@https://registry.npmjs.org/debug/-/debug-3.2.7.tgz 0ms (cache hit)
+138 silly tarball no local data for vite@https://registry.npmjs.org/vite/-/vite-7.3.0.tgz. Extracting by manifest.
+139 silly tarball no local data for update-browserslist-db@https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz. Extracting by manifest.
+140 silly tarball no local data for sucrase@https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz. Extracting by manifest.
+141 silly tarball no local data for tldts@https://registry.npmjs.org/tldts/-/tldts-7.0.23.tgz. Extracting by manifest.
+142 silly tarball no local data for typescript@https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz. Extracting by manifest.
+143 silly tarball no local data for tailwindcss@https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.19.tgz. Extracting by manifest.
+144 silly tarball no local data for sass@https://registry.npmjs.org/sass/-/sass-1.97.1.tgz. Extracting by manifest.
+145 silly tarball no local data for semver@https://registry.npmjs.org/semver/-/semver-7.7.3.tgz. Extracting by manifest.
+146 silly tarball no local data for rollup@https://registry.npmjs.org/rollup/-/rollup-4.57.1.tgz. Extracting by manifest.
+147 silly tarball no local data for resolve@https://registry.npmjs.org/resolve/-/resolve-1.22.11.tgz. Extracting by manifest.
+148 silly tarball no local data for pacote@https://registry.npmjs.org/pacote/-/pacote-21.0.4.tgz. Extracting by manifest.
+149 silly tarball no local data for rolldown@https://registry.npmjs.org/rolldown/-/rolldown-1.0.0-beta.58.tgz. Extracting by manifest.
+150 silly tarball no local data for node-gyp-build-optional-packages@https://registry.npmjs.org/node-gyp-build-optional-packages/-/node-gyp-build-optional-packages-5.2.2.tgz. Extracting by manifest.
+151 silly tarball no local data for nopt@https://registry.npmjs.org/nopt/-/nopt-9.0.0.tgz. Extracting by manifest.
+152 silly tarball no local data for node-gyp@https://registry.npmjs.org/node-gyp/-/node-gyp-12.2.0.tgz. Extracting by manifest.
+153 silly tarball no local data for msgpackr-extract@https://registry.npmjs.org/msgpackr-extract/-/msgpackr-extract-3.0.3.tgz. Extracting by manifest.
+154 silly tarball no local data for lmdb@https://registry.npmjs.org/lmdb/-/lmdb-3.4.4.tgz. Extracting by manifest.
+155 silly tarball no local data for nanoid@https://registry.npmjs.org/nanoid/-/nanoid-3.3.11.tgz. Extracting by manifest.
+156 silly tarball no local data for jsesc@https://registry.npmjs.org/jsesc/-/jsesc-3.1.0.tgz. Extracting by manifest.
+157 silly tarball no local data for json5@https://registry.npmjs.org/json5/-/json5-2.2.3.tgz. Extracting by manifest.
+158 silly tarball no local data for jiti@https://registry.npmjs.org/jiti/-/jiti-2.6.1.tgz. Extracting by manifest.
+159 silly tarball no local data for cssesc@https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz. Extracting by manifest.
+160 silly tarball no local data for browserslist@https://registry.npmjs.org/browserslist/-/browserslist-4.28.1.tgz. Extracting by manifest.
+161 silly tarball no local data for esbuild@https://registry.npmjs.org/esbuild/-/esbuild-0.27.2.tgz. Extracting by manifest.
+162 silly tarball no local data for baseline-browser-mapping@https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.9.19.tgz. Extracting by manifest.
+163 silly tarball no local data for autoprefixer@https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.24.tgz. Extracting by manifest.
+164 silly tarball no local data for @stomp/stompjs@https://registry.npmjs.org/@stomp/stompjs/-/stompjs-7.3.0.tgz. Extracting by manifest.
+165 silly tarball no local data for websocket-extensions@https://registry.npmjs.org/websocket-extensions/-/websocket-extensions-0.1.4.tgz. Extracting by manifest.
+166 silly tarball no local data for @types/sockjs-client@https://registry.npmjs.org/@types/sockjs-client/-/sockjs-client-1.5.4.tgz. Extracting by manifest.
+167 silly tarball no local data for @types/leaflet@https://registry.npmjs.org/@types/leaflet/-/leaflet-1.9.21.tgz. Extracting by manifest.
+168 silly tarball no local data for @types/geojson@https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.16.tgz. Extracting by manifest.
+169 silly tarball no local data for url-parse@https://registry.npmjs.org/url-parse/-/url-parse-1.5.10.tgz. Extracting by manifest.
+170 silly tarball no local data for websocket-driver@https://registry.npmjs.org/websocket-driver/-/websocket-driver-0.7.4.tgz. Extracting by manifest.
+171 silly tarball no local data for safe-buffer@https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz. Extracting by manifest.
+172 silly tarball no local data for sockjs-client@https://registry.npmjs.org/sockjs-client/-/sockjs-client-1.6.1.tgz. Extracting by manifest.
+173 silly tarball no local data for querystringify@https://registry.npmjs.org/querystringify/-/querystringify-2.2.0.tgz. Extracting by manifest.
+174 silly tarball no local data for leaflet@https://registry.npmjs.org/leaflet/-/leaflet-1.9.4.tgz. Extracting by manifest.
+175 silly tarball no local data for requires-port@https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz. Extracting by manifest.
+176 silly tarball no local data for http-parser-js@https://registry.npmjs.org/http-parser-js/-/http-parser-js-0.5.10.tgz. Extracting by manifest.
+177 silly tarball no local data for faye-websocket@https://registry.npmjs.org/faye-websocket/-/faye-websocket-0.11.4.tgz. Extracting by manifest.
+178 silly tarball no local data for which@https://registry.npmjs.org/which/-/which-6.0.1.tgz. Extracting by manifest.
+179 silly tarball no local data for which@https://registry.npmjs.org/which/-/which-6.0.1.tgz. Extracting by manifest.
+180 silly tarball no local data for which@https://registry.npmjs.org/which/-/which-6.0.1.tgz. Extracting by manifest.
+181 silly tarball no local data for semver@https://registry.npmjs.org/semver/-/semver-6.3.1.tgz. Extracting by manifest.
+182 silly tarball no local data for which@https://registry.npmjs.org/which/-/which-6.0.1.tgz. Extracting by manifest.
+183 silly tarball no local data for jiti@https://registry.npmjs.org/jiti/-/jiti-1.21.7.tgz. Extracting by manifest.
+184 silly tarball no local data for semver@https://registry.npmjs.org/semver/-/semver-6.3.1.tgz. Extracting by manifest.
+185 silly tarball no local data for eventsource@https://registry.npmjs.org/eventsource/-/eventsource-2.0.2.tgz. Extracting by manifest.
+186 silly tarball no local data for debug@https://registry.npmjs.org/debug/-/debug-3.2.7.tgz. Extracting by manifest.
+187 http fetch GET https://registry.npmjs.org/@npmcli/installed-package-contents/-/installed-package-contents-4.0.0.tgz attempt 1 failed with EACCES
+188 http fetch GET https://registry.npmjs.org/@babel/parser/-/parser-7.29.0.tgz attempt 1 failed with EACCES
+189 http fetch GET https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.2101.3.tgz attempt 1 failed with EACCES
+190 http fetch GET https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-21.1.3.tgz attempt 1 failed with EACCES
+191 http fetch GET https://registry.npmjs.org/@angular/cli/-/cli-21.1.3.tgz attempt 1 failed with EACCES
+192 http fetch GET https://registry.npmjs.org/which/-/which-2.0.2.tgz attempt 1 failed with EACCES
+193 http fetch GET https://registry.npmjs.org/why-is-node-running/-/why-is-node-running-2.3.0.tgz attempt 1 failed with EACCES
+194 http fetch GET https://registry.npmjs.org/vitest/-/vitest-4.0.18.tgz attempt 1 failed with EACCES
+195 http fetch GET https://registry.npmjs.org/vite/-/vite-7.3.0.tgz attempt 1 failed with EACCES
+196 http fetch GET https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz attempt 1 failed with EACCES
+197 http fetch GET https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz attempt 1 failed with EACCES
+198 http fetch GET https://registry.npmjs.org/tldts/-/tldts-7.0.23.tgz attempt 1 failed with EACCES
+199 http fetch GET https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz attempt 1 failed with EACCES
+200 http fetch GET https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.19.tgz attempt 1 failed with EACCES
+201 http fetch GET https://registry.npmjs.org/sass/-/sass-1.97.1.tgz attempt 1 failed with EACCES
+202 http fetch GET https://registry.npmjs.org/npm attempt 2 failed with EACCES
+203 http fetch GET https://registry.npmjs.org/@npmcli/installed-package-contents/-/installed-package-contents-4.0.0.tgz attempt 2 failed with EACCES
+204 http fetch GET https://registry.npmjs.org/@babel/parser/-/parser-7.29.0.tgz attempt 2 failed with EACCES
+205 http fetch GET https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.2101.3.tgz attempt 2 failed with EACCES
+206 http fetch GET https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-21.1.3.tgz attempt 2 failed with EACCES
+207 http fetch GET https://registry.npmjs.org/@angular/cli/-/cli-21.1.3.tgz attempt 2 failed with EACCES
+208 http fetch GET https://registry.npmjs.org/which/-/which-2.0.2.tgz attempt 2 failed with EACCES
+209 http fetch GET https://registry.npmjs.org/why-is-node-running/-/why-is-node-running-2.3.0.tgz attempt 2 failed with EACCES
+210 http fetch GET https://registry.npmjs.org/vitest/-/vitest-4.0.18.tgz attempt 2 failed with EACCES
+211 http fetch GET https://registry.npmjs.org/vite/-/vite-7.3.0.tgz attempt 2 failed with EACCES
+212 http fetch GET https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz attempt 2 failed with EACCES
+213 http fetch GET https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz attempt 2 failed with EACCES
+214 http fetch GET https://registry.npmjs.org/tldts/-/tldts-7.0.23.tgz attempt 2 failed with EACCES
+215 http fetch GET https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz attempt 2 failed with EACCES
+216 http fetch GET https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.19.tgz attempt 2 failed with EACCES
+217 http fetch GET https://registry.npmjs.org/sass/-/sass-1.97.1.tgz attempt 2 failed with EACCES
+218 http fetch GET https://registry.npmjs.org/npm attempt 3 failed with EACCES
+219 http fetch GET https://registry.npmjs.org/@npmcli/installed-package-contents/-/installed-package-contents-4.0.0.tgz attempt 3 failed with EACCES
+220 http fetch GET https://registry.npmjs.org/@babel/parser/-/parser-7.29.0.tgz attempt 3 failed with EACCES
+221 http fetch GET https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.2101.3.tgz attempt 3 failed with EACCES
+222 http fetch GET https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-21.1.3.tgz attempt 3 failed with EACCES
+223 http fetch GET https://registry.npmjs.org/@angular/cli/-/cli-21.1.3.tgz attempt 3 failed with EACCES
+224 http fetch GET https://registry.npmjs.org/which/-/which-2.0.2.tgz attempt 3 failed with EACCES
+225 http fetch GET https://registry.npmjs.org/why-is-node-running/-/why-is-node-running-2.3.0.tgz attempt 3 failed with EACCES
+226 http fetch GET https://registry.npmjs.org/vitest/-/vitest-4.0.18.tgz attempt 3 failed with EACCES
+227 http fetch GET https://registry.npmjs.org/vite/-/vite-7.3.0.tgz attempt 3 failed with EACCES
+228 http fetch GET https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz attempt 3 failed with EACCES
+229 http fetch GET https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz attempt 3 failed with EACCES
+230 http fetch GET https://registry.npmjs.org/tldts/-/tldts-7.0.23.tgz attempt 3 failed with EACCES
+231 http fetch GET https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz attempt 3 failed with EACCES
+232 http fetch GET https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.19.tgz attempt 3 failed with EACCES
+233 http fetch GET https://registry.npmjs.org/sass/-/sass-1.97.1.tgz attempt 3 failed with EACCES
+234 verbose cwd C:\Users\neffa\Downloads\Esprit-PI-4sae5-2026-LinguaNova-final\LinguaNova
+235 verbose os Windows_NT 10.0.26200
+236 verbose node v24.13.1
+237 verbose npm  v11.8.0
+238 error Exit handler never called!
+239 error This is an error with npm itself. Please report this error at:
+240 error   <https://github.com/npm/cli/issues>
+241 verbose exit 1
+242 verbose code 1
+243 error A complete log of this run can be found in: C:\Users\neffa\Downloads\Esprit-PI-4sae5-2026-LinguaNova-final\LinguaNova\.npm-cache\_logs\2026-04-15T23_21_01_530Z-debug-0.log

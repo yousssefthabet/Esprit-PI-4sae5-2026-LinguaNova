@@ -1,0 +1,205 @@
+
+> lingua-nova@0.0.0 start
+> ng serve
+
+[33m>[39m Building...
+[32m√[39m Building...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m                       [2m | [22m [1mRaw size[22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m                      [2m | [22m[36m127.53 kB[39m[2m | [22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                        [2m | [22m [36m13.90 kB[39m[2m | [22m
+[32mchunk-A5E3KY5B.js[39m  [2m | [22m[2m-[22m                           [2m | [22m [36m10.26 kB[39m[2m | [22m
+[32mchunk-ADTYNBFZ.js[39m  [2m | [22m[2m-[22m                           [2m | [22m  [36m2.61 kB[39m[2m | [22m
+[32mchunk-CZJLB7T5.js[39m  [2m | [22m[2m-[22m                           [2m | [22m  [36m1.08 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m               [2m | [22m[1m155.38 kB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m                       [2m | [22m [1mRaw size[22m
+[32mchunk-VMOOOLPB.js[39m  [2m | [22m[2mnotes-component[22m             [2m | [22m[36m136.76 kB[39m[2m | [22m
+[32mchunk-5C6VYI57.js[39m  [2m | [22m[2mcourse-creation-component[22m   [2m | [22m[36m122.79 kB[39m[2m | [22m
+[32mchunk-27GIVDTP.js[39m  [2m | [22m[2mabout-component[22m             [2m | [22m [36m74.67 kB[39m[2m | [22m
+[32mchunk-7546USYA.js[39m  [2m | [22m[2madmin-dashboard-component[22m   [2m | [22m [36m73.96 kB[39m[2m | [22m
+[32mchunk-5ANBJGQQ.js[39m  [2m | [22m[2mevent-creation-component[22m    [2m | [22m [36m73.93 kB[39m[2m | [22m
+[32mchunk-FD7EIC6P.js[39m  [2m | [22m[2mcourse-flow-component[22m       [2m | [22m [36m61.33 kB[39m[2m | [22m
+[32mchunk-H43VASCN.js[39m  [2m | [22m[2minstructor-profile-component[22m[2m | [22m [36m60.68 kB[39m[2m | [22m
+[32mchunk-QKGIE4PB.js[39m  [2m | [22m[2mcourse-list-component[22m       [2m | [22m [36m60.14 kB[39m[2m | [22m
+[32mchunk-7LBW7XEH.js[39m  [2m | [22m[2mstudent-profile-component[22m   [2m | [22m [36m55.67 kB[39m[2m | [22m
+[32mchunk-6NYUTDSV.js[39m  [2m | [22m[2mevent-list-component[22m        [2m | [22m [36m52.81 kB[39m[2m | [22m
+[32mchunk-IDMBGLRK.js[39m  [2m | [22m[2mmain-layout-component[22m       [2m | [22m [36m52.00 kB[39m[2m | [22m
+[32mchunk-WVKEU6M6.js[39m  [2m | [22m[2mexam-form-component[22m         [2m | [22m [36m48.82 kB[39m[2m | [22m
+[32mchunk-MKHN3ZYH.js[39m  [2m | [22m[2mcourse-detail-component[22m     [2m | [22m [36m44.95 kB[39m[2m | [22m
+[32mchunk-ZO47NT4I.js[39m  [2m | [22m[2minstructor-events-component[22m [2m | [22m [36m43.87 kB[39m[2m | [22m
+[32mchunk-CPQYS5HZ.js[39m  [2m | [22m[2mexams-list-component[22m        [2m | [22m [36m43.49 kB[39m[2m | [22m
+[2m...and 30 more lazy chunks files. Use "--verbose" to show all the files.[22m
+
+Application bundle generation complete. [9.764 seconds] - 2026-04-16T00:40:30.525Z
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m4200[22m/[39m
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+Application bundle generation failed. [5.756 seconds] - 2026-04-16T00:44:18.453Z
+
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m                       [2m | [22m [1mRaw size[22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m                      [2m | [22m[36m127.53 kB[39m[2m | [22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                        [2m | [22m [36m13.90 kB[39m[2m | [22m
+[32mchunk-A5E3KY5B.js[39m  [2m | [22m[2m-[22m                           [2m | [22m [36m10.26 kB[39m[2m | [22m
+[32mchunk-ADTYNBFZ.js[39m  [2m | [22m[2m-[22m                           [2m | [22m  [36m2.61 kB[39m[2m | [22m
+[32mchunk-CZJLB7T5.js[39m  [2m | [22m[2m-[22m                           [2m | [22m  [36m1.08 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m               [2m | [22m[1m155.38 kB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m                       [2m | [22m [1mRaw size[22m
+[32mchunk-VMOOOLPB.js[39m  [2m | [22m[2mnotes-component[22m             [2m | [22m[36m136.76 kB[39m[2m | [22m
+[32mchunk-5C6VYI57.js[39m  [2m | [22m[2mcourse-creation-component[22m   [2m | [22m[36m122.79 kB[39m[2m | [22m
+[32mchunk-27GIVDTP.js[39m  [2m | [22m[2mabout-component[22m             [2m | [22m [36m74.67 kB[39m[2m | [22m
+[32mchunk-7546USYA.js[39m  [2m | [22m[2madmin-dashboard-component[22m   [2m | [22m [36m73.96 kB[39m[2m | [22m
+[32mchunk-5ANBJGQQ.js[39m  [2m | [22m[2mevent-creation-component[22m    [2m | [22m [36m73.93 kB[39m[2m | [22m
+[32mchunk-FD7EIC6P.js[39m  [2m | [22m[2mcourse-flow-component[22m       [2m | [22m [36m61.33 kB[39m[2m | [22m
+[32mchunk-H43VASCN.js[39m  [2m | [22m[2minstructor-profile-component[22m[2m | [22m [36m60.68 kB[39m[2m | [22m
+[32mchunk-QKGIE4PB.js[39m  [2m | [22m[2mcourse-list-component[22m       [2m | [22m [36m60.14 kB[39m[2m | [22m
+[32mchunk-7LBW7XEH.js[39m  [2m | [22m[2mstudent-profile-component[22m   [2m | [22m [36m55.67 kB[39m[2m | [22m
+[32mchunk-6NYUTDSV.js[39m  [2m | [22m[2mevent-list-component[22m        [2m | [22m [36m52.81 kB[39m[2m | [22m
+[32mchunk-IDMBGLRK.js[39m  [2m | [22m[2mmain-layout-component[22m       [2m | [22m [36m52.00 kB[39m[2m | [22m
+[32mchunk-WVKEU6M6.js[39m  [2m | [22m[2mexam-form-component[22m         [2m | [22m [36m48.82 kB[39m[2m | [22m
+[32mchunk-MKHN3ZYH.js[39m  [2m | [22m[2mcourse-detail-component[22m     [2m | [22m [36m44.95 kB[39m[2m | [22m
+[32mchunk-ZO47NT4I.js[39m  [2m | [22m[2minstructor-events-component[22m [2m | [22m [36m43.87 kB[39m[2m | [22m
+[32mchunk-CPQYS5HZ.js[39m  [2m | [22m[2mexams-list-component[22m        [2m | [22m [36m43.49 kB[39m[2m | [22m
+[2m...and 30 more lazy chunks files. Use "--verbose" to show all the files.[22m
+
+Application bundle generation complete. [1.343 seconds] - 2026-04-16T00:45:41.553Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m          [2m | [22m [1mRaw size[22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m         [2m | [22m[36m127.63 kB[39m[2m | [22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m           [2m | [22m [36m13.90 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m          [2m | [22m [1mRaw size[22m
+[32mchunk-LQFJAOP2.js[39m  [2m | [22m[2mclubs-component[22m[2m | [22m [36m10.92 kB[39m[2m | [22m
+
+Application bundle generation complete. [2.819 seconds] - 2026-04-16T00:50:22.984Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m                              [2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                               [2m | [22m[36m14.16 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m                              [2m | [22m[1mRaw size[22m
+[32mchunk-AJFJDPKX.js[39m  [2m | [22m[2menglish-conversation-club-component[22m[2m | [22m[36m21.03 kB[39m[2m | [22m
+
+Application bundle generation complete. [1.400 seconds] - 2026-04-16T00:50:41.507Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m          [2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m           [2m | [22m[36m14.16 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m          [2m | [22m[1mRaw size[22m
+[32mchunk-X7YFTNDB.js[39m  [2m | [22m[2mclubs-component[22m[2m | [22m[36m11.02 kB[39m[2m | [22m
+
+Application bundle generation complete. [1.174 seconds] - 2026-04-16T00:57:24.100Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m                           [2m | [22m [1mRaw size[22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m                          [2m | [22m[36m130.61 kB[39m[2m | [22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                            [2m | [22m [36m14.65 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m                           [2m | [22m [1mRaw size[22m
+[32mchunk-FNELMCQ3.js[39m  [2m | [22m[2mbook-reader-component[22m           [2m | [22m [36m25.90 kB[39m[2m | [22m
+[32mchunk-UUKP6BSY.js[39m  [2m | [22m[2mbook-storytelling-club-component[22m[2m | [22m [36m10.21 kB[39m[2m | [22m
+[32mchunk-2DEGNUMT.js[39m  [2m | [22m[2m-[22m                               [2m | [22m  [36m4.78 kB[39m[2m | [22m
+
+Application bundle generation complete. [3.020 seconds] - 2026-04-16T00:59:53.730Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m          [2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m           [2m | [22m[36m14.65 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m          [2m | [22m[1mRaw size[22m
+[32mchunk-5OOQ2JR7.js[39m  [2m | [22m[2mclubs-component[22m[2m | [22m[36m12.59 kB[39m[2m | [22m
+
+Application bundle generation complete. [1.297 seconds] - 2026-04-16T01:02:03.487Z
+
+Component update sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m                           [2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                            [2m | [22m[36m14.65 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m                           [2m | [22m[1mRaw size[22m
+[32mchunk-W4S7VVA7.js[39m  [2m | [22m[2mbook-storytelling-club-component[22m[2m | [22m[36m10.25 kB[39m[2m | [22m
+
+Application bundle generation complete. [1.074 seconds] - 2026-04-16T01:02:16.748Z
+
+Component update sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m          [2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m           [2m | [22m[36m14.65 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m          [2m | [22m[1mRaw size[22m
+[32mchunk-L3COULSC.js[39m  [2m | [22m[2mclubs-component[22m[2m | [22m[36m12.68 kB[39m[2m | [22m
+
+Application bundle generation complete. [1.011 seconds] - 2026-04-16T01:11:49.064Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m                        [2m | [22m [1mRaw size[22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m                       [2m | [22m[36m132.44 kB[39m[2m | [22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                         [2m | [22m [36m15.15 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m                        [2m | [22m [1mRaw size[22m
+[32mchunk-4DBSAOGX.js[39m  [2m | [22m[2mdrama-roleplay-room-component[22m[2m | [22m [36m51.93 kB[39m[2m | [22m
+[32mchunk-JBDCGMOG.js[39m  [2m | [22m[2mexam-take-component[22m          [2m | [22m [36m40.22 kB[39m[2m | [22m
+[32mchunk-B2KQYI3Z.js[39m  [2m | [22m[2mdrama-roleplay-club-component[22m[2m | [22m [36m11.26 kB[39m[2m | [22m
+[32mchunk-BGIYZOGF.js[39m  [2m | [22m[2m-[22m                            [2m | [22m  [36m4.93 kB[39m[2m | [22m
+
+Application bundle generation complete. [2.814 seconds] - 2026-04-16T01:15:41.692Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m                        [2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                         [2m | [22m[36m15.15 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m                        [2m | [22m[1mRaw size[22m
+[32mchunk-E4PLMIEU.js[39m  [2m | [22m[2mdrama-roleplay-room-component[22m[2m | [22m[36m51.81 kB[39m[2m | [22m
+
+Application bundle generation complete. [1.343 seconds] - 2026-04-16T01:16:53.557Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m          [2m | [22m[1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m           [2m | [22m[36m15.15 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m          [2m | [22m[1mRaw size[22m
+[32mchunk-PITU5JGM.js[39m  [2m | [22m[2mclubs-component[22m[2m | [22m[36m12.78 kB[39m[2m | [22m
+
+Application bundle generation complete. [0.966 seconds] - 2026-04-16T01:39:38.672Z
+
+Page reload sent to client(s).
+[33m>[39m Changes detected. Rebuilding...
+[32m√[39m Changes detected. Rebuilding...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m                         [2m | [22m [1mRaw size[22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m                        [2m | [22m[36m133.00 kB[39m[2m | [22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                          [2m | [22m [36m15.40 kB[39m[2m | [22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m                         [2m | [22m [1mRaw size[22m
+[32mchunk-RLL5Y2UI.js[39m  [2m | [22m[2mwriting-grammar-club-component[22m[2m | [22m [36m43.10 kB[39m[2m | [22m
+[32mchunk-2JTGZX6K.js[39m  [2m | [22m[2mexam-take-component[22m           [2m | [22m [36m40.22 kB[39m[2m | [22m
+
+Application bundle generation complete. [2.597 seconds] - 2026-04-16T01:42:16.124Z
+
+Page reload sent to client(s).
