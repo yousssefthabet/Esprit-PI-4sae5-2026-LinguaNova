@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'cypress/browsers:node18.18.1-chrome118-ff120'
-            args '--user root:root'
-        }
-    }
+    agent any
     environment {
         CI = 'true'
     }
@@ -12,15 +7,23 @@ pipeline {
         stage('CI: Install & Build') {
             steps {
                 dir('LinguaNova') {
-                    sh 'npm install'
-                    sh 'npm run build'
+                    script {
+                        docker.image('node:18-alpine').inside('--user root:root') {
+                            sh 'npm install'
+                            sh 'npm run build'
+                        }
+                    }
                 }
             }
         }
         stage('CI: Test') {
             steps {
                 dir('LinguaNova') {
-                    sh 'npm test -- --no-watch --no-progress --browsers=ChromeHeadless'
+                    script {
+                        docker.image('cypress/browsers:node18.18.1-chrome118-ff120').inside('--user root:root') {
+                            sh 'npm test -- --no-watch --no-progress --browsers=ChromeHeadless'
+                        }
+                    }
                 }
             }
         }
