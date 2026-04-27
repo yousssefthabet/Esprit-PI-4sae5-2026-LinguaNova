@@ -7,23 +7,18 @@ pipeline {
         stage('CI: Install & Build') {
             steps {
                 dir('LinguaNova') {
-                    script {
-                        docker.image('node:18-alpine').inside('--user root:root') {
-                            sh 'npm install'
-                            sh 'npm run build'
-                        }
-                    }
+                    sh '''
+                        docker run --rm -v "$PWD":/app -w /app node:18-alpine sh -c "npm ci && npm run build"
+                    '''
                 }
             }
         }
         stage('CI: Test') {
             steps {
                 dir('LinguaNova') {
-                    script {
-                        docker.image('cypress/browsers:node18.18.1-chrome118-ff120').inside('--user root:root') {
-                            sh 'npm test -- --no-watch --no-progress --browsers=ChromeHeadless'
-                        }
-                    }
+                    sh '''
+                        docker run --rm -v "$PWD":/app -w /app cypress/browsers:node18.18.1-chrome118-ff120 sh -c "npm test -- --no-watch --no-progress --browsers=ChromeHeadless"
+                    '''
                 }
             }
         }
