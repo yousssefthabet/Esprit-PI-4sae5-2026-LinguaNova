@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    environment {
+        DOCKER_HUB_USER = 'soulaima13'
+        CREDENTIALS_ID = 'dockerhub-creds'
+        IMAGE_FRONT = "${DOCKER_HUB_USER}/linguanova-frontend"
+        IMAGE_TAG = "1.0.${BUILD_NUMBER}"
+    }
+    stages {
+        stage('CD: Push Front to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: env.CREDENTIALS_ID, passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+
+                    dir('frontend/linguanova-app') {
+                        sh "docker build -t ${IMAGE_FRONT}:${IMAGE_TAG} -t ${IMAGE_FRONT}:latest ."
+                        sh "docker push ${IMAGE_FRONT}:${IMAGE_TAG}"
+                        sh "docker push ${IMAGE_FRONT}:latest"
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            sh 'docker logout'
+            cleanWs()
+        }
+    }
+}

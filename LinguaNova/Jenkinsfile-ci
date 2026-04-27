@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    stages {
+        stage('CI: Install & Build') {
+            steps {
+                dir('frontend/linguanova-app') { // Adapte le dossier
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
+        stage('CI: Test') {
+            steps {
+                dir('frontend/linguanova-app') {
+                    sh 'npm test -- --no-watch --no-progress --browsers=ChromeHeadless'
+                }
+            }
+        }
+    }
+    post {
+        success {
+            echo "✅ Build & Test Angular réussis. Déclenchement du CD..."
+            build job: 'CD-Frontend-LinguaNova', wait: false
+        }
+    }
+}
