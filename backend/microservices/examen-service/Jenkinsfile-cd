@@ -2,22 +2,38 @@ pipeline {
     agent any
 
     environment {
+        // Utilise les variables d'environnement directement
         DOCKER_HUB_USER = 'soulaima13'
         CREDENTIALS_ID = 'dockerhub-creds'
-        IMAGE_EXAMEN = "${DOCKER_HUB_USER}/examen-service"
+        IMAGE_NAME = "${DOCKER_HUB_USER}/examen-service"
         IMAGE_TAG = "1.0.${BUILD_NUMBER}"
     }
 
     stages {
-        stage('CD: Push Examen to Docker Hub') {
+        stage('CD: Build & Push Examen') {
             steps {
                 withCredentials([usernamePassword(credentialsId: env.CREDENTIALS_ID, passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    // Connexion sécurisée
                     sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
 
                     dir('backend/microservices/examen-service') {
-                        sh "docker build -t ${IMAGE_EXAMEN}:${IMAGE_TAG} -t ${IMAGE_EXAMEN}:latest ."
-                        sh "docker push ${IMAGE_EXAMEN}:${IMAGE_TAG}"
-                        sh "docker push ${IMAGE_EXAMEN}:latest"
+                        // 1. Build
+                        echo "Building image ${IMAGE_NAME}:${IMAGE_TAG}..."
+                        sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest ."
+
+                        // 2. Push version spécifique
+                        echo "Pushing version ${IMAGE_TAG}..."
+                        sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+
+                        // 3. Pause pour éviter l'erreur de verrouillage (insufficient_scope)
+                        script {
+                            echo "Waiting 5 seconds to avoid Docker Hub push conflict..."
+                            sleep 5
+                        }
+
+                        // 4. Push le tag 'latest'
+                        echo "Pushing latest..."
+                        sh "docker push ${IMAGE_NAME}:latest"
                     }
                 }
             }
@@ -28,6 +44,12 @@ pipeline {
         always {
             sh 'docker logout'
             cleanWs()
+        }
+        success {
+            echo "✅ Examen Service poussé avec succès vers Docker Hub !"
+        }
+        failure {
+            echo "❌ Échec lors du push Docker."
         }
     }
 }
