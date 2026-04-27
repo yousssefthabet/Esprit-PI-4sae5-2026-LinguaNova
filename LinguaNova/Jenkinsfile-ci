@@ -26,7 +26,7 @@ pipeline {
     post {
         success {
             echo "✅ Build & Test Angular réussis. Déclenchement du CD..."
-            build job: 'CD-Frontend-LinguaNova', wait: false
+            build job: 'CD-Frontend', wait: false
         }
     }
 }
