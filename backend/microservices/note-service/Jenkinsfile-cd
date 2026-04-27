@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_USER = 'soulaima1'
+        DOCKER_HUB_USER = 'soulaima13'
         CREDENTIALS_ID = 'dockerhub-creds'
         IMAGE_NOTE = "${DOCKER_HUB_USER}/note-service"
         IMAGE_TAG = "1.0.${BUILD_NUMBER}"
