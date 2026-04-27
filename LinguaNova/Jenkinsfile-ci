@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('CI: Install & Build') {
             steps {
-                dir('frontend/linguanova-app') { // Adapte le dossier
+                dir('LinguaNova') { // Adapte le dossier
                     sh 'npm install'
                     sh 'npm run build'
                 }
@@ -11,7 +11,7 @@ pipeline {
         }
         stage('CI: Test') {
             steps {
-                dir('frontend/linguanova-app') {
+                dir('LinguaNova') {
                     sh 'npm test -- --no-watch --no-progress --browsers=ChromeHeadless'
                 }
             }
