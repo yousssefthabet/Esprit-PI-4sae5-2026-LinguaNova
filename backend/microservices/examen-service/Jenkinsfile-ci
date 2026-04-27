@@ -1,33 +1,44 @@
 pipeline {
     agent any
-
+    environment {
+        APP_NAME = 'examen-service'
+    }
     stages {
-        stage('CI: Test & Build Examen') {
+        stage('CI: Build & Test') {
             steps {
                 dir('backend/microservices/examen-service') {
-                    // Lance les tests unitaires
-                    echo "Lancement des tests..."
-                    sh 'mvn clean test'
-
-                    // Construit le .jar (en ignorant les tests puisqu'ils viennent de passer)
-                    echo "Création du package..."
-                    sh 'mvn package -DskipTests'
+                    sh 'mvn clean verify'
+                }
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    dir('backend/microservices/examen-service') {
+                        sh """
+                            mvn sonar:sonar \
+                                -Dsonar.projectKey=${APP_NAME} \
+                                -Dsonar.host.url=http://localhost:9000 \
+                                -Dsonar.token=${SONAR_TOKEN} \
+                                -Dsonar.java.coveragePlugin=jacoco \
+                                -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                        """
+                    }
+                }
+            }
+        }
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
     }
-
     post {
         success {
-            echo "✅ CI réussi ! Déclenchement du CD..."
-            // Déclenche le pipeline CD (remplace par le nom exact de ton job Jenkins CD)
+            echo "✅ Qualité validée ! Déclenchement du CD Examen..."
             build job: 'CD-Examen-Service', wait: false
-        }
-        failure {
-            echo "❌ Le CI a échoué. Le CD ne sera pas lancé."
-        }
-        always {
-            cleanWs()
         }
     }
 }
