@@ -12,7 +12,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: env.CREDENTIALS_ID, passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
                     sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
 
-                    dir('frontend/linguanova-app') {
+                    dir('LinguaNova') {
                         sh "docker build -t ${IMAGE_FRONT}:${IMAGE_TAG} -t ${IMAGE_FRONT}:latest ."
                         sh "docker push ${IMAGE_FRONT}:${IMAGE_TAG}"
                         sh "docker push ${IMAGE_FRONT}:latest"
