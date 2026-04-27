@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('CI: Test & Build Examen') {
+            steps {
+                dir('backend/microservices/examen-service') {
+                    // Lance les tests unitaires
+                    echo "Lancement des tests..."
+                    sh 'mvn clean test'
+
+                    // Construit le .jar (en ignorant les tests puisqu'ils viennent de passer)
+                    echo "Création du package..."
+                    sh 'mvn package -DskipTests'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ CI réussi ! Déclenchement du CD..."
+            // Déclenche le pipeline CD (remplace par le nom exact de ton job Jenkins CD)
+            build job: 'CD-Examen-Service', wait: false
+        }
+        failure {
+            echo "❌ Le CI a échoué. Le CD ne sera pas lancé."
+        }
+        always {
+            cleanWs()
+        }
+    }
+}

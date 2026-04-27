@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_HUB_USER = 'soulaima13'
+        CREDENTIALS_ID = 'dockerhub-credentials'
+        IMAGE_EXAMEN = "${DOCKER_HUB_USER}/examen-service"
+        IMAGE_TAG = "1.0.${BUILD_NUMBER}"
+    }
+
+    stages {
+        stage('CD: Push Examen to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: env.CREDENTIALS_ID, passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+
+                    dir('backend/microservices/examen-service') {
+                        sh "docker build -t ${IMAGE_EXAMEN}:${IMAGE_TAG} -t ${IMAGE_EXAMEN}:latest ."
+                        sh "docker push ${IMAGE_EXAMEN}:${IMAGE_TAG}"
+                        sh "docker push ${IMAGE_EXAMEN}:latest"
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            sh 'docker logout'
+            cleanWs()
+        }
+    }
+}

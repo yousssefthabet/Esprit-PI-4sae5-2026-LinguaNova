@@ -46,7 +46,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
-      GEMINI_API_KEY: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      GEMINI_API_KEY: AIzaSyDpbR1dPihbziklE-OApjDNcj4aY-ekyXk
     depends_on:
       mysql:
         condition: service_healthy
@@ -64,7 +64,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
-      GEMINI_API_KEY: Bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+      GEMINI_API_KEY: AIzaSyDpbR1dPihbziklE-OApjDNcj4aY-ekyXk
     depends_on:
       mysql:
         condition: service_healthy

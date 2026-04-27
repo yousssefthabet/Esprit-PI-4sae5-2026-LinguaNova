@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_HUB_USER = 'soulaima1'
+        CREDENTIALS_ID = 'dockerhub-credentials'
+        IMAGE_NOTE = "${DOCKER_HUB_USER}/note-service"
+        IMAGE_TAG = "1.0.${BUILD_NUMBER}"
+    }
+
+    stages {
+        stage('CD: Push Note to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: env.CREDENTIALS_ID, passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+
+                    dir('backend/microservices/note-service') {
+                        sh "docker build -t ${IMAGE_NOTE}:${IMAGE_TAG} -t ${IMAGE_NOTE}:latest ."
+                        sh "docker push ${IMAGE_NOTE}:${IMAGE_TAG}"
+                        sh "docker push ${IMAGE_NOTE}:latest"
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            sh 'docker logout'
+            cleanWs()
+        }
+    }
+}

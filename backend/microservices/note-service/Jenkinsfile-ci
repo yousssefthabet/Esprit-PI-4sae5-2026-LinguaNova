@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('CI: Test & Build Note') {
+            steps {
+                dir('backend/microservices/note-service') {
+                    echo "Lancement des tests..."
+                    sh 'mvn clean test'
+
+                    echo "Création du package..."
+                    sh 'mvn package -DskipTests'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ CI réussi ! Déclenchement du CD..."
+            // Déclenche le pipeline CD (remplace par le nom exact de ton job Jenkins CD)
+            build job: 'CD-Note-Service', wait: false
+        }
+        failure {
+            echo "❌ Le CI a échoué."
+        }
+        always {
+            cleanWs()
+        }
+    }
+}
