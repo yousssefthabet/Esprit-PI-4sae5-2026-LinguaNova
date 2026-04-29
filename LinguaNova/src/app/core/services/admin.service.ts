@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, delay, map } from 'rxjs';
 import { User, UserRole } from '../models/user.model';
 import { Feedback } from '../models/feedback.model';
+import { BackendClub, ClubService, ClubUpsertPayload } from './club.service';
 
 export interface AdminStats {
     totalUsers: number;
@@ -15,6 +16,7 @@ export interface AdminStats {
 
 export interface Club {
     id: string;
+    slug: string;
     title: string;
     description: string;
     category: string;
@@ -23,6 +25,8 @@ export interface Club {
     icon: string;
     instructorName: string;
     status: 'active' | 'archived';
+    actionLabel?: string;
+    actionRoute?: string;
 }
 
 @Injectable({
@@ -30,6 +34,7 @@ export interface Club {
 })
 export class AdminService {
     private readonly http = inject(HttpClient);
+    private readonly clubService = inject(ClubService);
 
     /**
      * Get admin dashboard statistics
@@ -144,41 +149,60 @@ export class AdminService {
      * Get all clubs
      */
     getClubs(): Observable<Club[]> {
-        const mockClubs: Club[] = [
-            {
-                id: 'c1',
-                title: 'English Conversation Club',
-                description: 'Practice speaking with peers in a fun environment.',
-                category: 'Conversational',
-                memberCount: 840,
-                image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=400',
-                icon: '💬',
-                instructorName: 'Sarah Drasner',
-                status: 'active'
-            },
-            {
-                id: 'c2',
-                title: 'Book & Storytelling Club',
-                description: 'Explore books and improve reading skills.',
-                category: 'Reading',
-                memberCount: 1205,
-                image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=400',
-                icon: '📚',
-                instructorName: 'Emma Wilson',
-                status: 'active'
-            },
-            {
-                id: 'c3',
-                title: 'Drama & Roleplay Club',
-                description: 'Build confidence through acting and roleplays.',
-                category: 'Creative',
-                memberCount: 450,
-                image: 'https://images.unsplash.com/photo-1533561089-13e551347012?q=80&w=400',
-                icon: '🎭',
-                instructorName: 'John Doe',
-                status: 'active'
-            }
-        ];
-        return of(mockClubs).pipe(delay(400));
+        return this.clubService.getClubs({ fallback: false }).pipe(
+            map((clubs) => (clubs ?? []).map((club) => this.toAdminClub(club))),
+            delay(200)
+        );
+    }
+
+    createClub(club: Omit<Club, 'id'>): Observable<Club> {
+        return this.clubService.createClub(this.toBackendPayload(club)).pipe(
+            map((created) => this.toAdminClub(created))
+        );
+    }
+
+    updateClub(id: string, club: Omit<Club, 'id'>): Observable<Club> {
+        return this.clubService.updateClub(id, this.toBackendPayload(club)).pipe(
+            map((updated) => this.toAdminClub(updated))
+        );
+    }
+
+    deleteClub(id: string): Observable<void> {
+        return this.clubService.deleteClub(id);
+    }
+
+    private toAdminClub(club: BackendClub): Club {
+        return {
+            id: String(club.id),
+            slug: club.slug || '',
+            title: club.title,
+            description: club.description,
+            category: club.category,
+            memberCount: club.member_count ?? 0,
+            image: club.image_url || '',
+            icon: club.icon || 'club',
+            instructorName: club.instructor_name || 'Instructor',
+            status: club.status === 'ARCHIVED' ? 'archived' : 'active',
+            actionLabel: club.action_label || undefined,
+            actionRoute: club.action_route || undefined
+        };
+    }
+
+    private toBackendPayload(club: Omit<Club, 'id'>): ClubUpsertPayload {
+        return {
+            slug: (club.slug || '').trim() || undefined,
+            title: club.title,
+            description: club.description,
+            category: club.category,
+            member_count: Math.max(0, Number(club.memberCount) || 0),
+            image_url: (club.image || '').trim() || null,
+            icon: (club.icon || '').trim() || null,
+            instructor_name: club.instructorName,
+            status: club.status === 'archived' ? 'ARCHIVED' : 'ACTIVE',
+            action_label: (club.actionLabel || '').trim() || null,
+            action_route: (club.actionRoute || '').trim() || null
+        };
     }
 }
+
+

@@ -14,9 +14,9 @@ import { AuthLayoutComponent } from '../layout/auth-layout.component';
     <app-auth-layout mode="login">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
         
-        <!-- User Name (Email) -->
+        <!-- Email -->
         <div class="space-y-2">
-          <label for="email" class="text-xs font-semibold text-gray-400 uppercase tracking-widest pl-1">User Name</label>
+          <label for="email" class="text-xs font-semibold text-gray-400 uppercase tracking-widest pl-1">Email</label>
           <div class="relative">
             <input 
               id="email" 
@@ -118,7 +118,7 @@ export class LoginComponent {
   constructor() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required]],
       rememberMe: [false]
     });
   }
@@ -135,9 +135,8 @@ export class LoginComponent {
   getErrorMessage(field: string): string {
     const control = this.loginForm.get(field);
     if (control?.touched && control?.errors) {
-      if (control.errors['required']) return `${field === 'email' ? 'User name' : 'Password'} is required`;
+      if (control.errors['required']) return `${field === 'email' ? 'Email' : 'Password'} is required`;
       if (control.errors['email']) return 'Please enter a valid email address';
-      if (control.errors['minlength']) return `Password must be at least ${control.errors['minlength'].requiredLength} characters`;
     }
     return '';
   }

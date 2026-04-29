@@ -2,6 +2,8 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, OnDestroy, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AccessibilityContentToolsComponent } from '../../shared/components/accessibility-content-tools/accessibility-content-tools.component';
+import { ClubAiStudentPanelComponent } from '../../shared/components/club-ai-student-panel/club-ai-student-panel.component';
 import { DictationPassage, WRITING_DICTATION_PASSAGES } from './writing-grammar.data';
 
 interface CorrectionItem {
@@ -36,7 +38,7 @@ interface LcsPair {
 @Component({
   selector: 'app-writing-grammar-club',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, AccessibilityContentToolsComponent, ClubAiStudentPanelComponent],
   template: `
     <div class="min-h-screen bg-gradient-to-b from-[#F5FBFA] via-[#F9FAFB] to-white">
       <section class="max-w-[1200px] mx-auto px-4 md:px-8 pt-10 pb-8">
@@ -55,6 +57,14 @@ interface LcsPair {
             Listen to the AI dictation, write the paragraph, then click Finish to get a score on 10. The system highlights the incorrect words and gives you corrected words instantly.
           </p>
         </div>
+
+        <app-accessibility-content-tools
+          [pageId]="'club-writing-grammar'"
+          [title]="'Writing accessibility tools'"
+          [contentText]="accessibleContentText()"
+        />
+
+        <app-club-ai-student-panel [clubId]="'writing-grammar'" />
 
         <div class="mt-8 grid grid-cols-1 lg:grid-cols-[350px_1fr] gap-8">
           <aside class="space-y-6">
@@ -274,6 +284,11 @@ export class WritingGrammarClubComponent implements OnDestroy {
     () => this.passages.find((passage) => passage.id === this.selectedPassageId()) ?? null
   );
   readonly expectedWordCount = computed(() => this.extractWordTokens(this.selectedPassage()?.text ?? '').length);
+  readonly accessibleContentText = computed(() => {
+    const passage = this.selectedPassage()?.text ?? '';
+    const guide = 'Writing and Grammar Club. Listen to dictation, write the paragraph, then review corrected words.';
+    return `${guide} Dictation passage: ${passage}`.trim();
+  });
 
   readonly isSpeechSupported = signal(false);
   readonly isPlaying = signal(false);

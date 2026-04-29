@@ -142,7 +142,7 @@ import { CourseService } from '../../../core/services/course.service';
                         <div class="flex items-center justify-between">
                           <div class="space-y-1">
                             <div class="flex items-center gap-4 text-sm font-medium">
-                              <span class="text-gray-400 italic">By {{ course.instructor?.name }}</span>
+                              <span class="text-gray-400 italic">By {{ course.instructor.name }}</span>
                               <span class="text-[#0D9488] font-bold">{{ course.progress ?? 0 }}%</span>
                             </div>
                           </div>

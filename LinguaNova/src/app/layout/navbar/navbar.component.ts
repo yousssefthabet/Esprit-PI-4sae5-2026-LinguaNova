@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { UserRole } from '../../core/models/user.model';
+import { AccessibilityStateService } from '../../core/services/accessibility-state.service';
 
 @Component({
   selector: 'app-navbar',
@@ -64,6 +65,22 @@ import { UserRole } from '../../core/models/user.model';
 
           <!-- Right Section: Action Buttons (40% width) -->
           <div class="hidden md:flex items-center gap-3 w-full lg:w-2/5 justify-end">
+            <button
+              type="button"
+              (click)="toggleAccessibleMode()"
+              [attr.aria-pressed]="accessibilityState.enabled()"
+              [attr.aria-label]="accessibilityState.enabled() ? 'Disable accessible mode' : 'Enable accessible mode'"
+              class="flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 shadow-sm border"
+              [class.bg-[#0F172A]]="accessibilityState.enabled()"
+              [class.text-white]="accessibilityState.enabled()"
+              [class.border-slate-900]="accessibilityState.enabled()"
+              [class.bg-white]="!accessibilityState.enabled()"
+              [class.text-[#2D6F6B]]="!accessibilityState.enabled()"
+              [class.border-white]="!accessibilityState.enabled()"
+            >
+              {{ accessibilityState.enabled() ? 'Accessible: On' : 'Accessible Mode' }}
+            </button>
+
             <!-- Student/Teacher Space Button -->
             <!-- Visible ONLY when logged in, or defaulting to Student Space if preferred. 
                  Since we have a profile dropdown for Login when logged out, 
@@ -195,6 +212,21 @@ import { UserRole } from '../../core/models/user.model';
                 }
               }
               <div class="flex flex-col gap-3 pt-4 border-t border-white/10">
+                <button
+                  type="button"
+                  (click)="toggleAccessibleMode()"
+                  class="w-full py-3 rounded-full border font-semibold"
+                  [class.border-white/70]="!accessibilityState.enabled()"
+                  [class.text-white]="!accessibilityState.enabled()"
+                  [class.border-cyan-300]="accessibilityState.enabled()"
+                  [class.bg-cyan-100]="accessibilityState.enabled()"
+                  [class.text-cyan-900]="accessibilityState.enabled()"
+                  [attr.aria-pressed]="accessibilityState.enabled()"
+                  [attr.aria-label]="accessibilityState.enabled() ? 'Disable accessible mode' : 'Enable accessible mode'"
+                >
+                  {{ accessibilityState.enabled() ? 'Accessible: On' : 'Accessible Mode' }}
+                </button>
+
                 @if (user$ | async; as user) {
                   <button [routerLink]="getProfileRoute(user)" (click)="mobileMenuOpen = false" class="w-full py-3 border border-white/60 rounded-full text-white font-semibold">
                     Profile
@@ -229,6 +261,7 @@ import { UserRole } from '../../core/models/user.model';
 })
 export class NavbarComponent {
   readonly authService = inject(AuthService);
+  readonly accessibilityState = inject(AccessibilityStateService);
   protected readonly UserRole = UserRole;
 
   user$ = this.authService.currentUser$;
@@ -265,5 +298,9 @@ export class NavbarComponent {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  toggleAccessibleMode(): void {
+    this.accessibilityState.toggleMode();
   }
 }

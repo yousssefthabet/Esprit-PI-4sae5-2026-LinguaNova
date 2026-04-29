@@ -89,7 +89,7 @@ import { BackendEvent, EventService } from '../../../core/services/event.service
                         />
                       } @else {
                         <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-teal-50 to-white text-teal-700 font-black text-xs">
-                          {{ (event.event_title ?? 'Event').slice(0, 2).toUpperCase() }}
+                          {{ event.event_title.slice(0, 2).toUpperCase() }}
                         </div>
                       }
                     </div>
@@ -350,4 +350,3 @@ export class InstructorEventsComponent implements OnInit {
     this.router.navigate(['/dashboard/instructor']);
   }
 }
-

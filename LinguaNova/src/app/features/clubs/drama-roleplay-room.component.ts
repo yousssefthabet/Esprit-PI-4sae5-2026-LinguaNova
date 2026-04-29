@@ -6,6 +6,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { RoleplayScenario, getDramaScenarioById } from './drama-roleplay.data';
+import { AccessibilityContentToolsComponent } from '../../shared/components/accessibility-content-tools/accessibility-content-tools.component';
+import { ClubAiStudentPanelComponent } from '../../shared/components/club-ai-student-panel/club-ai-student-panel.component';
 
 interface RoleplayMessage {
   id: string;
@@ -17,7 +19,7 @@ interface RoleplayMessage {
 @Component({
   selector: 'app-drama-roleplay-room',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, AccessibilityContentToolsComponent, ClubAiStudentPanelComponent],
   template: `
     <div class="min-h-screen bg-gradient-to-b from-[#F5FBFA] via-[#F9FAFB] to-white">
       <section class="max-w-[1300px] mx-auto px-4 md:px-8 pt-10 pb-8">
@@ -136,6 +138,14 @@ interface RoleplayMessage {
             </aside>
 
             <div class="space-y-6">
+              <app-accessibility-content-tools
+                [pageId]="accessibilityPageId()"
+                [title]="'Roleplay accessibility tools'"
+                [contentText]="accessibleContentText()"
+              />
+
+              <app-club-ai-student-panel [clubId]="'drama-roleplay'" />
+
               @if (!isJoined()) {
                 <div class="bg-white rounded-3xl border border-[#E6ECEC] shadow-sm p-6 md:p-8">
                   <h2 class="text-2xl font-black text-[#243447]">Meet-style roleplay room</h2>
@@ -307,6 +317,16 @@ export class DramaRoleplayRoomComponent implements OnDestroy {
 
   readonly selectedRole = computed(() => this.scenario()?.roles.find((role) => role.id === this.selectedRoleId()) ?? null);
   readonly canJoin = computed(() => !!this.selectedRole() && this.roomCode().length >= 4);
+  readonly accessibilityPageId = computed(() => `club-drama-roleplay-${this.scenario()?.id ?? 'unknown'}`);
+  readonly accessibleContentText = computed(() => {
+    const currentScenario = this.scenario();
+    if (!currentScenario) {
+      return '';
+    }
+    const roleObjective = this.selectedRole()?.objective ?? '';
+    const goals = currentScenario.goals.join(' ');
+    return `${currentScenario.title}. ${currentScenario.summary}. Setting: ${currentScenario.setting}. Goals: ${goals}. ${roleObjective}`.trim();
+  });
 
   readonly meetRoomName = computed(() => {
     const currentScenario = this.scenario();

@@ -3,6 +3,10 @@ backend/microservices/logs/
 .claude/
 .maven-user-home/
 .maven-user-home-real/
+.m2/
+.m2-local/
+LinguaNova/.npm-cache/
+LinguaNova/.angular/
 node_modules/
 dist/
 target/

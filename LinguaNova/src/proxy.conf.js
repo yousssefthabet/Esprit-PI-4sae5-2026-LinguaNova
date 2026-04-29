@@ -4,7 +4,7 @@
  *
  * /PIproject/api/courses -> course-service (8081)
  * /PIproject            -> user-service   (8082)
- * /api/exams, /api/questions, /api/quiz, ... -> examen-service (8093)
+ * /api/exams, /api/questions, /api/quiz, ... -> examen-service (8086)
  * /api                  -> backend générique (3000)
  */
 const NOTE_SERVICE_TARGET = {
@@ -14,7 +14,7 @@ const NOTE_SERVICE_TARGET = {
 };
 
 const EXAM_SERVICE_TARGET = {
-    target: 'http://localhost:8093',
+    target: 'http://localhost:8086',
     secure: false,
     changeOrigin: true,
 };
@@ -43,7 +43,7 @@ const PROXY_CONFIG = {
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/PIproject/, ''),
     },
-    // ── Examen-service (port 8093) ──
+    // ── Examen-service (port 8086) ──
     '/api/exams': EXAM_SERVICE_TARGET,
     '/api/questions': EXAM_SERVICE_TARGET,
     '/api/reponses': EXAM_SERVICE_TARGET,
@@ -53,7 +53,9 @@ const PROXY_CONFIG = {
     '/api/quiz': EXAM_SERVICE_TARGET,
     '/api/cahiers': NOTE_SERVICE_TARGET,
     '/api/certificates': EXAM_DIRECT_TARGET,
+    '/api/ai/accessibility': EVENT_SERVICE_TARGET,
     '/api/events': EVENT_SERVICE_TARGET,
+    '/api/clubs': EVENT_SERVICE_TARGET,
     '/ws': EVENT_SERVICE_TARGET,
 
 

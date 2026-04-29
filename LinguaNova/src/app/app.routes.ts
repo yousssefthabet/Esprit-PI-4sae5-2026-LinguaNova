@@ -178,44 +178,32 @@ export const routes: Routes = [
             {
                 path: 'clubs/english-conversation',
                 loadComponent: () => import('./features/clubs/english-conversation-club.component')
-                    .then(m => m.EnglishConversationClubComponent),
-                canActivate: [authGuard, roleGuard],
-                data: { role: UserRole.STUDENT }
+                    .then(m => m.EnglishConversationClubComponent)
             },
             {
                 path: 'clubs/book-storytelling',
                 loadComponent: () => import('./features/clubs/book-storytelling-club.component')
-                    .then(m => m.BookStorytellingClubComponent),
-                canActivate: [authGuard, roleGuard],
-                data: { role: UserRole.STUDENT }
+                    .then(m => m.BookStorytellingClubComponent)
             },
             {
                 path: 'clubs/book-storytelling/:bookId',
                 loadComponent: () => import('./features/clubs/book-reader.component')
-                    .then(m => m.BookReaderComponent),
-                canActivate: [authGuard, roleGuard],
-                data: { role: UserRole.STUDENT }
+                    .then(m => m.BookReaderComponent)
             },
             {
                 path: 'clubs/drama-roleplay',
                 loadComponent: () => import('./features/clubs/drama-roleplay-club.component')
-                    .then(m => m.DramaRoleplayClubComponent),
-                canActivate: [authGuard, roleGuard],
-                data: { role: UserRole.STUDENT }
+                    .then(m => m.DramaRoleplayClubComponent)
             },
             {
                 path: 'clubs/drama-roleplay/:scenarioId',
                 loadComponent: () => import('./features/clubs/drama-roleplay-room.component')
-                    .then(m => m.DramaRoleplayRoomComponent),
-                canActivate: [authGuard, roleGuard],
-                data: { role: UserRole.STUDENT }
+                    .then(m => m.DramaRoleplayRoomComponent)
             },
             {
                 path: 'clubs/writing-grammar',
                 loadComponent: () => import('./features/clubs/writing-grammar-club.component')
-                    .then(m => m.WritingGrammarClubComponent),
-                canActivate: [authGuard, roleGuard],
-                data: { role: UserRole.STUDENT }
+                    .then(m => m.WritingGrammarClubComponent)
             },
             {
                 path: 'clubs',
@@ -292,6 +280,11 @@ export const routes: Routes = [
             .then(m => m.AdminDashboardComponent),
         canActivate: [authGuard, roleGuard],
         data: { role: UserRole.ADMIN }
+    },
+    {
+        path: 'admin/clubs/:clubId/ai-dashboard',
+        loadComponent: () => import('./features/admin/club-health-dashboard/club-health-dashboard.component')
+            .then(m => m.ClubHealthDashboardComponent)
     },
     {
         path: '**',

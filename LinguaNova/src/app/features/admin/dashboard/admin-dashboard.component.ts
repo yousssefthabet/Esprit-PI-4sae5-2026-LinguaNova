@@ -5,11 +5,12 @@ import { AuthService } from '../../../core/services/auth.service';
 import { User, UserRole } from '../../../core/models/user.model';
 import { Feedback } from '../../../core/models/feedback.model';
 import { LucideAngularModule } from 'lucide-angular';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, RouterLink],
   template: `
     <div class="min-h-screen bg-[#F8FAFC] flex font-sans">
       <!-- Premium Sidebar -->
@@ -300,6 +301,32 @@ import { LucideAngularModule } from 'lucide-angular';
 
           <!-- CLUBS TAB -->
           <ng-container *ngIf="activeTab === 'clubs'">
+            <div class="mb-6 flex flex-col sm:flex-row sm:items-center gap-4">
+              <button
+                (click)="addClub()"
+                class="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#0D9488] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-teal-700 transition-all shadow-sm"
+              >
+                <i-lucide name="plus" class="w-4 h-4"></i-lucide>
+                Add Club
+              </button>
+              <button
+                (click)="loadClubs()"
+                class="inline-flex items-center justify-center gap-2 px-5 py-3 bg-white border border-gray-100 text-gray-500 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-gray-50 transition-all"
+              >
+                <i-lucide name="refresh-cw" class="w-4 h-4"></i-lucide>
+                Refresh
+              </button>
+              <span *ngIf="clubsLoading" class="text-xs font-black text-gray-400 uppercase tracking-widest">Loading clubs...</span>
+            </div>
+
+            <div
+              *ngIf="clubNotice"
+              [ngClass]="clubNoticeType === 'error' ? 'bg-red-50 border-red-100 text-red-600' : 'bg-green-50 border-green-100 text-green-700'"
+              class="mb-8 px-4 py-3 rounded-xl border text-xs font-bold"
+            >
+              {{ clubNotice }}
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                <div *ngFor="let club of clubs" class="bg-white rounded-[40px] border border-gray-50 shadow-xl shadow-gray-200/30 overflow-hidden flex flex-col hover:shadow-2xl hover:shadow-gray-200/40 transition-all group">
                   <div class="h-48 relative overflow-hidden">
@@ -329,8 +356,9 @@ import { LucideAngularModule } from 'lucide-angular';
                            <span [class]="club.status === 'active' ? 'text-green-600 bg-green-50 border-green-100' : 'text-gray-400 bg-gray-50 border-gray-200'" class="px-3 py-1 rounded-lg border uppercase">{{ club.status }}</span>
                         </div>
                         <div class="flex gap-2">
-                           <button class="flex-1 py-3 bg-gray-50 text-gray-600 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-gray-100 transition-all">Moderate</button>
-                           <button class="w-12 h-12 bg-white border border-gray-100 text-gray-400 flex items-center justify-center rounded-xl hover:text-[#0D9488] transition-all"><i-lucide name="settings" class="w-4 h-4"></i-lucide></button>
+                           <button (click)="editClub(club)" class="flex-1 py-3 bg-gray-50 text-gray-600 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-gray-100 transition-all inline-flex items-center justify-center gap-2"><i-lucide name="pencil" class="w-3 h-3"></i-lucide> Edit</button>
+                           <a [routerLink]="['/admin/clubs', club.slug || club.id, 'ai-dashboard']" class="flex-1 py-3 bg-teal-50 text-[#0D9488] text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-teal-100 transition-all inline-flex items-center justify-center gap-2"><i-lucide name="sparkles" class="w-3 h-3"></i-lucide> AI Health</a>
+                           <button (click)="deleteClub(club)" class="w-12 h-12 bg-white border border-gray-100 text-gray-400 flex items-center justify-center rounded-xl hover:text-rose-500 transition-all"><i-lucide name="trash-2" class="w-4 h-4"></i-lucide></button>
                         </div>
                      </div>
                   </div>
@@ -388,12 +416,29 @@ export class AdminDashboardComponent implements OnInit {
   users: User[] = [];
   feedbacks: Feedback[] = [];
   clubs: Club[] = [];
+  clubsLoading = false;
+  clubNotice = '';
+  clubNoticeType: 'success' | 'error' = 'success';
 
   ngOnInit(): void {
     this.adminService.getStats().subscribe(stats => this.stats = stats);
     this.adminService.getUsers().subscribe(users => this.users = users);
     this.adminService.getFeedbacks().subscribe(feedbacks => this.feedbacks = feedbacks);
-    this.adminService.getClubs().subscribe(clubs => this.clubs = clubs);
+    this.loadClubs();
+  }
+
+  loadClubs(): void {
+    this.clubsLoading = true;
+    this.adminService.getClubs().subscribe({
+      next: (clubs) => {
+        this.clubs = clubs;
+        this.clubsLoading = false;
+      },
+      error: () => {
+        this.clubsLoading = false;
+        this.setClubNotice('Unable to load clubs right now.', 'error');
+      }
+    });
   }
 
   getTitle(): string {
@@ -420,6 +465,111 @@ export class AdminDashboardComponent implements OnInit {
     this.adminService.toggleUserStatus(user.id).subscribe(() => {
       user.isActive = !user.isActive;
     });
+  }
+
+  addClub(): void {
+    const payload = this.promptClubData();
+    if (!payload) {
+      return;
+    }
+
+    this.adminService.createClub(payload).subscribe({
+      next: () => {
+        this.loadClubs();
+        this.setClubNotice('Club created successfully.');
+      },
+      error: () => this.setClubNotice('Failed to create club.', 'error')
+    });
+  }
+
+  editClub(club: Club): void {
+    const payload = this.promptClubData(club);
+    if (!payload) {
+      return;
+    }
+
+    this.adminService.updateClub(club.id, payload).subscribe({
+      next: () => {
+        this.loadClubs();
+        this.setClubNotice('Club updated successfully.');
+      },
+      error: () => this.setClubNotice('Failed to update club.', 'error')
+    });
+  }
+
+  deleteClub(club: Club): void {
+    const confirmed = window.confirm(`Delete "${club.title}"?`);
+    if (!confirmed) {
+      return;
+    }
+
+    this.adminService.deleteClub(club.id).subscribe({
+      next: () => {
+        this.loadClubs();
+        this.setClubNotice('Club deleted successfully.');
+      },
+      error: () => this.setClubNotice('Failed to delete club.', 'error')
+    });
+  }
+
+  private promptClubData(existing?: Club): Omit<Club, 'id'> | null {
+    const title = this.promptRequired('Club title', existing?.title);
+    if (!title) return null;
+
+    const description = this.promptRequired('Club description', existing?.description);
+    if (!description) return null;
+
+    const category = this.promptRequired('Category', existing?.category);
+    if (!category) return null;
+
+    const instructorName = this.promptRequired('Instructor name', existing?.instructorName);
+    if (!instructorName) return null;
+
+    const memberRaw = window.prompt('Member count', String(existing?.memberCount ?? 0));
+    if (memberRaw === null) return null;
+    const memberCount = Math.max(0, Number(memberRaw) || 0);
+
+    const statusRaw = window.prompt('Status (active/archived)', existing?.status ?? 'active');
+    if (statusRaw === null) return null;
+    const status = statusRaw.toLowerCase() === 'archived' ? 'archived' : 'active';
+
+    const slug = (window.prompt('Slug (optional)', existing?.slug ?? '') ?? '').trim();
+    const image = (window.prompt('Image URL (optional)', existing?.image ?? '') ?? '').trim();
+    const icon = (window.prompt('Icon (optional)', existing?.icon ?? 'club') ?? '').trim();
+    const actionLabel = (window.prompt('Action label (optional)', existing?.actionLabel ?? '') ?? '').trim();
+    const actionRoute = (window.prompt('Action route (optional)', existing?.actionRoute ?? '') ?? '').trim();
+
+    return {
+      slug,
+      title,
+      description,
+      category,
+      memberCount,
+      image,
+      icon,
+      instructorName,
+      status,
+      actionLabel,
+      actionRoute
+    };
+  }
+
+  private promptRequired(label: string, initial?: string): string | null {
+    const value = window.prompt(label, initial ?? '');
+    if (value === null) {
+      return null;
+    }
+    const cleaned = value.trim();
+    if (!cleaned) {
+      this.setClubNotice(`${label} is required.`, 'error');
+      return null;
+    }
+    return cleaned;
+  }
+
+  private setClubNotice(message: string, type: 'success' | 'error' = 'success'): void {
+    this.clubNotice = message;
+    this.clubNoticeType = type;
   }
 
   logout(): void {

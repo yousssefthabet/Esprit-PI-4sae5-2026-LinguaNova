@@ -1,0 +1,8 @@
+package com.event.event_service.entity;
+
+public enum ActivityDifficulty {
+    BEGINNER,
+    INTERMEDIATE,
+    ADVANCED
+}
+

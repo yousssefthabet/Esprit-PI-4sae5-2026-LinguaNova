@@ -1,11 +1,10 @@
-﻿import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
-type ClubId = 'english-conversation' | 'book-storytelling' | 'drama-roleplay' | 'writing-grammar';
+import { BackendClub, ClubService } from '../../core/services/club.service';
 
 interface ClubCard {
-  id: ClubId;
+  id: string;
   title: string;
   description: string;
   image: string;
@@ -22,7 +21,7 @@ interface ClubCard {
       <section class="max-w-[1200px] mx-auto px-4 md:px-8 pt-20 pb-16 text-center">
         <h1 class="text-5xl font-extrabold text-[#2D3748] mb-6 tracking-tight">Clubs</h1>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-          Learning is more fun and effective when you practice with others. These clubs are static and designed for focused learning.
+          Learning is more fun and effective when you practice with others. Explore active clubs and join collaborative language activities.
         </p>
         <p class="text-lg font-medium text-[#2D6F6B] uppercase tracking-wide">
           Explore our clubs and take your English learning journey to the next level
@@ -30,6 +29,16 @@ interface ClubCard {
       </section>
 
       <section class="max-w-[1200px] mx-auto px-4 md:px-8 pb-24">
+        @if (loading) {
+          <div class="mb-6 text-sm font-semibold text-gray-500">Loading clubs...</div>
+        }
+
+        @if (error) {
+          <div class="mb-6 text-[12px] font-semibold text-red-600 bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+            {{ error }}
+          </div>
+        }
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           @for (club of clubs; track club.id) {
             @if (club.actionRoute) {
@@ -57,7 +66,7 @@ interface ClubCard {
                 <div class="flex flex-col justify-center flex-1 text-center sm:text-left">
                   <h3 class="text-xl font-bold text-gray-900 mb-3">{{ club.title }}</h3>
                   <p class="text-gray-600 mb-6 leading-relaxed">{{ club.description }}</p>
-                  <span class="inline-flex items-center text-gray-500 font-semibold self-center sm:self-start">Static club card</span>
+                  <span class="inline-flex items-center text-gray-500 font-semibold self-center sm:self-start">Club card</span>
                 </div>
               </div>
             }
@@ -70,39 +79,61 @@ interface ClubCard {
     :host { display: block; }
   `]
 })
-export class ClubsComponent {
-  readonly clubs: ClubCard[] = [
-    {
-      id: 'english-conversation',
-      title: 'English Conversation Club',
-      description: 'Practice speaking with peers in a supportive environment through interactive discussions and an AI conversation partner.',
-      image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=400&auto=format&fit=crop',
-      actionLabel: 'Open AI conversation club',
-      actionRoute: '/clubs/english-conversation'
-    },
-    {
-      id: 'book-storytelling',
-      title: 'Book & Storytelling Club',
-      description: 'Improve reading skills and vocabulary by exploring books, short stories, and creative storytelling activities.',
-      image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=400&auto=format&fit=crop',
-      actionLabel: 'Open Book & Storytelling club',
-      actionRoute: '/clubs/book-storytelling'
-    },
-    {
-      id: 'drama-roleplay',
-      title: 'Drama & Roleplay Club',
-      description: 'Build confidence and communication by acting out practical scenarios and roleplay exercises.',
-      image: 'https://images.unsplash.com/photo-1533561089-13e551347012?q=80&w=400&auto=format&fit=crop',
-      actionLabel: 'Open Drama & Roleplay club',
-      actionRoute: '/clubs/drama-roleplay'
-    },
-    {
-      id: 'writing-grammar',
-      title: 'Writing & Grammar Club',
-      description: 'Enhance writing quality with grammar guidance, sentence structure practice, and concise feedback loops.',
-      image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=400&auto=format&fit=crop',
-      actionLabel: 'Open Writing & Grammar club',
-      actionRoute: '/clubs/writing-grammar'
+export class ClubsComponent implements OnInit {
+  private readonly clubService = inject(ClubService);
+
+  loading = true;
+  error = '';
+  clubs: ClubCard[] = [];
+
+  ngOnInit(): void {
+    this.clubService.getClubs().subscribe({
+      next: (clubs) => {
+        this.clubs = (clubs ?? [])
+          .filter((club) => club.status === 'ACTIVE')
+          .map((club) => this.toCard(club));
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Unable to load clubs right now.';
+        this.loading = false;
+      }
+    });
+  }
+
+  private toCard(club: BackendClub): ClubCard {
+    const actionRoute = this.resolveActionRoute(club);
+    return {
+      id: club.slug || String(club.id),
+      title: club.title,
+      description: club.description,
+      image: club.image_url || 'https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800&auto=format&fit=crop',
+      actionLabel: actionRoute ? (club.action_label || this.defaultActionLabel(club.slug, club.title)) : undefined,
+      actionRoute
+    };
+  }
+
+  private resolveActionRoute(club: BackendClub): string | undefined {
+    const explicitRoute = (club.action_route || '').trim();
+    if (explicitRoute) {
+      return explicitRoute;
     }
-  ];
+    return this.defaultActionRoute((club.slug || '').trim());
+  }
+
+  private defaultActionRoute(slug: string): string | undefined {
+    if (slug === 'english-conversation') return '/clubs/english-conversation';
+    if (slug === 'book-storytelling') return '/clubs/book-storytelling';
+    if (slug === 'drama-roleplay') return '/clubs/drama-roleplay';
+    if (slug === 'writing-grammar') return '/clubs/writing-grammar';
+    return undefined;
+  }
+
+  private defaultActionLabel(slug: string, title: string): string {
+    if (slug === 'english-conversation') return 'Open AI conversation club';
+    if (slug === 'book-storytelling') return 'Open Book & Storytelling club';
+    if (slug === 'drama-roleplay') return 'Open Drama & Roleplay club';
+    if (slug === 'writing-grammar') return 'Open Writing & Grammar club';
+    return `Explore ${title}`;
+  }
 }

@@ -10,6 +10,32 @@ body {
     overflow-x: hidden;
 }
 
+.accessible-mode {
+    font-size: 1.06rem;
+    filter: contrast(1.08);
+}
+
+.accessible-mode :is(p, li, label, input, textarea, select, button, a, span) {
+    font-size: max(1em, 16px);
+}
+
+.accessible-mode :is(button, a, input, select, textarea) {
+    min-height: 44px;
+}
+
+.accessible-surface {
+    background-color: #ffffff;
+}
+
+.accessible-mode .accessible-surface {
+    background-color: #f8fbff !important;
+    border-color: #334155 !important;
+}
+
+.accessible-mode .accessible-action {
+    box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.18);
+}
+
 // Selection
 ::selection {
     background-color: var(--primary-light);

@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DRAMA_ROLEPLAY_SCENARIOS } from './drama-roleplay.data';
+import { ClubAiStudentPanelComponent } from '../../shared/components/club-ai-student-panel/club-ai-student-panel.component';
 
 @Component({
   selector: 'app-drama-roleplay-club',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ClubAiStudentPanelComponent],
   template: `
     <div class="min-h-screen bg-gradient-to-b from-[#F8FBFB] via-[#F9FAFB] to-[#F5F7FA]">
       <section class="max-w-[1200px] mx-auto px-4 md:px-8 pt-10 pb-8">
@@ -27,6 +28,8 @@ import { DRAMA_ROLEPLAY_SCENARIOS } from './drama-roleplay.data';
             </p>
           </div>
         </div>
+
+        <app-club-ai-student-panel [clubId]="'drama-roleplay'" />
 
         <div class="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
           @for (scenario of scenarios; track scenario.id) {
@@ -73,4 +76,3 @@ import { DRAMA_ROLEPLAY_SCENARIOS } from './drama-roleplay.data';
 export class DramaRoleplayClubComponent {
   readonly scenarios = DRAMA_ROLEPLAY_SCENARIOS;
 }
-

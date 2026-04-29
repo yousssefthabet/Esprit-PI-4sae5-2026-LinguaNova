@@ -1,8 +1,10 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, OnDestroy, PLATFORM_ID, ViewChild, inject, signal } from '@angular/core';
+import { Component, ElementRef, OnDestroy, PLATFORM_ID, ViewChild, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { StoryBook, getStoryBookById } from './book-storytelling.data';
+import { AccessibilityContentToolsComponent } from '../../shared/components/accessibility-content-tools/accessibility-content-tools.component';
+import { ClubAiStudentPanelComponent } from '../../shared/components/club-ai-student-panel/club-ai-student-panel.component';
 
 interface DisplayToken {
   text: string;
@@ -12,7 +14,7 @@ interface DisplayToken {
 @Component({
   selector: 'app-book-reader',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, AccessibilityContentToolsComponent, ClubAiStudentPanelComponent],
   template: `
     <div class="min-h-screen bg-gradient-to-b from-[#F4FAF9] via-[#F9FAFB] to-white">
       <section class="max-w-[1200px] mx-auto px-4 md:px-8 pt-10 pb-8">
@@ -109,6 +111,14 @@ interface DisplayToken {
                 </p>
               </div>
 
+              <app-accessibility-content-tools
+                [pageId]="accessibilityPageId()"
+                [title]="'Book reader accessibility tools'"
+                [contentText]="accessibleContentText()"
+              />
+
+              <app-club-ai-student-panel [clubId]="'book-storytelling'" />
+
               <div
                 #textContainer
                 class="rounded-2xl border border-[#E8EEEE] bg-[#FCFEFE] p-5 md:p-7 text-[1.08rem] leading-[2.1] text-[#2B3646]"
@@ -154,6 +164,14 @@ export class BookReaderComponent implements OnDestroy {
   readonly currentWordIndex = signal(-1);
   readonly progressPercent = signal(0);
   readonly isSpeechSupported = signal(false);
+  readonly accessibilityPageId = computed(() => `club-book-reader-${this.book()?.id ?? 'unknown'}`);
+  readonly accessibleContentText = computed(() => {
+    const currentBook = this.book();
+    if (!currentBook) {
+      return '';
+    }
+    return `${currentBook.title}. ${currentBook.summary}. ${currentBook.content}`.trim();
+  });
 
   displayTokens: DisplayToken[] = [];
   totalWords = 0;

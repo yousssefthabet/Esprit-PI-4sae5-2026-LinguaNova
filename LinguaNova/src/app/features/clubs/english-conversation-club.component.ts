@@ -1,8 +1,10 @@
-﻿import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
+import { Component, ElementRef, ViewChild, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { AccessibilityContentToolsComponent } from '../../shared/components/accessibility-content-tools/accessibility-content-tools.component';
+import { ClubAiStudentPanelComponent } from '../../shared/components/club-ai-student-panel/club-ai-student-panel.component';
 
 interface ChatMessage {
   id: string;
@@ -14,7 +16,7 @@ interface ChatMessage {
 @Component({
   selector: 'app-english-conversation-club',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, AccessibilityContentToolsComponent, ClubAiStudentPanelComponent],
   template: `
     <div class="bg-gray-50/50 min-h-screen">
       <section class="max-w-[1200px] mx-auto px-4 md:px-8 pt-12 pb-8">
@@ -32,6 +34,14 @@ interface ChatMessage {
           <p class="text-gray-600 leading-relaxed mb-6">
             Welcome to your conversation room. Chat naturally with the AI tutor, practice speaking patterns, roleplay daily situations, and improve fluency.
           </p>
+
+          <app-accessibility-content-tools
+            [pageId]="'club-english-conversation'"
+            [title]="'Conversation accessibility tools'"
+            [contentText]="accessibleContentText()"
+          />
+
+          <app-club-ai-student-panel [clubId]="'english-conversation'" />
 
           <div class="mb-4 flex flex-wrap gap-2">
             @for (prompt of quickPrompts; track prompt) {
@@ -119,6 +129,14 @@ export class EnglishConversationClubComponent {
     'Correct this sentence: I has went to school yesterday.',
     'Roleplay: We are ordering coffee.'
   ];
+  readonly accessibleContentText = computed(() => {
+    const intro = 'English Conversation Club. Practice natural conversation with an AI tutor.';
+    const prompts = `Quick prompts: ${this.quickPrompts.join(' ')}`;
+    const messages = this.chatMessages()
+      .map((message) => `${message.role === 'user' ? 'Student' : 'Tutor'}: ${message.text}`)
+      .join(' ');
+    return `${intro} ${prompts} ${messages}`.trim();
+  });
 
   draftMessage = '';
 
