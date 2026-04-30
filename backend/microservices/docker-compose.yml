@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   mysql:
     image: mysql:8.4
@@ -5,7 +7,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ""
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      # Les services créent leurs DB via `createDatabaseIfNotExist=true`
     ports:
       - "3306:3306"
     volumes:
@@ -30,7 +31,6 @@ services:
     ports:
       - "8093:8093"
     environment:
-      # Eureka
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
     depends_on:
       - eureka
@@ -71,9 +71,9 @@ services:
       eureka:
         condition: service_started
 
+  # ✅ MODIFIÉ : utilise DockerHub
   user-service:
-    build:
-      context: ./user-service
+    image: mohamedsaidneffati/linguanova-user-service:latest
     container_name: user-service
     ports:
       - "8082:8082"
@@ -81,7 +81,6 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/PI?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
-      # Activer Eureka en mode docker
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
@@ -126,7 +125,6 @@ services:
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
-
     depends_on:
       mysql:
         condition: service_healthy
