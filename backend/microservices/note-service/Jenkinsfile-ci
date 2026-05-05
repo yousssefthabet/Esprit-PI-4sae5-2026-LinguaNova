@@ -4,13 +4,30 @@ pipeline {
         APP_NAME = 'note-service'
     }
     stages {
-        stage('CI: Build & Test') {
-            steps {
-                dir('backend/microservices/note-service') {
-                    sh 'mvn clean verify'
-                }
-            }
+       stage('CI: Clean (note-service)') {
+    steps {
+        dir('backend/microservices/note-service') {
+            sh 'mvn clean'
         }
+    }
+}
+
+stage('CI: Build (note-service)') {
+    steps {
+        dir('backend/microservices/note-service') {
+            sh 'mvn compile'
+        }
+    }
+}
+
+stage('CI: Unit Tests (note-service)') {
+    steps {
+        dir('backend/microservices/note-service') {
+            sh 'mvn test'
+        }
+    }
+}
+
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {

@@ -3,11 +3,27 @@ pipeline {
     environment {
         APP_NAME = 'examen-service'
     }
-    stages {
-        stage('CI: Build & Test') {
+            stages {
+                stage('CI: Clean') {
             steps {
                 dir('backend/microservices/examen-service') {
-                    sh 'mvn clean verify'
+                    sh 'mvn clean'
+                }
+            }
+        }
+
+        stage('CI: Build') {
+            steps {
+                dir('backend/microservices/examen-service') {
+                    sh 'mvn compile'
+                }
+            }
+        }
+
+        stage('CI: Unit Tests') {
+            steps {
+                dir('backend/microservices/examen-service') {
+                    sh 'mvn test'
                 }
             }
         }
