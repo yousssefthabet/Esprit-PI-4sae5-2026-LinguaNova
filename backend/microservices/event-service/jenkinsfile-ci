@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('CI: Debug files') {
+            steps {
+                dir('backend/microservices/event-service') {
+                    sh '''
+                        pwd
+                        ls -la
+                    '''
+                }
+            }
+        }
+
+        stage('CI: Build & Test Event Service') {
+            steps {
+                dir('backend/microservices/event-service') {
+                    sh '''
+                        chmod +x mvnw
+                        ./mvnw clean test
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Event service CI reussi. Declenchement du CD..."
+            build job: 'event-service-cd', wait: false
+        }
+    }
+}
