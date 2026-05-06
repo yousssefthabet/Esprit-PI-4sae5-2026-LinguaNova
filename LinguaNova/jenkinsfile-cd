@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_HUB_USER = 'mohamedsaidneffati'
-        CREDENTIALS_ID = 'dockerhub-creds'
+        CREDENTIALS_ID = 'dockerhub-credentials'
         IMAGE_FRONT = "${DOCKER_HUB_USER}/linguanova-frontend"
         IMAGE_TAG = "1.0.${BUILD_NUMBER}"
     }
