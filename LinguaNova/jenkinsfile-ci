@@ -1,29 +1,28 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS'
+    }
+
+    environment {
+        CI = 'true'
+    }
+
     stages {
-        stage('CI: Debug files') {
+
+        stage('CI: Install') {
             steps {
                 dir('LinguaNova') {
-                    sh '''
-                        pwd
-                        ls -la
-                        ls -la package.json package-lock.json
-                    '''
+                    sh 'npm install'
                 }
             }
         }
 
-        stage('CI: Install & Build') {
+        stage('CI: Build') {
             steps {
                 dir('LinguaNova') {
-                    sh '''
-                        docker run --rm \
-                        -v "$(pwd)":/app \
-                        -w /app \
-                        node:24-alpine \
-                        sh -c "ls -la && npm ci && npm run build"
-                    '''
+                    sh 'npm run build'
                 }
             }
         }
@@ -31,13 +30,7 @@ pipeline {
         stage('CI: Test') {
             steps {
                 dir('LinguaNova') {
-                    sh '''
-                        docker run --rm \
-                        -v "$(pwd)":/app \
-                        -w /app \
-                        node:24-alpine \
-                        sh -c "npm test -- --no-watch --no-progress"
-                    '''
+                    sh 'npm test -- --watch=false --browsers=ChromeHeadless'
                 }
             }
         }
