@@ -1,44 +1,31 @@
 pipeline {
     agent any
-
-    tools {
-        nodejs 'NodeJS'
-    }
-
     environment {
         CI = 'true'
     }
-
     stages {
-
-        stage('CI: Install') {
+        stage('CI: Install & Build') {
             steps {
                 dir('LinguaNova') {
-                    sh 'npm install'
+                    sh '''
+                        docker run --rm -v "$PWD":/app -w /app node:24-alpine sh -c "npm ci && npm run build"
+                    '''
                 }
             }
         }
-
-        stage('CI: Build') {
-            steps {
-                dir('LinguaNova') {
-                    sh 'npm run build'
-                }
-            }
-        }
-
         stage('CI: Test') {
             steps {
                 dir('LinguaNova') {
-                    sh 'npm test'
+                    sh '''
+                        docker run --rm -v "$PWD":/app -w /app node:24-alpine sh -c "npm test -- --no-watch --no-progress"
+                    '''
                 }
             }
         }
     }
-
     post {
         success {
-            echo "✅ Build & Test Angular réussis. Déclenchement du CD..."
+            echo "Build & Test Angular reussis. Declenchement du CD..."
             build job: 'CD-Frontend', wait: false
         }
     }
