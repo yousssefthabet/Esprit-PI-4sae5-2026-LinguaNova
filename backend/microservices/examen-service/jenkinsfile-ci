@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_NAME = 'examen-service-ci'
+        APP_NAME = 'CI-Examen-Service'
     }
 
     stages {
@@ -53,7 +53,7 @@ pipeline {
     post {
         always {
             echo "Declenchement du CD Examen..."
-            build job: 'examen-service-cd', wait: false
+            build job: 'CD-Examen-Service', wait: false
         }
     }
 }
