@@ -1,13 +1,16 @@
 pipeline {
     agent any
+
     environment {
         APP_NAME = 'CI-Examen-Service'
     }
-            stages {
-                stage('CI: Clean') {
+
+    stages {
+        stage('CI: Clean') {
             steps {
                 dir('backend/microservices/examen-service') {
-                    sh 'mvn clean'
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean'
                 }
             }
         }
@@ -15,7 +18,7 @@ pipeline {
         stage('CI: Build') {
             steps {
                 dir('backend/microservices/examen-service') {
-                    sh 'mvn compile'
+                    sh './mvnw compile'
                 }
             }
         }
@@ -23,18 +26,28 @@ pipeline {
         stage('CI: Unit Tests') {
             steps {
                 dir('backend/microservices/examen-service') {
-                    sh 'mvn test'
+                    sh '''
+                        ./mvnw test \
+                        -Dspring.datasource.url=jdbc:mysql://host.docker.internal:3306/linguanova \
+                        -Dspring.datasource.username=root \
+                        -Dspring.datasource.password=root \
+                        -Dspring.jpa.hibernate.ddl-auto=update \
+                        -Deureka.client.enabled=false \
+                        -Dspring.cloud.config.enabled=false
+                    '''
                 }
             }
         }
+
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                     dir('backend/microservices/examen-service') {
                         sh """
-                            mvn sonar:sonar \
+                            ./mvnw sonar:sonar \
                                 -Dsonar.projectKey=${APP_NAME} \
-                                -Dsonar.host.url=http://localhost:9000 \
+                                -Dsonar.projectName=${APP_NAME} \
+                                -Dsonar.host.url=http://host.docker.internal:9000 \
                                 -Dsonar.token=${SONAR_TOKEN} \
                                 -Dsonar.java.coveragePlugin=jacoco \
                                 -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
@@ -43,8 +56,8 @@ pipeline {
                 }
             }
         }
-
     }
+
     post {
         success {
             echo "✅ Qualité validée ! Déclenchement du CD Examen..."
