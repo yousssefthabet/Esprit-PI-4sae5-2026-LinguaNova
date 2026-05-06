@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_NAME = 'note-service'
+        APP_NAME = 'CI-Note-Service'
     }
 
     stages {
@@ -53,7 +53,7 @@ pipeline {
     post {
         always {
             echo "Declenchement du CD Note..."
-            build job: 'note-service-cd', wait: false
+            build job: 'CD-Note-Service', wait: false
         }
     }
 }
