@@ -10,6 +10,7 @@ import { API_ENDPOINTS, STORAGE_KEYS } from '../constants/app.constants';
 interface BackendAuthResponse {
     token: string;
     role: string;
+    userId?: number;
 }
 
 /** Backend GET /auth/me response */
@@ -105,7 +106,7 @@ export class AuthService {
     private toAuthResponse(res: BackendAuthResponse, email: string): AuthResponse {
         const role = res.role === 'TEACHER' ? UserRole.INSTRUCTOR : (res.role === 'ADMIN' ? UserRole.ADMIN : UserRole.STUDENT);
         const user: User = {
-            id: this.decodeUserIdFromToken(res.token) ?? '0',
+            id: res.userId != null ? String(res.userId) : (this.decodeNumericUserIdFromToken(res.token) ?? ''),
             email,
             firstName: '',
             lastName: '',
@@ -122,10 +123,11 @@ export class AuthService {
         };
     }
 
-    private decodeUserIdFromToken(token: string): string | null {
+    private decodeNumericUserIdFromToken(token: string): string | null {
         try {
             const payload = JSON.parse(atob(token.split('.')[1]));
-            return payload.sub ?? payload.userId ?? null;
+            const id = payload.userId ?? payload.id ?? null;
+            return id != null && Number.isFinite(Number(id)) ? String(id) : null;
         } catch {
             return null;
         }

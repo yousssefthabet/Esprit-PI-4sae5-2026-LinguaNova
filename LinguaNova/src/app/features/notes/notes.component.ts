@@ -42,6 +42,7 @@ export class NotesComponent implements OnInit {
   notes = signal<Note[]>([]);
   loading = signal(false);
   error = signal<string | null>(null);
+  saveMessage = signal<string | null>(null);
 
   selectedId = signal<number | null>(null);
   editorTitle = signal<string>('');
@@ -209,6 +210,7 @@ export class NotesComponent implements OnInit {
     this.editorTitle.set('');
     this.editorContent.set('');
     this.editorCahierId.set(this.activeCahierId());
+    this.saveMessage.set(null);
   }
 
   openNote(n: Note): void {
@@ -216,6 +218,17 @@ export class NotesComponent implements OnInit {
     this.editorTitle.set(n.title ?? '');
     this.editorContent.set(n.content);
     this.editorCahierId.set(n.cahierId);
+    this.saveMessage.set(null);
+  }
+
+  updateEditorTitle(value: string): void {
+    this.editorTitle.set(value);
+    this.saveMessage.set(null);
+  }
+
+  updateEditorContent(value: string): void {
+    this.editorContent.set(value);
+    this.saveMessage.set(null);
   }
 
   saveNote(): void {
@@ -229,6 +242,7 @@ export class NotesComponent implements OnInit {
 
     this.saving.set(true);
     this.error.set(null);
+    this.saveMessage.set(null);
     const title = this.editorTitle().trim();
 
     const id = this.selectedId();
@@ -239,6 +253,7 @@ export class NotesComponent implements OnInit {
     req$.subscribe({
       next: (saved: Note) => {
         this.saving.set(false);
+        this.saveMessage.set('Note enregistree.');
         if (saved.cahierId !== this.activeCahierId()) {
           this.openNewNote(); // Hide if moved away
         } else {

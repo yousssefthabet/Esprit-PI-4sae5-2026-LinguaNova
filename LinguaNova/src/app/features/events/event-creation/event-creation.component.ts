@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { CardComponent } from '../../../shared/components/card/card.component';
-import { finalize } from 'rxjs';
+import { finalize, map, Observable, of, switchMap } from 'rxjs';
 import { BackendEventCreateRequest, BackendEventType, EventService } from '../../../core/services/event.service';
 import { AuthService } from '../../../core/services/auth.service';
 import * as L from 'leaflet';
@@ -555,33 +555,33 @@ export class EventCreationComponent implements AfterViewInit, OnDestroy {
         longitude: number | null;
       };
 
-      const instructorIdRaw = this.authService.currentUserValue?.id;
-      const instructorId = instructorIdRaw ? Number(instructorIdRaw) : undefined;
+      this.resolveInstructorId()
+        .pipe(
+          switchMap((instructorId) => {
+            const payload: BackendEventCreateRequest = {
+              event_title: raw.title,
+              session_description: raw.description,
+              category: raw.category,
+              event_type: raw.eventType as BackendEventType,
+              event_date: raw.date,
+              start_at: raw.startTime,
+              ends_at: raw.endTime,
+              max_attendees: raw.maxAttendees ?? undefined,
+              instructor_id: instructorId,
+              image_url: raw.imageUrl?.trim().length ? raw.imageUrl.trim() : undefined,
+              virtual_classroom: raw.eventType === 'LIVE_MEETING',
+              meeting_link: raw.eventType === 'LIVE_MEETING' ? raw.meetingUrl : undefined,
+              location_name: raw.eventType === 'REAL_LIFE' ? raw.locationName : undefined,
+              latitude: raw.eventType === 'REAL_LIFE' ? raw.latitude ?? undefined : undefined,
+              longitude: raw.eventType === 'REAL_LIFE' ? raw.longitude ?? undefined : undefined
+            };
 
-      const payload: BackendEventCreateRequest = {
-        event_title: raw.title,
-        session_description: raw.description,
-        category: raw.category,
-        event_type: raw.eventType as BackendEventType,
-        event_date: raw.date,
-        start_at: raw.startTime,
-        ends_at: raw.endTime,
-        max_attendees: raw.maxAttendees ?? undefined,
-        instructor_id: Number.isFinite(instructorId as number) ? (instructorId as number) : undefined,
-        image_url: raw.imageUrl?.trim().length ? raw.imageUrl.trim() : undefined,
-        virtual_classroom: raw.eventType === 'LIVE_MEETING',
-        meeting_link: raw.eventType === 'LIVE_MEETING' ? raw.meetingUrl : undefined,
-        location_name: raw.eventType === 'REAL_LIFE' ? raw.locationName : undefined,
-        latitude: raw.eventType === 'REAL_LIFE' ? raw.latitude ?? undefined : undefined,
-        longitude: raw.eventType === 'REAL_LIFE' ? raw.longitude ?? undefined : undefined
-      };
-
-      const req$ = this.editingId
-        ? this.eventService.updateBackendEvent(this.editingId, payload)
-        : this.eventService.createBackendEvent(payload);
-
-      req$
-        .pipe(finalize(() => (this.loading = false)))
+            return this.editingId
+              ? this.eventService.updateBackendEvent(this.editingId, payload)
+              : this.eventService.createBackendEvent(payload);
+          }),
+          finalize(() => (this.loading = false))
+        )
         .subscribe({
           next: () => {
             this.showSuccess = true;
@@ -596,6 +596,27 @@ export class EventCreationComponent implements AfterViewInit, OnDestroy {
           }
         });
     }
+  }
+
+  private resolveInstructorId(): Observable<number> {
+    const currentId = this.getNumericUserId();
+    if (currentId != null) return of(currentId);
+
+    return this.authService.getCurrentUser().pipe(
+      map(() => {
+        const refreshedId = this.getNumericUserId();
+        if (refreshedId == null) {
+          throw new Error('Cannot determine instructor id. Please login again.');
+        }
+        return refreshedId;
+      })
+    );
+  }
+
+  private getNumericUserId(): number | null {
+    const idRaw = this.authService.currentUserValue?.id;
+    const id = idRaw ? Number(idRaw) : NaN;
+    return Number.isFinite(id) && id > 0 ? id : null;
   }
 
   private initEditModeIfNeeded(): void {

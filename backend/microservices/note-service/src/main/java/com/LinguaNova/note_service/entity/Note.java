@@ -28,7 +28,7 @@ public class Note {
 
     @NotBlank(message = "Le contenu est obligatoire")
     @Size(max = 20000, message = "Le contenu ne doit pas dépasser 20000 caractères")
-    @Column(length = 20000, nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

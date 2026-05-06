@@ -87,6 +87,26 @@ services:
       eureka:
         condition: service_started
 
+  clubs-service:
+    build:
+      context: ./backend/microservices/clubs-service
+    container_name: linguanova-clubs-service
+    ports:
+      - "${CLUBS_SERVICE_PORT:-8187}:8087"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/PI?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_started
+
   examen-service:
     build:
       context: ./backend/microservices/examen-service
@@ -153,6 +173,8 @@ services:
       course-service:
         condition: service_started
       event-service:
+        condition: service_started
+      clubs-service:
         condition: service_started
       examen-service:
         condition: service_started

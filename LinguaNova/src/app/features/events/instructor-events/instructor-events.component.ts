@@ -254,14 +254,36 @@ export class InstructorEventsComponent implements OnInit {
     this.loading = true;
     this.errorMessage = '';
 
-    const idRaw = this.authService.currentUserValue?.id;
-    const instructorId = idRaw ? Number(idRaw) : NaN;
-    if (!Number.isFinite(instructorId)) {
-      this.loading = false;
-      this.errorMessage = 'Cannot determine instructor id. Please login again.';
+    const instructorId = this.getNumericUserId();
+    if (instructorId == null) {
+      this.authService.getCurrentUser().subscribe({
+        next: () => {
+          const refreshedId = this.getNumericUserId();
+          if (refreshedId == null) {
+            this.loading = false;
+            this.errorMessage = 'Cannot determine instructor id. Please login again.';
+            return;
+          }
+          this.loadEvents(refreshedId);
+        },
+        error: () => {
+          this.loading = false;
+          this.errorMessage = 'Cannot determine instructor id. Please login again.';
+        }
+      });
       return;
     }
 
+    this.loadEvents(instructorId);
+  }
+
+  private getNumericUserId(): number | null {
+    const idRaw = this.authService.currentUserValue?.id;
+    const id = idRaw ? Number(idRaw) : NaN;
+    return Number.isFinite(id) && id > 0 ? id : null;
+  }
+
+  private loadEvents(instructorId: number): void {
     this.eventService.getBackendEventsByInstructorId(instructorId).subscribe({
       next: (events) => {
         this.events = events ?? [];

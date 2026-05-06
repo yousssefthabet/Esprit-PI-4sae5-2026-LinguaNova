@@ -1,6 +1,5 @@
 package com.linguanova.user_service.dto;
 
-import com.linguanova.user_service.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,4 +13,5 @@ public class AuthResponse {
 
     private String token;
     private String role;
+    private Long userId;
 }
