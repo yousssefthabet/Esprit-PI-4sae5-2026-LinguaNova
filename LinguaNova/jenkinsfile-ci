@@ -30,7 +30,7 @@ pipeline {
         stage('CI: Test') {
             steps {
                 dir('LinguaNova') {
-                    sh 'npm test -- --run'
+                    sh 'npm test'
                 }
             }
         }
