@@ -54,9 +54,9 @@ pipeline {
     }
 
     post {
-        success {
-            echo "✅ Qualité validée ! Déclenchement du CD Clubs..."
-            build job: 'clubs-service-cd', wait: false
-        }
+    success {
+        echo "✅ CI réussi. Déclenchement du CD Clubs..."
+        build job: 'clubs-service-cd', wait: false
     }
+}
 }
