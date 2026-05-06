@@ -1,22 +1,33 @@
 pipeline {
     agent any
-    environment {
-        CI = 'true'
-    }
+
     stages {
+        stage('CI: Debug files') {
+            steps {
+                dir('backend/microservices/clubs-service') {
+                    sh '''
+                        pwd
+                        ls -la
+                    '''
+                }
+            }
+        }
+
         stage('CI: Build & Test Clubs Service') {
             steps {
                 dir('backend/microservices/clubs-service') {
                     sh '''
-                        docker run --rm -v "$PWD":/app -w /app maven:3.9-eclipse-temurin-17 mvn clean test
+                        chmod +x mvnw
+                        ./mvnw clean test
                     '''
                 }
             }
         }
     }
+
     post {
         success {
-            echo "Clubs service build and tests passed. Triggering CD..."
+            echo "✅ Clubs service CI réussi. Déclenchement du CD..."
             build job: 'clubs-service-cd', wait: false
         }
     }
