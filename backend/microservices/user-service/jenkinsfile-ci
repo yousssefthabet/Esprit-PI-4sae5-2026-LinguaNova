@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_NAME = 'CI-User-Service'
+        APP_NAME = 'user-service-ci'
     }
 
     stages {
@@ -53,7 +53,7 @@ pipeline {
     post {
         always {
             echo "Declenchement du CD User..."
-            build job: 'CD-User-Service', wait: false
+            build job: 'user-service-cd', wait: false
         }
     }
 }
