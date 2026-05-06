@@ -50,10 +50,10 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            echo "✅ Qualité validée ! Déclenchement du CD Event..."
-            build job: 'event-service-cd', wait: false
-        }
+post {
+    always {
+        echo "🚀 Déclenchement du CD Event..."
+        build job: 'event-service-cd', wait: false
     }
+}
 }
