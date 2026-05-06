@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+
+    environment {
+        APP_NAME = 'cours-service'
+    }
+
+    stages {
+        stage('CI: Clean') {
+            steps {
+                dir('backend/microservices/courss-service') {
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean'
+                }
+            }
+        }
+
+        stage('CI: Build') {
+            steps {
+                dir('backend/microservices/courss-service') {
+                    sh './mvnw compile'
+                }
+            }
+        }
+
+        stage('CI: Unit Tests') {
+            steps {
+                dir('backend/microservices/courss-service') {
+                    sh './mvnw test'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    dir('backend/microservices/courss-service') {
+                        sh """
+                            ./mvnw sonar:sonar \
+                                -Dsonar.projectKey=${APP_NAME} \
+                                -Dsonar.projectName=${APP_NAME} \
+                                -Dsonar.host.url=http://host.docker.internal:9000 \
+                                -Dsonar.token=${SONAR_TOKEN} \
+                                -Dsonar.java.coveragePlugin=jacoco \
+                                -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                        """
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Declenchement du CD Cours..."
+            build job: 'cours-service-cd', wait: false
+        }
+    }
+}

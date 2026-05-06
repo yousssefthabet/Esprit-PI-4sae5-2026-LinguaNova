@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_HUB_USER = 'mohamedsaidneffati'
+        CREDENTIALS_ID = 'dockerhub-credentials'
+        IMAGE_NAME = "${DOCKER_HUB_USER}/cours-service"
+        IMAGE_TAG = "1.0.${BUILD_NUMBER}"
+    }
+
+    stages {
+        stage('CD: Build & Push Cours Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: env.CREDENTIALS_ID, passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+
+                    dir('backend/microservices/courss-service') {
+                        sh 'ls -la'
+                        sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest ."
+                        sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                        sh "docker push ${IMAGE_NAME}:latest"
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            sh 'docker logout'
+            cleanWs()
+        }
+    }
+}
