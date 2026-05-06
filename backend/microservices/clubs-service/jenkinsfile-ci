@@ -1,25 +1,53 @@
 pipeline {
     agent any
 
+    environment {
+        APP_NAME = 'clubs-service'
+    }
+
     stages {
-        stage('CI: Debug files') {
+
+        stage('CI: Clean') {
             steps {
                 dir('backend/microservices/clubs-service') {
-                    sh '''
-                        pwd
-                        ls -la
-                    '''
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean'
                 }
             }
         }
 
-        stage('CI: Build & Test Clubs Service') {
+        stage('CI: Build') {
             steps {
                 dir('backend/microservices/clubs-service') {
-                    sh '''
-                        chmod +x mvnw
-                        ./mvnw clean test
-                    '''
+                    sh './mvnw compile'
+                }
+            }
+        }
+
+        stage('CI: Unit Tests') {
+            steps {
+                dir('backend/microservices/clubs-service') {
+                    sh './mvnw test'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+
+                    dir('backend/microservices/clubs-service') {
+
+                        sh """
+                            ./mvnw sonar:sonar \
+                                -Dsonar.projectKey=${APP_NAME} \
+                                -Dsonar.projectName=${APP_NAME} \
+                                -Dsonar.host.url=http://host.docker.internal:9000 \
+                                -Dsonar.token=${SONAR_TOKEN} \
+                                -Dsonar.java.coveragePlugin=jacoco \
+                                -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                        """
+                    }
                 }
             }
         }
@@ -27,7 +55,7 @@ pipeline {
 
     post {
         success {
-            echo "✅ Clubs service CI réussi. Déclenchement du CD..."
+            echo "✅ Qualité validée ! Déclenchement du CD Clubs..."
             build job: 'clubs-service-cd', wait: false
         }
     }
