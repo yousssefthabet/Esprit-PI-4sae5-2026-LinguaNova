@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_NAME = 'cours-service'
+        APP_NAME = 'cours-service-ci'
     }
 
     stages {
@@ -23,10 +23,10 @@ pipeline {
             }
         }
 
-        stage('CI: Unit Tests') {
+        stage('CI: Unit Tests & Coverage') {
             steps {
                 dir('backend/microservices/courss-service') {
-                    sh './mvnw test'
+                    sh './mvnw test jacoco:report'
                 }
             }
         }

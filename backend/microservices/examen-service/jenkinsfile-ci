@@ -23,11 +23,11 @@ pipeline {
             }
         }
 
-        stage('CI: Unit Tests') {
+        stage('CI: Unit Tests & Coverage') {
             steps {
                 dir('backend/microservices/examen-service') {
                     sh '''
-                        ./mvnw test \
+                        ./mvnw test jacoco:report \
                         -Dspring.datasource.url=jdbc:mysql://host.docker.internal:3306/linguanova \
                         -Dspring.datasource.username=root \
                         -Dspring.datasource.password=root \
