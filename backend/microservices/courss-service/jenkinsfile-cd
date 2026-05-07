@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_HUB_USER = 'mohamedsaidneffati'
         CREDENTIALS_ID = 'dockerhub-credentials'
-        IMAGE_NAME = "${DOCKER_HUB_USER}/cours-service"
+        IMAGE_NAME = "${DOCKER_HUB_USER}/courss-service"
         IMAGE_TAG = "1.0.${BUILD_NUMBER}"
     }
 
